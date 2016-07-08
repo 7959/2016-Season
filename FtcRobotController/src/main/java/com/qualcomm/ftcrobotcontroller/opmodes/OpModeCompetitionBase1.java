@@ -45,11 +45,4 @@ public class OpModeCompetitionBase1 extends OpMode {
         frontLeft.setPower(fl);
         frontRight.setPower(fr);
     }
-    private void sleep(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException e) {
-
-        }
-    }
 }
