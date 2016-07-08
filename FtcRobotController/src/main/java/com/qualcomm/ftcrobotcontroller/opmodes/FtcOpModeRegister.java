@@ -56,6 +56,7 @@ public class FtcOpModeRegister implements OpModeRegister {
      */
 
     manager.register("Wheels on Golfing Robot", OpModeCompetitionBase1.class);
+    manager.register("Car-Type Wheels", OpModeCompetitionBase2.class);
 
     //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
     //manager.register("ColorSensorDriver", ColorSensorDriver.class);
