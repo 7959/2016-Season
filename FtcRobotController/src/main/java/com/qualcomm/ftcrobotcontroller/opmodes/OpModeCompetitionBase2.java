@@ -39,10 +39,10 @@ public class OpModeCompetitionBase2 extends OpMode {
         backLeft.setPower(left);
         frontLeft.setPower(left);
     }
-    private float wheels(float main) {
-        main = Range.clip(main, -1, 1);
-        main = (float)scaleInput(main);
-        return main;
+    private float wheels(float out) {
+        out = Range.clip(out, -1, 1);
+        out = (float)scaleInput(out);
+        return out;
     }
     private double scaleInput(double dVal)  {
         double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,

@@ -19,7 +19,6 @@ public class OpModeCompetitionBase1 extends OpMode {
         backRight = hardwareMap.dcMotor.get("backRight");
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
-        //Shortens variables
         backLeft.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         backRight.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         frontLeft.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
@@ -28,7 +27,6 @@ public class OpModeCompetitionBase1 extends OpMode {
         backRight.setDirection(DcMotor.Direction.FORWARD);
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.FORWARD);
-        //Activates and configures motors.
     }
     @Override
     public void loop() {
