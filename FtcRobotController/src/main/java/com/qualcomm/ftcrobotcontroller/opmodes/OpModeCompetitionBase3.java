@@ -32,10 +32,21 @@ public class OpModeCompetitionBase3 extends OpMode {
     public void loop() {
         float y = gamepad1.left_stick_y;
         float x = gamepad1.left_stick_x;
-        backLeft.setPower(y);
-        backRight.setPower(y);
-        frontLeft.setPower(y);
-        frontRight.setPower(y);
-        center.setPower(x);
+        if (x >= 0.05) {
+            center.setPower(1);
+        } else if (x <= -0.05) {
+            center.setPower(1);
+        }
+        if (y >= 0.05) {
+            backLeft.setPower(1);
+            backRight.setPower(1);
+            frontLeft.setPower(1);
+            frontRight.setPower(1);
+        } else if (y <= -0.05) {
+            backLeft.setPower(-1);
+            backRight.setPower(-1);
+            frontLeft.setPower(-1);
+            frontRight.setPower(-1);
+        }
     }
 }
