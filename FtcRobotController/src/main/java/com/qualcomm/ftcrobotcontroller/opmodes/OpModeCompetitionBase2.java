@@ -54,7 +54,7 @@ public class OpModeCompetitionBase2 extends OpMode {
         if (index > 16) {
             index = 16;
         }
-        double dScale = 0.0;
+        double dScale;
         if (dVal < 0) {
             dScale = -scaleArray[index];
         } else {
