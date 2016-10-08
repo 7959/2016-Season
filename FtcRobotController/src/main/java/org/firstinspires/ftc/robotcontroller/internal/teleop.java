@@ -1,14 +1,20 @@
 package org.firstinspires.ftc.robotcontroller.internal;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
+import java.util.Timer;
+
+import javax.xml.datatype.Duration;
 
 /**
  * Created by Joseph on 10/4/2016.
  */
-
+@TeleOp(name="FastDrive")
 public class teleop extends OpMode {
     private DcMotor frontL;
     private DcMotor frontR;
@@ -16,13 +22,14 @@ public class teleop extends OpMode {
     private DcMotor backR;
     private DcMotor poker;
     private DcMotor loader;
-    private DcMotor launcher;
-    private Servo launcherY;
-    private boolean launcherYChange;
+    private DcMotor reloader;
+    private Servo launchReset;
+    private Servo launcherUD;
+    private TouchSensor loadTester;
+    private Duration sinceShoot;
     @Override
     public void init() {
         // Initiates Primitive Variables
-        launcherYChange = false;
         // Initiates Dc Motors
         frontL = hardwareMap.dcMotor.get("Front Left");
         frontR = hardwareMap.dcMotor.get("Front Right");
@@ -30,30 +37,35 @@ public class teleop extends OpMode {
         backR = hardwareMap.dcMotor.get("Back Right");
         poker = hardwareMap.dcMotor.get("Poker");
         loader = hardwareMap.dcMotor.get("Loader");
-        launcher = hardwareMap.dcMotor.get("Launcher");
+        reloader = hardwareMap.dcMotor.get("Reloader");
         frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         poker.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         loader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        reloader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontL.setDirection(DcMotorSimple.Direction.REVERSE);
         frontR.setDirection(DcMotorSimple.Direction.FORWARD);
         backL.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.FORWARD);
         poker.setDirection(DcMotorSimple.Direction.FORWARD);
         loader.setDirection(DcMotorSimple.Direction.FORWARD);
-        launcher.setDirection(DcMotorSimple.Direction.FORWARD);
+        reloader.setDirection(DcMotorSimple.Direction.FORWARD);
         // Initiates Servo Motors
-        launcherY = hardwareMap.servo.get("Launcher Axis");
-        launcherY.scaleRange(0, 0.2);
+        launchReset = hardwareMap.servo.get("Launcher Axis");
+        launcherUD = hardwareMap.servo.get("Launcher Y");
+        launcherUD.scaleRange(0, 0.25);
+        launchReset.scaleRange(0, 0.5);
+        // Initiates Sensors
+        loadTester = hardwareMap.touchSensor.get("Load Tester");
     }
     @Override
     public void start() {
         telemetry.addData("LOADER DIRECTION: ", "IN");
         loader.setPower(0.3);
-        launcherY.setPosition(0.5);
+        launchReset.setPosition(0);
+        launcherUD.setPosition(0.5);
     }
     @Override
     public void loop() {
@@ -89,14 +101,13 @@ public class teleop extends OpMode {
          * Gamepad 2 Controls
          */
         // Launcher
-        if (gamepad2.dpad_up && !launcherYChange) {
-            launcherY.setPosition(launcherY.getPosition() + 0.1);
-            launcherYChange = true;
-        } else if (gamepad2.dpad_down && !launcherYChange) {
-            launcherY.setPosition(launcherY.getPosition() - 0.1);
-            launcherYChange = true;
+        if (gamepad2.x && !loadTester.isPressed()) {
+            reloader.setPower(0.1);
         } else {
-            launcherYChange = false;
+            reloader.setPower(0);
+        }
+        if (gamepad2.right_bumper && sinceShoot.getSeconds() > 10) {
+
         }
     }
 }
