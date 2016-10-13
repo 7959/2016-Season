@@ -14,7 +14,7 @@ import javax.xml.datatype.Duration;
 /**
  * Created by Joseph on 10/4/2016.
  */
-@TeleOp(name="FastDrive")
+@TeleOp(name="Controled Drive")
 public class teleop extends OpMode {
     private DcMotor frontL;
     private DcMotor frontR;
@@ -26,7 +26,6 @@ public class teleop extends OpMode {
     private Servo launchReset;
     private Servo launcherUD;
     private TouchSensor loadTester;
-    private Duration sinceShoot;
     @Override
     public void init() {
         // Initiates Primitive Variables
@@ -35,6 +34,7 @@ public class teleop extends OpMode {
         frontR = hardwareMap.dcMotor.get("Front Right");
         backL = hardwareMap.dcMotor.get("Back Left");
         backR = hardwareMap.dcMotor.get("Back Right");
+        frontR.setDirection(DcMotorSimple.Direction.FORWARD);
         poker = hardwareMap.dcMotor.get("Poker");
         loader = hardwareMap.dcMotor.get("Loader");
         reloader = hardwareMap.dcMotor.get("Reloader");
@@ -46,7 +46,6 @@ public class teleop extends OpMode {
         loader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         reloader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontL.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontR.setDirection(DcMotorSimple.Direction.FORWARD);
         backL.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.FORWARD);
         poker.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -106,8 +105,10 @@ public class teleop extends OpMode {
         } else {
             reloader.setPower(0);
         }
-        if (gamepad2.right_bumper && sinceShoot.getSeconds() > 10) {
-
+        if (gamepad2.a) {
+            launchReset.setPosition(1);
+        } else if (gamepad2.b) {
+            launchReset.setPosition(0);
         }
     }
 }
