@@ -34,7 +34,6 @@ public class teleop extends OpMode {
         frontR = hardwareMap.dcMotor.get("Front Right");
         backL = hardwareMap.dcMotor.get("Back Left");
         backR = hardwareMap.dcMotor.get("Back Right");
-        frontR.setDirection(DcMotorSimple.Direction.FORWARD);
         poker = hardwareMap.dcMotor.get("Poker");
         loader = hardwareMap.dcMotor.get("Loader");
         reloader = hardwareMap.dcMotor.get("Reloader");
@@ -46,6 +45,7 @@ public class teleop extends OpMode {
         loader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         reloader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontL.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontR.setDirection(DcMotorSimple.Direction.FORWARD);
         backL.setDirection(DcMotorSimple.Direction.REVERSE);
         backR.setDirection(DcMotorSimple.Direction.FORWARD);
         poker.setDirection(DcMotorSimple.Direction.FORWARD);
