@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.internal;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,7 +16,7 @@ import javax.xml.datatype.Duration;
  * Created by Joseph on 10/4/2016.
  */
 @TeleOp(name="Controled Drive")
-public class teleop extends OpMode {
+public class teleop extends LinearOpMode {
     private DcMotor frontL;
     private DcMotor frontR;
     private DcMotor backL;
@@ -27,9 +28,7 @@ public class teleop extends OpMode {
     private Servo launcherUD;
     private TouchSensor loadTester;
     @Override
-    public void init() {
-        // Initiates Primitive Variables
-        // Initiates Dc Motors
+    public void runOpMode() {
         frontL = hardwareMap.dcMotor.get("Front Left");
         frontR = hardwareMap.dcMotor.get("Front Right");
         backL = hardwareMap.dcMotor.get("Back Left");
@@ -58,19 +57,17 @@ public class teleop extends OpMode {
         launchReset.scaleRange(0, 0.5);
         // Initiates Sensors
         loadTester = hardwareMap.touchSensor.get("Load Tester");
-    }
-    @Override
-    public void start() {
+        while (!isStarted());
         telemetry.addData("LOADER DIRECTION: ", "IN");
         loader.setPower(0.3);
         launchReset.setPosition(0);
         launcherUD.setPosition(0.5);
+        while (!isStopRequested()) {
+            gamepad1L();
+            gamepad2L();
+        }
     }
-    @Override
-    public void loop() {
-        /*
-         * Gamepad 1 Controls
-         */
+    private void gamepad1L() {
         // Movement controls
         if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
             frontL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
@@ -96,10 +93,8 @@ public class teleop extends OpMode {
         } else {
             poker.setPower(0);
         }
-        /*
-         * Gamepad 2 Controls
-         */
-        // Launcher
+    }
+    private void gamepad2L() {
         if (gamepad2.x && !loadTester.isPressed()) {
             reloader.setPower(0.1);
         } else {
