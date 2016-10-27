@@ -65,18 +65,9 @@ public class teleop extends OpMode {
         loader.setPower(0.3);
         launchReset.setPosition(0);
         launcherUD.setPosition(0.5);
-<<<<<<< Updated upstream
-        while (!isStopRequested()) {
-            gamepad1L();
-            gamepad2L();
-        }
-    }
-    private void gamepad1L() {
-=======
     }
     @Override
     public void loop() {
->>>>>>> Stashed changes
         // Movement controls
         if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
             frontL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
@@ -93,7 +84,6 @@ public class teleop extends OpMode {
             frontR.setPower(1);
             backL.setPower(-1);
             backR.setPower(1);
-<<<<<<< Updated upstream
         }
         // Poker
         if (gamepad1.dpad_left) {
@@ -103,10 +93,6 @@ public class teleop extends OpMode {
         } else {
             poker.setPower(0);
         }
-    }
-    private void gamepad2L() {
-=======
-        }
         // Poker
         if (gamepad1.dpad_left) {
             poker.setPower(-0.2);
@@ -115,7 +101,6 @@ public class teleop extends OpMode {
         } else {
             poker.setPower(0);
         }
->>>>>>> Stashed changes
         if (gamepad2.x && !loadTester.isPressed()) {
             reloader.setPower(0.1);
         } else {
@@ -125,14 +110,11 @@ public class teleop extends OpMode {
             launchReset.setPosition(1);
         } else if (gamepad2.b) {
             launchReset.setPosition(0);
-<<<<<<< Updated upstream
-=======
         }
         if (gamepad2.right_bumper) {
             loader.setPower(-0.3);
         } else {
             loader.setPower(0.3);
->>>>>>> Stashed changes
         }
     }
 }
