@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
@@ -16,7 +17,7 @@ import javax.xml.datatype.Duration;
  * Created by Joseph on 10/4/2016.
  */
 @TeleOp(name="Controled Drive")
-public class teleop extends LinearOpMode {
+public class teleop extends OpMode {
     private DcMotor frontL;
     private DcMotor frontR;
     private DcMotor backL;
@@ -28,7 +29,7 @@ public class teleop extends LinearOpMode {
     private Servo launcherUD;
     private TouchSensor loadTester;
     @Override
-    public void runOpMode() {
+    public void init() {
         frontL = hardwareMap.dcMotor.get("Front Left");
         frontR = hardwareMap.dcMotor.get("Front Right");
         backL = hardwareMap.dcMotor.get("Back Left");
@@ -57,17 +58,25 @@ public class teleop extends LinearOpMode {
         launchReset.scaleRange(0, 0.5);
         // Initiates Sensors
         loadTester = hardwareMap.touchSensor.get("Load Tester");
-        while (!isStarted());
+    }
+    @Override
+    public void start() {
         telemetry.addData("LOADER DIRECTION: ", "IN");
         loader.setPower(0.3);
         launchReset.setPosition(0);
         launcherUD.setPosition(0.5);
+<<<<<<< Updated upstream
         while (!isStopRequested()) {
             gamepad1L();
             gamepad2L();
         }
     }
     private void gamepad1L() {
+=======
+    }
+    @Override
+    public void loop() {
+>>>>>>> Stashed changes
         // Movement controls
         if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
             frontL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
@@ -84,6 +93,7 @@ public class teleop extends LinearOpMode {
             frontR.setPower(1);
             backL.setPower(-1);
             backR.setPower(1);
+<<<<<<< Updated upstream
         }
         // Poker
         if (gamepad1.dpad_left) {
@@ -95,6 +105,17 @@ public class teleop extends LinearOpMode {
         }
     }
     private void gamepad2L() {
+=======
+        }
+        // Poker
+        if (gamepad1.dpad_left) {
+            poker.setPower(-0.2);
+        } else if (gamepad1.dpad_right) {
+            poker.setPower(0.2);
+        } else {
+            poker.setPower(0);
+        }
+>>>>>>> Stashed changes
         if (gamepad2.x && !loadTester.isPressed()) {
             reloader.setPower(0.1);
         } else {
@@ -104,6 +125,14 @@ public class teleop extends LinearOpMode {
             launchReset.setPosition(1);
         } else if (gamepad2.b) {
             launchReset.setPosition(0);
+<<<<<<< Updated upstream
+=======
+        }
+        if (gamepad2.right_bumper) {
+            loader.setPower(-0.3);
+        } else {
+            loader.setPower(0.3);
+>>>>>>> Stashed changes
         }
     }
 }
