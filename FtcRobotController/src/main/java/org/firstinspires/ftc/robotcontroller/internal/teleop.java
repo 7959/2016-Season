@@ -86,13 +86,11 @@ public class teleop extends OpMode {
             frontR.setPower(-1);
             backL.setPower(1);
             backR.setPower(-1);
-            gamepad1turn = true;
         } else {
             frontL.setPower(-1);
             frontR.setPower(1);
             backL.setPower(-1);
             backR.setPower(1);
-            gamepad1turn = true;
         }
 
         if (gamepad1.dpad_left) {
