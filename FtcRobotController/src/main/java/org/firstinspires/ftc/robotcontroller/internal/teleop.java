@@ -16,7 +16,7 @@ import javax.xml.datatype.Duration;
 /**
  * Created by Joseph on 10/4/2016.
  */
-@TeleOp(name="Controled Drive")
+@TeleOp(name="Controlled Drive")
 public class teleop extends OpMode {
     private DcMotor frontL;
     private DcMotor frontR;
@@ -28,6 +28,7 @@ public class teleop extends OpMode {
     private Servo launchReset;
     private Servo launcherUD;
     private TouchSensor loadTester;
+    private boolean gamepad1turn = false;
     @Override
     public void init() {
         frontL = hardwareMap.dcMotor.get("Front Left");
@@ -68,32 +69,29 @@ public class teleop extends OpMode {
     }
     @Override
     public void loop() {
-        // Movement controls
         if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
             frontL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
             frontR.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
             backL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
             backR.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
+            if (gamepad1.left_stick_y == 0 && gamepad1.left_stick_x == 0) {
+                gamepad1turn = false;
+            } else {
+                gamepad1turn = true;
+            }
         } else if (gamepad1.right_bumper) {
             frontL.setPower(1);
             frontR.setPower(-1);
             backL.setPower(1);
             backR.setPower(-1);
+            gamepad1turn = true;
         } else {
             frontL.setPower(-1);
             frontR.setPower(1);
             backL.setPower(-1);
             backR.setPower(1);
+            gamepad1turn = true;
         }
-        // Poker
-        if (gamepad1.dpad_left) {
-            poker.setPower(-0.2);
-        } else if (gamepad1.dpad_right) {
-            poker.setPower(0.2);
-        } else {
-            poker.setPower(0);
-        }
-        // Poker
         if (gamepad1.dpad_left) {
             poker.setPower(-0.2);
         } else if (gamepad1.dpad_right) {
@@ -115,6 +113,24 @@ public class teleop extends OpMode {
             loader.setPower(-0.3);
         } else {
             loader.setPower(0.3);
+        }
+        if (gamepad2.dpad_up) {
+            launcherUD.setPosition(launcherUD.getPosition() + 0.01);
+        } else if (gamepad2.dpad_down) {
+            launcherUD.setPosition(launcherUD.getPosition() - 0.01);
+        }
+        if (!gamepad1turn) {
+            if (gamepad2.dpad_left) {
+                frontL.setPower(-1);
+                frontR.setPower(1);
+                backL.setPower(-1);
+                backR.setPower(1);
+            } else if (gamepad2.dpad_right) {
+                frontL.setPower(1);
+                frontR.setPower(-1);
+                backL.setPower(1);
+                backR.setPower(-1);
+            }
         }
     }
 }
