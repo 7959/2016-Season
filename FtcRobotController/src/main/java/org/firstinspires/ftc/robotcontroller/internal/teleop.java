@@ -7,10 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-import java.util.Timer;
-
-import javax.xml.datatype.Duration;
-
 /**
  * Created by Joseph on 10/4/2016.
  */
