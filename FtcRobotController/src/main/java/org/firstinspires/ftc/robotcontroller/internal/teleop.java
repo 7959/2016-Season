@@ -62,7 +62,7 @@ public class teleop extends OpMode {
     }
     @Override
     public void start() {
-        telemetry.addData("LOADER DIRECTION: ", "IN");
+        telemetry.addData("LOADER DIRECTION", "IN");
         loader.setPower(0.3);
         launchReset.setPosition(0);
         launcherUD.setPosition(0.5);
@@ -74,11 +74,8 @@ public class teleop extends OpMode {
             frontR.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
             backL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
             backR.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-            if (gamepad1.left_stick_y == 0 && gamepad1.left_stick_x == 0) {
-                gamepad1turn = false;
-            } else {
-                gamepad1turn = true;
-            }
+            telemetry.addData("ROBOT SPEED", 100 * (Math.abs(gamepad1.left_stick_y) + Math.abs(gamepad1.left_stick_x)) + "%");
+            gamepad1turn = gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0;
         } else if (gamepad1.right_bumper) {
             frontL.setPower(1);
             frontR.setPower(-1);
@@ -99,10 +96,16 @@ public class teleop extends OpMode {
         } else {
             poker.setPower(0);
         }
-        if (gamepad2.x && !loadTester.isPressed()) {
-            reloader.setPower(0.1);
+        if (!loadTester.isPressed()) {
+            if (gamepad2.x) {
+                reloader.setPower(0.1);
+            } else {
+                reloader.setPower(0);
+            }
+            telemetry.addData("READY TO FIRE", "FALSE");
         } else {
-            reloader.setPower(0);
+            reloader.setPower(0.1);
+            telemetry.addData("READY TO FIRE", "TRUE");
         }
         if (gamepad2.a) {
             launchReset.setPosition(1);
@@ -111,8 +114,10 @@ public class teleop extends OpMode {
         }
         if (gamepad2.right_bumper) {
             loader.setPower(-0.3);
+            telemetry.addData("LOADER DIRECTION", "OUT");
         } else {
             loader.setPower(0.3);
+            telemetry.addData("LOADER DIRECTION: ", "IN");
         }
         if (gamepad2.dpad_up) {
             launcherUD.setPosition(launcherUD.getPosition() + 0.01);
