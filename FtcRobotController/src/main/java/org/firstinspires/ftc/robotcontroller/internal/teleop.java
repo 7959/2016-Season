@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Created by Joseph on 10/4/2016.
+ *
+ * Jasera's Wolf Head
  */
 @TeleOp(name="Controlled Drive")
 public class teleop extends OpMode {
@@ -62,6 +64,15 @@ public class teleop extends OpMode {
 
         loadTester = hardwareMap.touchSensor.get("Load Tester");
     }
+
+    public void sleep(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+
+        }
+    }
+
     @Override
     public void start() {
         telemetry.addData("LOADER DIRECTION", "IN");
@@ -69,6 +80,7 @@ public class teleop extends OpMode {
         launchReset.setPosition(0);
         launcherUD.setPosition(0.5);
     }
+
     @Override
     public void loop() {
         if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
@@ -89,13 +101,9 @@ public class teleop extends OpMode {
             backR.setPower(1);
         }
 
-        if (gamepad1.dpad_left) {
-            poker.setPower(-0.2);
-        } else if (gamepad1.dpad_right) {
-            poker.setPower(0.2);
-        } else {
-            poker.setPower(0);
-        }
+        if (gamepad1.dpad_left) poker.setPower(-0.2);
+        else if (gamepad1.dpad_right) poker.setPower(0.2);
+        else poker.setPower(0);
 
 
         if (!loadTester.isPressed()) {
@@ -110,11 +118,8 @@ public class teleop extends OpMode {
             telemetry.addData("READY TO FIRE", "TRUE");
         }
 
-        if (gamepad2.a) {
-            launchReset.setPosition(1);
-        } else if (gamepad2.b) {
-            launchReset.setPosition(0);
-        }
+        if (gamepad2.a) launchReset.setPosition(1);
+        else if (gamepad2.b) launchReset.setPosition(0);
 
         if (gamepad2.right_bumper) {
             loader.setPower(-0.3);
@@ -124,11 +129,8 @@ public class teleop extends OpMode {
             telemetry.addData("LOADER DIRECTION: ", "IN");
         }
 
-        if (gamepad2.dpad_up) {
-            launcherUD.setPosition(launcherUD.getPosition() + 0.01);
-        } else if (gamepad2.dpad_down) {
-            launcherUD.setPosition(launcherUD.getPosition() - 0.01);
-        }
+        if (gamepad2.dpad_up) launcherUD.setPosition(launcherUD.getPosition() + 0.01);
+        else if (gamepad2.dpad_down) launcherUD.setPosition(launcherUD.getPosition() - 0.01);
 
         if (gamepad1.left_stick_x == 0 && gamepad1.left_stick_y == 0) {
             if (gamepad2.dpad_left) {
@@ -143,5 +145,7 @@ public class teleop extends OpMode {
                 backR.setPower(-1);
             }
         }
+
+        if (gamepad1.start && gamepad2.start) requestOpModeStop();
     }
 }
