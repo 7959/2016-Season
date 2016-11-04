@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  *
  * Jasera's Wolf Head
  */
+
 @TeleOp(name="Controlled Drive")
 public class teleop extends OpMode {
 
@@ -64,15 +65,6 @@ public class teleop extends OpMode {
 
         loadTester = hardwareMap.touchSensor.get("Load Tester");
     }
-
-    public void sleep(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException e) {
-
-        }
-    }
-
     @Override
     public void start() {
         telemetry.addData("LOADER DIRECTION", "IN");
