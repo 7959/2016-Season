@@ -1,0 +1,19 @@
+When a Dc Motor is declared:
+
+m[number]
+
+When a Servo is declared:
+
+s[number]
+
+When a Dc Motor's speed is changed:
+
+ms[Motor Number];[Speed]
+
+When a Servo's position is changed:
+
+sp[Servo Number];[New Position]
+
+When a Servo's position is changed relatively:
+
+sr[Servo Number];[Change in Position]
