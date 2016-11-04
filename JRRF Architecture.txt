@@ -6,6 +6,10 @@ When a Servo is declared:
 
 s[number]"[Servo Name]"
 
+When a Servo is scaled:
+
+ss[number];[Scale Lower];[Scale Higher]
+
 When a Dc Motor's speed is changed:
 
 ms[Motor Number];[Speed]
