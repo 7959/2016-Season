@@ -1,10 +1,10 @@
 When a Dc Motor is declared:
 
-m[number]
+m[number]"[Motor Name]"
 
 When a Servo is declared:
 
-s[number]
+s[number]"[Servo Name]"
 
 When a Dc Motor's speed is changed:
 
