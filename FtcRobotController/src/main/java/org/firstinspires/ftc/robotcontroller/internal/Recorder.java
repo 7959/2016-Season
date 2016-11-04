@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by Joseph on 11/3/2016.
@@ -28,7 +30,7 @@ public class Recorder extends OpMode {
     private Servo launchReset;
     private Servo launcherUD;
 
-    private File out;
+    private PrintWriter out;
 
     @Override
     public void init() {
@@ -40,7 +42,7 @@ public class Recorder extends OpMode {
                     letter[index++] = l;
                 }
             }
-            char[] file = new char[256];
+            char[] file = new char[128];
             {
                 boolean r_change = false;
                 int n = 0;
@@ -62,32 +64,60 @@ public class Recorder extends OpMode {
                         r_change = true;
                         index++;
                         if (index > 25) index = 25;
-                    } else {
-                        r_change = false;
-                    }
+                    } else r_change = false;
                     telemetry.addData("File: ", file);
-                    if (gamepad1.a) {
-                        break;
-                    }
+                    if (gamepad1.a) break;
                 }
             }
             telemetry.clear();
+            File outF;
             try {
                 Context context; // If you are using Android Studio, ignore the error here and on the next two lines.
                 context.getApplicationContext();
-                out = new File(context.getFilesDir(), file.toString() + ".JRRF"); // JRRF- Joe's Robot Recording Format
+                outF = new File(context.getFilesDir(), file.toString() + ".JRRF"); // JRRF- Joe's Robot Recording Format
             } catch (Exception e) {
+                telemetry.clear();
+                telemetry.addData("ERROR", "File path failed to be found.");
+                while (!gamepad1.a && !gamepad1.b);
+                requestOpModeStop();
+            }
+            if (!outF.exists()) {
+                try {
+                    if (!outF.createNewFile()) requestOpModeStop();
+                } catch (Exception e) {
+                    telemetry.clear();
+                    telemetry.addData("ERROR", "File could not be created.");
+                    while (!gamepad1.a && !gamepad1.b);
+                    requestOpModeStop();
+                }
+            }
+            if (!outF.canWrite()) {
+                if (!outF.setWritable(true)) requestOpModeStop();
+            }
+            try {
+                out = new PrintWriter(outF, "UTF-8");
+            } catch (Exception e) {
+                telemetry.clear();
+                telemetry.addData("ERROR", "Filewriter could not open file.");
+                while (!gamepad1.a && !gamepad1.b);
                 requestOpModeStop();
             }
         }
 
         frontL = hardwareMap.dcMotor.get("Front Left");
+        out.write("m0\"Front Left\"");
         frontR = hardwareMap.dcMotor.get("Front Right");
+        out.write("m1\"Front Right\"");
         backL = hardwareMap.dcMotor.get("Back Left");
+        out.write("m2\"Back Left\"");
         backR = hardwareMap.dcMotor.get("Back Right");
+        out.write("m3\"Back Right\"");
         poker = hardwareMap.dcMotor.get("Poker");
+        out.write("m4\"Poker\"");
         loader = hardwareMap.dcMotor.get("Loader");
+        out.write("m5\"Loader\"");
         reloader = hardwareMap.dcMotor.get("Reloader");
+        out.write("m6\"Reloader\"");
 
         frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -107,7 +137,9 @@ public class Recorder extends OpMode {
 
 
         launchReset = hardwareMap.servo.get("Launcher Axis");
+        out.write("s0\"Launcher Axis\"");
         launcherUD = hardwareMap.servo.get("Launcher Y");
+        out.write("s1\"Launcher Y\"");
 
         launcherUD.scaleRange(0, 0.25);
         launchReset.scaleRange(0, 0.5);
