@@ -32,6 +32,10 @@ public class Recorder extends OpMode {
 
     private PrintWriter out;
 
+    private PowerTracker powerTracker;
+
+    private boolean changedToZero = false;
+
     private class PowerTracker {
         public boolean changePower(DcMotor motor, float power) {
             motor.setPower(power);
@@ -70,8 +74,6 @@ public class Recorder extends OpMode {
             return true;
         }
     }
-
-    private PowerTracker powerTracker;
 
     @Override
     public void init() {
@@ -187,8 +189,33 @@ public class Recorder extends OpMode {
         launchReset.scaleRange(0, 0.5);
         out.write("ss0;0;0.5");
     }
+
     @Override
     public void loop() {
-
+        if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) {
+            powerTracker.changePower(frontL, gamepad1.left_stick_y + gamepad1.left_stick_x);
+            powerTracker.changePower(frontR, gamepad1.left_stick_y - gamepad1.left_stick_x);
+            powerTracker.changePower(backL, gamepad1.left_stick_y + gamepad1.left_stick_x);
+            powerTracker.changePower(backR, gamepad1.left_stick_y - gamepad1.left_stick_x);
+            changedToZero = true;
+        } else if (gamepad1.left_trigger > 0) {
+            powerTracker.changePower(frontL, -gamepad1.left_trigger);
+            powerTracker.changePower(frontR, gamepad1.left_trigger);
+            powerTracker.changePower(backL, -gamepad1.left_trigger);
+            powerTracker.changePower(backR, gamepad1.left_trigger);
+            changedToZero = true;
+        } else if (gamepad1.right_trigger > 0) {
+            powerTracker.changePower(frontL, gamepad1.right_trigger);
+            powerTracker.changePower(frontR, -gamepad1.right_trigger);
+            powerTracker.changePower(backL, gamepad1.right_trigger);
+            powerTracker.changePower(backR, -gamepad1.right_trigger);
+            changedToZero = true;
+        } else if (changedToZero) {
+            powerTracker.changePower(frontL, 0);
+            powerTracker.changePower(frontR, 0);
+            powerTracker.changePower(backL, 0);
+            powerTracker.changePower(backR, 0);
+            changedToZero = false;
+        }
     }
 }
