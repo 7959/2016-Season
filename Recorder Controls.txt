@@ -1,7 +1,7 @@
 Gamepad 1:
 	Left joystick: Movement
-	Left bumper: Rotate left
-	Right bumper: Rotate right
+	Left trigger: Rotate left
+	Right trigger: Rotate right
 	D-Pad left: Retract poker
 	D-Pad right: Extend poker
 	Start: If Gamepad 2's start button is also pressed, save and end the OpMode.
