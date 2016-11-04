@@ -8,14 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import java.io.BufferedWriter;
 import java.io.File;
 
 /**
  * Created by Joseph on 11/3/2016.
  */
 
-@TeleOp(name = "Recorder", group = "Recorder")
+@TeleOp(name = "Autonomous Recorder", group = "Recorder")
 public class Recorder extends OpMode {
 
     private DcMotor frontL;
@@ -33,6 +32,55 @@ public class Recorder extends OpMode {
 
     @Override
     public void init() {
+        {
+            char[] letter = new char[26];
+            {
+                int index = 0;
+                for (char l = 'a'; l <= 'z'; l++) {
+                    letter[index++] = l;
+                }
+            }
+            char[] file = new char[256];
+            {
+                boolean r_change = false;
+                int n = 0;
+                byte index = 0;
+                while (true) {
+                    if (gamepad1.dpad_up && !r_change) {
+                        r_change = true;
+                        n++;
+                        file[index] = letter[n];
+                    } else if (gamepad1.dpad_down && !r_change) {
+                        r_change = true;
+                        n--;
+                        file[index] = letter[n];
+                    } else if (gamepad1.dpad_left) {
+                        r_change = true;
+                        index--;
+                        if (index < 0) index = 0;
+                    } else if (gamepad1.dpad_right) {
+                        r_change = true;
+                        index++;
+                        if (index > 25) index = 25;
+                    } else {
+                        r_change = false;
+                    }
+                    telemetry.addData("File: ", file);
+                    if (gamepad1.a) {
+                        break;
+                    }
+                }
+            }
+            telemetry.clear();
+            try {
+                Context context; // If you are using Android Studio, ignore the error here and on the next two lines.
+                context.getApplicationContext();
+                out = new File(context.getFilesDir(), file.toString() + ".JRRF"); // JRRF- Joe's Robot Recording Format
+            } catch (Exception e) {
+                requestOpModeStop();
+            }
+        }
+
         frontL = hardwareMap.dcMotor.get("Front Left");
         frontR = hardwareMap.dcMotor.get("Front Right");
         backL = hardwareMap.dcMotor.get("Back Left");
@@ -63,52 +111,6 @@ public class Recorder extends OpMode {
 
         launcherUD.scaleRange(0, 0.25);
         launchReset.scaleRange(0, 0.5);
-
-        {
-            char[] letter = new char[26];
-            {
-                int index = 0;
-                for (char l = 'a'; l <= 'z'; l++) {
-                    letter[index++] = l;
-                }
-            }
-            char[] file = new char[25];
-            boolean r_change = false;
-            int n = 0;
-            byte index = 0;
-            while (true) {
-                if (gamepad1.dpad_up && !r_change) {
-                    r_change = true;
-                    n++;
-                    file[index] = letter[n];
-                } else if (gamepad1.dpad_down && !r_change) {
-                    r_change = true;
-                    n--;
-                    file[index] = letter[n];
-                } else if (gamepad1.dpad_left) {
-                    r_change = true;
-                    index--;
-                    if (index < 0) index = 0;
-                } else if (gamepad1.dpad_right) {
-                    r_change = true;
-                    index++;
-                    if (index > 25) index = 25;
-                } else {
-                    r_change = false;
-                }
-                telemetry.addData("File: ", file);
-                if (gamepad1.a) {
-                    break;
-                }
-            }
-            telemetry.clear();
-            try {
-                Context context;
-                out = new File(context.getFilesDir(), file.toString() + ".jrrf"); // jrff- Joe's Robot Recording Format
-            } catch (Exception e) {
-                requestOpModeStop();
-            }
-        }
     }
     @Override
     public void loop() {
