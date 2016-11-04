@@ -64,9 +64,7 @@ public class Recorder extends OpMode {
             else if (motor.getDeviceName().equals("Reloader")) {
                 write = "m6;";
                 index = 6;
-            } else {
-                return false;
-            }
+            } else return false;
             write = write + power;
             out.write(write);
             return true;
@@ -185,9 +183,9 @@ public class Recorder extends OpMode {
         out.write("s1\"Launcher Y\"");
 
         launcherUD.scaleRange(0, 0.25);
-        out.write("s0;0;0.25");
+        out.write("ss0;0;0.25");
         launchReset.scaleRange(0, 0.5);
-        out.write("s0;0;0.5");
+        out.write("ss0;0;0.5");
     }
     @Override
     public void loop() {
