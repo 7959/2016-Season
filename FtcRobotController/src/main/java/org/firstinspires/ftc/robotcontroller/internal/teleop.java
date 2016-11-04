@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * Jasera's Wolf Head
  */
 
-@TeleOp(name="Controlled Drive")
+@TeleOp(name="Default Controlled Drive", group = "TeleOps")
 public class teleop extends OpMode {
 
     private DcMotor frontL;

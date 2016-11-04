@@ -1,0 +1,117 @@
+package org.firstinspires.ftc.robotcontroller.internal;
+
+import android.content.Context;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import java.io.BufferedWriter;
+import java.io.File;
+
+/**
+ * Created by Joseph on 11/3/2016.
+ */
+
+@TeleOp(name = "Recorder", group = "Recorder")
+public class Recorder extends OpMode {
+
+    private DcMotor frontL;
+    private DcMotor frontR;
+    private DcMotor backL;
+    private DcMotor backR;
+    private DcMotor poker;
+    private DcMotor loader;
+    private DcMotor reloader;
+
+    private Servo launchReset;
+    private Servo launcherUD;
+
+    private File out;
+
+    @Override
+    public void init() {
+        frontL = hardwareMap.dcMotor.get("Front Left");
+        frontR = hardwareMap.dcMotor.get("Front Right");
+        backL = hardwareMap.dcMotor.get("Back Left");
+        backR = hardwareMap.dcMotor.get("Back Right");
+        poker = hardwareMap.dcMotor.get("Poker");
+        loader = hardwareMap.dcMotor.get("Loader");
+        reloader = hardwareMap.dcMotor.get("Reloader");
+
+        frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        poker.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        loader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        reloader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        frontL.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontR.setDirection(DcMotorSimple.Direction.FORWARD);
+        backL.setDirection(DcMotorSimple.Direction.REVERSE);
+        backR.setDirection(DcMotorSimple.Direction.FORWARD);
+        poker.setDirection(DcMotorSimple.Direction.FORWARD);
+        loader.setDirection(DcMotorSimple.Direction.FORWARD);
+        reloader.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
+        launchReset = hardwareMap.servo.get("Launcher Axis");
+        launcherUD = hardwareMap.servo.get("Launcher Y");
+
+        launcherUD.scaleRange(0, 0.25);
+        launchReset.scaleRange(0, 0.5);
+
+        {
+            char[] letter = new char[26];
+            {
+                int index = 0;
+                for (char l = 'a'; l <= 'z'; l++) {
+                    letter[index++] = l;
+                }
+            }
+            char[] file = new char[25];
+            boolean r_change = false;
+            int n = 0;
+            byte index = 0;
+            while (true) {
+                if (gamepad1.dpad_up && !r_change) {
+                    r_change = true;
+                    n++;
+                    file[index] = letter[n];
+                } else if (gamepad1.dpad_down && !r_change) {
+                    r_change = true;
+                    n--;
+                    file[index] = letter[n];
+                } else if (gamepad1.dpad_left) {
+                    r_change = true;
+                    index--;
+                    if (index < 0) index = 0;
+                } else if (gamepad1.dpad_right) {
+                    r_change = true;
+                    index++;
+                    if (index > 25) index = 25;
+                } else {
+                    r_change = false;
+                }
+                telemetry.addData("File: ", file);
+                if (gamepad1.a) {
+                    break;
+                }
+            }
+            telemetry.clear();
+            try {
+                Context context;
+                out = new File(context.getFilesDir(), file.toString() + ".jrrf"); // jrff- Joe's Robot Recording Format
+            } catch (Exception e) {
+                requestOpModeStop();
+            }
+        }
+    }
+    @Override
+    public void loop() {
+
+    }
+}
