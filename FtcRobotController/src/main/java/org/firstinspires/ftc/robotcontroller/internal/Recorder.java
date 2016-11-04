@@ -32,6 +32,49 @@ public class Recorder extends OpMode {
 
     private PrintWriter out;
 
+    private class PowerTracker {
+        public boolean changePower(DcMotor motor, float power) {
+            motor.setPower(power);
+            String write;
+            byte index;
+            if (motor.getDeviceName().equals("Front Left")) {
+                write = "m0;";
+                index = 0;
+            }
+            else if (motor.getDeviceName().equals("Front Right")) {
+                write = "m1;";
+                index = 1;
+            }
+            else if (motor.getDeviceName().equals("Back Left")) {
+                write = "m2;";
+                index = 2;
+            }
+            else if (motor.getDeviceName().equals("Back Right")) {
+                write = "m3;";
+                index = 3;
+            }
+            else if (motor.getDeviceName().equals("Poker")) {
+                write = "m4;";
+                index = 4;
+            }
+            else if (motor.getDeviceName().equals("Loader")) {
+                write = "m5;";
+                index = 5;
+            }
+            else if (motor.getDeviceName().equals("Reloader")) {
+                write = "m6;";
+                index = 6;
+            } else {
+                return false;
+            }
+            write = write + power;
+            out.write(write);
+            return true;
+        }
+    }
+
+    private PowerTracker powerTracker;
+
     @Override
     public void init() {
         {
@@ -142,7 +185,9 @@ public class Recorder extends OpMode {
         out.write("s1\"Launcher Y\"");
 
         launcherUD.scaleRange(0, 0.25);
+        out.write("s0;0;0.25");
         launchReset.scaleRange(0, 0.5);
+        out.write("s0;0;0.5");
     }
     @Override
     public void loop() {
