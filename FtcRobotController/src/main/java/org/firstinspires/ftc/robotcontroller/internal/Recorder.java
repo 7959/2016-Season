@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -37,8 +36,12 @@ public class Recorder extends OpMode {
     private boolean changedToZero = false;
 
     private class PowerTracker {
-        public boolean changePower(DcMotor motor, float power) {
-            motor.setPower(power);
+        public void init() {
+            for (byte i = 0; i < 7; i++) {
+                previousPower[i] = 0;
+            }
+        }
+        public byte changePower(DcMotor motor, float power) {
             String write;
             byte index;
             if (motor.getDeviceName().equals("Front Left")) {
@@ -68,11 +71,14 @@ public class Recorder extends OpMode {
             else if (motor.getDeviceName().equals("Reloader")) {
                 write = "m6;";
                 index = 6;
-            } else return false;
+            } else return 0;
+            if (motor.getPower() != power) motor.setPower(power);
+            else return -1;
             write = write + power;
             out.write(write);
-            return true;
+            return 1;
         }
+        private float[] previousPower = new float[7];
     }
 
     @Override
@@ -216,6 +222,9 @@ public class Recorder extends OpMode {
             powerTracker.changePower(backL, 0);
             powerTracker.changePower(backR, 0);
             changedToZero = false;
+        }
+        if (gamepad1.left_bumper) {
+            powerTracker.changePower(poker, 1);
         }
     }
 }
