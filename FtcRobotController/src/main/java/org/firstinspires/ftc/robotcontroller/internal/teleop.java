@@ -1,154 +1,86 @@
 package org.firstinspires.ftc.robotcontroller.internal;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
+
 
 /**
- * Created by Joseph on 10/4/2016.
+ * Created by Team 7959 on 10/4/2016.
  *
  * Jasera's Wolf Head
  */
-@TeleOp(name="Controlled Drive")
+
+
+@TeleOp(name="Default TeleOp", group = "TeleOps")
 public class teleop extends OpMode {
 
-    private DcMotor frontL;
-    private DcMotor frontR;
-    private DcMotor backL;
-    private DcMotor backR;
-    private DcMotor poker;
-    private DcMotor loader;
-    private DcMotor reloader;
 
-    private Servo launchReset;
-    private Servo launcherUD;
+    private DcMotor frontL; // 1
+    private DcMotor frontR; // 2
+    private DcMotor backL; // 3
+    private DcMotor backR; // 4
+    private DcMotor middleL; // 5
+    private DcMotor middleR; // 6
+    private ColorSensor usensor;
+    private ColorSensor dsensor;
 
-    private TouchSensor loadTester;
 
     @Override
-    public void init() {
-        frontL = hardwareMap.dcMotor.get("Front Left");
-        frontR = hardwareMap.dcMotor.get("Front Right");
-        backL = hardwareMap.dcMotor.get("Back Left");
-        backR = hardwareMap.dcMotor.get("Back Right");
-        poker = hardwareMap.dcMotor.get("Poker");
-        loader = hardwareMap.dcMotor.get("Loader");
-        reloader = hardwareMap.dcMotor.get("Reloader");
-
-        frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        poker.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        loader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        reloader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        frontL.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontR.setDirection(DcMotorSimple.Direction.FORWARD);
-        backL.setDirection(DcMotorSimple.Direction.REVERSE);
-        backR.setDirection(DcMotorSimple.Direction.FORWARD);
-        poker.setDirection(DcMotorSimple.Direction.FORWARD);
-        loader.setDirection(DcMotorSimple.Direction.FORWARD);
-        reloader.setDirection(DcMotorSimple.Direction.FORWARD);
-
-
-        launchReset = hardwareMap.servo.get("Launcher Axis");
-        launcherUD = hardwareMap.servo.get("Launcher Y");
-
-        launcherUD.scaleRange(0, 0.25);
-        launchReset.scaleRange(0, 0.5);
-
-
-        loadTester = hardwareMap.touchSensor.get("Load Tester");
+    public void init()
+    {
+        frontL = hardwareMap.dcMotor.get("Front Left"); // 1
+        frontR = hardwareMap.dcMotor.get("Front Right"); // 2
+        middleL = hardwareMap.dcMotor.get("Middle Left"); // 3
+        middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
+        backL = hardwareMap.dcMotor.get("Back Left"); // 5
+        backR = hardwareMap.dcMotor.get("Back Right"); // 6
+        usensor = hardwareMap.colorSensor.get("Up Sensor");
+        //dsensor = hardwareMap.colorSensor.get("Down Sensor");
+        frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 1
+        frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 2
+        middleL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 3
+        middleR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 4
+        backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 5
+        backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 6
+        frontL.setDirection(DcMotorSimple.Direction.FORWARD); // 1
+        frontR.setDirection(DcMotorSimple.Direction.FORWARD); // 2
+        middleL.setDirection(DcMotorSimple.Direction.FORWARD); // 4
+        middleR.setDirection(DcMotorSimple.Direction.REVERSE); // 3
+        backL.setDirection(DcMotorSimple.Direction.FORWARD); // 5
+        backR.setDirection(DcMotorSimple.Direction.REVERSE); // 6
+        frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 1
+        frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 2
+        middleL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 3
+        middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
+        backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
+        backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
     }
-
-    public void sleep(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException e) {
-
-        }
-    }
-
     @Override
-    public void start() {
-        telemetry.addData("LOADER DIRECTION", "IN");
-        loader.setPower(0.3);
-        launchReset.setPosition(0);
-        launcherUD.setPosition(0.5);
+    public void start()
+    {
+        usensor.enableLed(true);
+        //dsensor.enableLed(true);
     }
-
     @Override
     public void loop() {
-        if (!gamepad1.right_bumper && !gamepad1.left_bumper) {
-            if (gamepad1.left_stick_y == 0 || gamepad1.left_stick_x == 0) {
-                frontL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-                frontR.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-                backL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-                backR.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-                telemetry.addData("ROBOT SPEED", 100 * (Math.abs(gamepad1.left_stick_y) + Math.abs(gamepad1.left_stick_x)) + "%");
-            } else if (gamepad2.dpad_left) {
-                frontL.setPower(-1);
-                frontR.setPower(1);
-                backL.setPower(-1);
-                backR.setPower(1);
-            } else if (gamepad2.dpad_right) {
-                frontL.setPower(1);
-                frontR.setPower(-1);
-                backL.setPower(1);
-                backR.setPower(-1);
-            } else {
-                frontL.setPower(0);
-                frontR.setPower(0);
-                backL.setPower(0);
-                backR.setPower(0);
-            }
-        } else if (gamepad1.right_bumper) {
-            frontL.setPower(1);
-            frontR.setPower(-1);
-            backL.setPower(1);
-            backR.setPower(-1);
-        } else {
-            frontL.setPower(-1);
-            frontR.setPower(1);
-            backL.setPower(-1);
-            backR.setPower(1);
-        }
+        if (gamepad1.start && gamepad1.back && gamepad2.start && gamepad2.back) requestOpModeStop();
+        frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 1
+        frontR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 2
+        middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 3
+        middleR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 4
+        backL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 5
+        backR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 6
+        /*telemetry.addData("Dblue", dsensor.blue());
+        telemetry.addData("Dgreen", dsensor.green());
+        telemetry.addData("Dred", dsensor.red());
+        */telemetry.addData("Ublue", usensor.blue());
+        telemetry.addData("Ugreen", usensor.green());
+        telemetry.addData("Ured", usensor.red());
+        usensor.enableLed(true);
 
-        if (gamepad1.dpad_left) poker.setPower(-0.2);
-        else if (gamepad1.dpad_right) poker.setPower(0.2);
-        else poker.setPower(0);
-
-
-        if (!loadTester.isPressed()) {
-            if (gamepad2.x) {
-                reloader.setPower(0.1);
-            } else {
-                reloader.setPower(0);
-            }
-            telemetry.addData("READY TO FIRE", "FALSE");
-        } else {
-            reloader.setPower(0.1);
-            telemetry.addData("READY TO FIRE", "TRUE");
-        }
-
-        if (gamepad2.a) launchReset.setPosition(1);
-        else if (gamepad2.b) launchReset.setPosition(0);
-
-        if (gamepad2.right_bumper) {
-            loader.setPower(-0.3);
-            telemetry.addData("LOADER DIRECTION", "OUT");
-        } else {
-            loader.setPower(0.3);
-            telemetry.addData("LOADER DIRECTION: ", "IN");
-        }
-
-        if (gamepad2.dpad_up) launcherUD.setPosition(launcherUD.getPosition() + 0.01);
-        else if (gamepad2.dpad_down) launcherUD.setPosition(launcherUD.getPosition() - 0.01);
-
-        if (gamepad1.start && gamepad2.start) requestOpModeStop();
     }
 }
