@@ -80,7 +80,7 @@ public class teleop extends OpMode {
         */telemetry.addData("Ublue", usensor.blue());
         telemetry.addData("Ugreen", usensor.green());
         telemetry.addData("Ured", usensor.red());
-        usensor.enableLed(true);
+
 
     }
 }
