@@ -27,6 +27,9 @@ public class teleop extends OpMode {
     private DcMotor middleR; // 6
     private ColorSensor usensor;
     private ColorSensor dsensor;
+    boolean thing = false;
+    boolean Thing = false;
+    int THing = 0;
 
 
     @Override
@@ -65,22 +68,193 @@ public class teleop extends OpMode {
         usensor.enableLed(true);
         //dsensor.enableLed(true);
     }
+
+    public void aimbotR() {
+        Thing = false;
+        THing = 0;
+        while (true) {
+            if (thing == false) {
+                frontL.setPower(1);
+                frontR.setPower(-1);
+                middleL.setPower(1);
+                middleR.setPower(-1);
+                backL.setPower(1);
+                backR.setPower(-1);
+            }
+            if (thing == true) {
+                frontL.setPower(-1);
+                frontR.setPower(1);
+                middleL.setPower(-1);
+                middleR.setPower(1);
+                backL.setPower(-1);
+                backR.setPower(1);
+            }
+            if (dsensor.red() > 0/*WHITE*/) {
+                break;
+            }
+            if (gamepad1.b == true) {
+                Thing = true;
+                break;
+            }
+            while (true) {
+                frontL.setPower(1);
+                frontR.setPower(1);
+                middleR.setPower(1);
+                middleL.setPower(1);
+                backR.setPower(1);
+                backL.setPower(1);
+                if (dsensor.red() > 0/*WHITE*/) {
+                    break;
+                }
+
+            }
+            while (true) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    telemetry.addData("Error", "Would not sleep");
+                }
+
+                if (gamepad1.b == true) {
+                    Thing = true;
+                    break;
+                }
+                if (THing < 0/*VALUE TO GET RIGHT DISTANCE*/) {
+                    frontL.setPower(1);
+                    frontR.setPower(1);
+                    middleR.setPower(1);
+                    middleL.setPower(1);
+                    backR.setPower(1);
+                    backL.setPower(1);
+                }
+            }
+        }
+    }
+
+    public void aimbotL(){
+        Thing = false;
+        THing = 0;
+        while (true){
+            if(thing == false) {
+                frontL.setPower(-1);
+                frontR.setPower(1);
+                middleL.setPower(-1);
+                middleR.setPower(1);
+                backL.setPower(-1);
+                backR.setPower(1);
+            }
+            if(thing == true){
+                frontL.setPower(1);
+                frontR.setPower(-1);
+                middleL.setPower(1);
+                middleR.setPower(-1);
+                backL.setPower(1);
+                backR.setPower(-1);
+            }
+            if(dsensor.red() > 0/*WHITE*/){
+                break;
+            }
+            if(gamepad1.b == true){
+                Thing = true;
+                        break;
+            }
+            while(true){
+                frontL.setPower(1);
+                frontR.setPower(1);
+                middleR.setPower(1);
+                middleL.setPower(1);
+                backR.setPower(1);
+                backL.setPower(1);
+                if(dsensor.red() > 0/*WHITE*/){
+                    break;
+                }
+                if (gamepad1.b == true) {
+                    Thing = true;
+                    break;
+                }
+            }
+            while(true){
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    telemetry.addData("Error", "Would not sleep");
+                }
+
+                if(gamepad1.b == true){
+                    Thing = true;
+                    break;
+                }
+                if(THing < 0/*VALUE TO GET RIGHT DISTANCE*/) {
+                    frontL.setPower(1);
+                    frontR.setPower(1);
+                    middleR.setPower(1);
+                    middleL.setPower(1);
+                    backR.setPower(1);
+                    backL.setPower(1);
+                }
+                if(THing >= 0/*VALUE TO GET RIGHT DISTANCE)*/){
+                    frontL.setPower(0);
+                    frontR.setPower(0);
+                    middleR.setPower(0);
+                    middleL.setPower(0);
+                    backR.setPower(0);
+                    backL.setPower(0);
+                    //INSERT LAUNCH CODE HERE
+                } else THing++;
+
+
+            }
+        }
+
+
+    }
+
     @Override
-    public void loop() {
+    public void loop(){
         if (gamepad1.start && gamepad1.back && gamepad2.start && gamepad2.back) requestOpModeStop();
-        frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 1
-        frontR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 2
-        middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 3
-        middleR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 4
-        backL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 5
-        backR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 6
+        if(thing == false) {
+            frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 1
+            frontR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 2
+            middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 3
+            middleR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 4
+            backL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 5
+            backR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 6
+        }
+        if(thing == true) {
+            frontL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 1
+            frontR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 2
+            middleL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 3
+            middleR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 4
+            backL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 5
+            backR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 6
+        }
+        if(gamepad1.left_bumper == true){
+            aimbotL();
+        }
+        if(gamepad1.right_bumper == true){
+            aimbotR();
+        }
+        if(gamepad1.a == true){
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+                telemetry.addData("Error", "Would not sleep");
+            }
+            if(thing == true){
+                thing = false;
+            }
+            else thing = true;
+        }
         /*telemetry.addData("Dblue", dsensor.blue());
         telemetry.addData("Dgreen", dsensor.green());
         telemetry.addData("Dred", dsensor.red());
         */telemetry.addData("Ublue", usensor.blue());
         telemetry.addData("Ugreen", usensor.green());
         telemetry.addData("Ured", usensor.red());
-
-
+        /*telemetry.addData("Gsensor connection", Gsensor.getConnectionInfo());
+        telemetry.addData("ODsensor connection", Osensor.getConnectionInfo());
+        telemetry.addData("Usensor connection", usensor.getConnectionInfo());
+        telemetry.addData("Dsensor connection", dsensor.getConnectionInfo());
+        */
     }
 }
