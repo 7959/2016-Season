@@ -26,26 +26,30 @@ public class autonomous extends LinearOpMode {
     int phase = 0;// phase of autonomous duh
     boolean correctbeacon = false;// true is beacon on left
     boolean getcloser = false;// will go closer until this is set to change loopy thingy
+    int t; //use to replace sleep commands.
 
     /*
     Stuff we have drafted:
+
     EVERYTHING but its loops are weird so we wanna unify it under one and then once we have all functions tested, we will copy and
     paste it together.
 
-    Stuff needed put a "-" if coded and an "x" if tested "?" if currently working on and don't want other to mess with.
-    -find white line
-    -adjust to face beacon
-    -check beacon
-    push beacon
-    double check to make sure didnt push the wrong one
-    fix if broken
-    move to next white line
-    repeat find adjust and push
-    back up to edge of white line
-    use gyro sensor to turn perfectly to face ball and line up a shot
-    move and shoot
-    park on thingy using sensor2
+    Put phases at end please.
 
+    Stuff needed put a "-" if coded and an "x" if tested "?" if currently working on and don't want other to mess with.
+    -find white line 0
+    -adjust to face beacon 1
+    -check beacon 2
+    ?push beacon 3
+    double check to make sure didnt push the wrong one 4
+    fix if broken 5
+    move to next white line 6
+    repeat find adjust and push 7
+    back up to edge of white line 8
+    use gyro sensor to turn perfectly to face ball and line up a shot 9
+    ?move and shoot 10
+    -park on thingy using sensor2 11
+    end 99
      */
 
     @Override
@@ -90,7 +94,7 @@ public class autonomous extends LinearOpMode {
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
     }
 
-    public void findwhiteline() {
+    public void findwhiteline() {//phase 0
         frontL.setPower(1);
         frontR.setPower(1);
         middleR.setPower(1);
@@ -115,7 +119,7 @@ public class autonomous extends LinearOpMode {
 
     }
 
-    public void getonline() {
+    public void getonline() {//phase1
         frontL.setPower(-1);
         frontR.setPower(1);
         middleR.setPower(1);
@@ -138,7 +142,7 @@ public class autonomous extends LinearOpMode {
         }
     }
 
-    public void followline() {
+    public void followline() {//phase2
         if (sensor1.red() >= 3 || sensor1.blue() >= 3) {
             if(sensor1.red() > 3 && sensor1.blue() < 2){
                 phase = 3;
@@ -164,23 +168,60 @@ public class autonomous extends LinearOpMode {
         backL.setPower(1);
     }
     public void pushbeacon(){
-        if(getcloser == false) {
+
+        } //else CODE FOR PUSHY THING
+
+
+
+
+
+    public void lastmove() {//set t to 0 in code before phase 10
+        if (t < -1/*timetolaunch*/) {
             frontL.setPower(1);
             frontR.setPower(1);
             middleR.setPower(1);
             middleL.setPower(1);
             backR.setPower(1);
             backL.setPower(1);
-            getcloser = true;
-            try {
-                Thread.sleep(0/*value to get closer. Please test*/);
-            } catch (InterruptedException e) {
-                telemetry.addData("Error", "Robot.exe has insomnia");
-            }
-        } //else CODE FOR PUSHY THING
-
-
-
+            t++;
+        } else if (t == -1/*timetolaunch*/){
+            frontL.setPower(0);
+            frontR.setPower(0);
+            middleR.setPower(0);
+            middleL.setPower(0);
+            backR.setPower(0);
+            backL.setPower(0);
+            //PEW PEW CODE safe to use sleep here
+            t++;
+        } else frontL.setPower(1);
+        frontR.setPower(1);
+        middleR.setPower(1);
+        middleL.setPower(1);
+        backR.setPower(1);
+        backL.setPower(1);
+        if(sensor2.red() > -1/*floorred*/){
+            phase=11;
+            t=0;
+        }
     }
+
+    public void park(){//phase11
+        if(t < 500) {//Might be a bit too much may need testing
+            frontL.setPower(1);
+            frontR.setPower(1);
+            middleR.setPower(1);
+            middleL.setPower(1);
+            backR.setPower(1);
+            backL.setPower(1);
+            t++;
+        } else frontL.setPower(0);
+        frontR.setPower(0);
+        middleR.setPower(0);
+        middleL.setPower(0);
+        backR.setPower(0);
+        backL.setPower(0);
+        phase=99;
+    }
+
 
 }
