@@ -47,7 +47,7 @@ public class AutoRedAll extends LinearOpMode {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
-                telemetry.addData("Error", "Would not sleep");
+                telemetry.addData("Error", "Robot has insomnia");
             }
             THINg++;
             if(sensor2.red() > 0/*white*/ && THINg < 390){
@@ -108,7 +108,7 @@ public class AutoRedAll extends LinearOpMode {
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
-                    telemetry.addData("Error", "Would not sleep");
+                    telemetry.addData("Error", "Robot has insomnia");
                 }
                 break;
             }
@@ -124,7 +124,7 @@ public class AutoRedAll extends LinearOpMode {
         try {
             Thread.sleep(75);
         } catch (InterruptedException e) {
-            telemetry.addData("Error", "Would not sleep");
+            telemetry.addData("Error", "Robot has insomnia");
         }
         if(sensor1.blue() > 2 && sensor1.red() < 1){
             while(true) {
@@ -209,7 +209,7 @@ public class AutoRedAll extends LinearOpMode {
             try {
                 Thread.sleep(78);
             } catch (InterruptedException e) {
-                telemetry.addData("Error", "Would not sleep");
+                telemetry.addData("Error", "Robot has insomnia");
             }
         }
         if (Thing == false) {
@@ -222,7 +222,7 @@ public class AutoRedAll extends LinearOpMode {
             try {
                 Thread.sleep(78);
             } catch (InterruptedException e) {
-                telemetry.addData("Error", "Would not sleep");
+                telemetry.addData("Error", "Robot has insomnia");
             }
         }
         frontL.setPower(.5);
@@ -234,7 +234,7 @@ public class AutoRedAll extends LinearOpMode {
         try {
             Thread.sleep(250);
         } catch (InterruptedException e) {
-            telemetry.addData("Error", "Would not sleep");
+            telemetry.addData("Error", "Robot has insomnia");
         }
         frontL.setPower(-.5);
         frontR.setPower(-.5);
@@ -245,7 +245,7 @@ public class AutoRedAll extends LinearOpMode {
         try {
             Thread.sleep(75);
         } catch (InterruptedException e) {
-            telemetry.addData("Error", "Would not sleep");
+            telemetry.addData("Error", "Robot has insomnia");
         }
 
     }
@@ -312,7 +312,7 @@ public class AutoRedAll extends LinearOpMode {
         try {
             Thread.sleep(350);
         } catch (InterruptedException e) {
-            telemetry.addData("Error", "Would not sleep");
+            telemetry.addData("Error", "Robot has insomnia");
         }
     }
     public void end(){
@@ -325,7 +325,7 @@ public class AutoRedAll extends LinearOpMode {
         try {
             Thread.sleep(0/*TURN TO CAPBALL*/);
         } catch (InterruptedException e) {
-            telemetry.addData("Error", "Would not sleep");
+            telemetry.addData("Error", "Robot has insomnia");
         }
         while(true){
             if(sensor2.red() > 0/*REDORBLUEIDUNNO*/){
@@ -338,7 +338,7 @@ public class AutoRedAll extends LinearOpMode {
                 try {
                     Thread.sleep(250);
                 } catch (InterruptedException e) {
-                    telemetry.addData("Error", "Would not sleep");
+                    telemetry.addData("Error", "Robot has insomnia");
                 }
                 break;
             } else  frontL.setPower(1);
