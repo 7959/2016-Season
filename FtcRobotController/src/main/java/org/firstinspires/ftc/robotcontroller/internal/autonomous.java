@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  * PLEASE DRAFT CODE IN AUTREDALL THANKS!
  */
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoRed")
-        public class autonomous extends LinearOpMode {
+public class autonomous extends LinearOpMode {
 
     private DcMotor frontL; // 1
     private DcMotor frontR; // 2
@@ -50,8 +50,6 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 
     @Override
     public void runOpMode() {
-
-
         frontL = hardwareMap.dcMotor.get("Front Left"); // 1
         frontR = hardwareMap.dcMotor.get("Front Right"); // 2
 

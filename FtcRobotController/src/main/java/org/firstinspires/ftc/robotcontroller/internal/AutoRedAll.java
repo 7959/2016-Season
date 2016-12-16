@@ -25,50 +25,6 @@ public class AutoRedAll extends LinearOpMode {
     boolean Thing = false;
     boolean THING = false;
     int THINg = 0;
-
-    @Override
-    public void runOpMode() {
-
-        
-        frontL = hardwareMap.dcMotor.get("Front Left"); // 1
-        frontR = hardwareMap.dcMotor.get("Front Right"); // 2
-        
-        middleL = hardwareMap.dcMotor.get("Middle Left"); // 3
-        middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
-        
-        backL = hardwareMap.dcMotor.get("Back Left"); // 5
-        backR = hardwareMap.dcMotor.get("Back Right"); // 6
-        
-        sensor1 = hardwareMap.colorSensor.get("Up Sensor");
-        sensor2 = hardwareMap.colorSensor.get("Down Sensor");
-        
-        frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 1
-        frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 2
-        
-        middleL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 3
-        middleR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 4
-        
-        backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 5
-        backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); //
-        
-        frontL.setDirection(DcMotorSimple.Direction.REVERSE); // 1
-        frontR.setDirection(DcMotorSimple.Direction.REVERSE); // 2
-        
-        middleL.setDirection(DcMotorSimple.Direction.REVERSE); // 4
-        middleR.setDirection(DcMotorSimple.Direction.FORWARD); // 3
-        
-        backL.setDirection(DcMotorSimple.Direction.REVERSE); // 5
-        backR.setDirection(DcMotorSimple.Direction.FORWARD); // 6
-        
-        frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 1
-        frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 2
-        
-        middleL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 3
-        middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
-        
-        backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
-        backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
-    }
     int thing;
     public void Testythingy(){
         while(true){
@@ -140,7 +96,7 @@ public class AutoRedAll extends LinearOpMode {
         }
     }
 
-    public void Doohickey() {//find white line
+    public void findWhiteLine() {//find white line
         while (true) {
             frontL.setPower(1);
             frontR.setPower(1);
@@ -190,7 +146,7 @@ public class AutoRedAll extends LinearOpMode {
             }
         }
     }
-    public void thingyMuBobber() {//face beacon
+    public void faceBeacon() {//face beacon
         while (true) {
             frontL.setPower(-1);
             frontR.setPower(1);
@@ -205,7 +161,7 @@ public class AutoRedAll extends LinearOpMode {
         }
     }
 
-    public void Contraption() {//move closer to beacon
+    public void moveFowardToBeacon() {//move closer to beacon
         while (true) {
             if (sensor2.red() < 0/*WHITE*/)
                 frontL.setPower(0);
@@ -228,7 +184,7 @@ public class AutoRedAll extends LinearOpMode {
 
         }
     }
-    public void TimyWimyThingy(){//find color on sensor1 side
+    public void findColorSide1(){//find color on sensor1 side
         while(true){
             if (sensor1.red() > 3 && sensor2.blue() < 1) {
                 Thing = true;
@@ -242,7 +198,7 @@ public class AutoRedAll extends LinearOpMode {
         }
     }
 
-    private void PushymcThingy() {// push beacon NEEDS IMPROVEMENT WHEN SENSORS ARRIVE
+    private void pushBeacon() {// push beacon NEEDS IMPROVEMENT WHEN SENSORS ARRIVE
         if (Thing == true) {
             frontL.setPower(0.5);
             frontR.setPower(-.5);
@@ -294,7 +250,7 @@ public class AutoRedAll extends LinearOpMode {
 
     }
 
-    public void GETOFFMYLAWNYEDARNKIDS() {//Return to white line
+    public void returnWhite() {//Return to white line
         if(Thing = false)
             while(true){
                 frontL.setPower(0.5);
@@ -346,7 +302,7 @@ public class AutoRedAll extends LinearOpMode {
             }
         }
     }
-    public void Cookie() {//Right turn to 2nd beacon
+    public void turnToBeacon2() {//Right turn to 2nd beacon
         frontL.setPower(1);
         frontR.setPower(-1);
         middleR.setPower(-1);
@@ -359,7 +315,7 @@ public class AutoRedAll extends LinearOpMode {
             telemetry.addData("Error", "Would not sleep");
         }
     }
-    public void When_I_wake_up_well_I_know_Im_gonna_be_Im_gonna_be_the_man_who_wakes_up_next_to_you_When_I_go_out_yeah_I_know_Im_gonna_be_Im_gonna_be_the_man_who_goes_along_with_you_If_I_get_drunk_well_I_know_Im_gonna_be_Im_gonna_be_the_man_who_gets_drunk_next_to_you_And_if_I_haver_hey_I_know_Im_gonna_be_Im_gonna_be_the_man_whos_havering_to_you_But_I_would_walk_five_hundred_miles_Dada_da_dun_diddle_un_diddle_un_diddle_uh_da_da_When_Im_lonely_well_I_know_Im_gonna_be_Im_gonna_be_the_man_whos_lonely_without_you_And_when_Im_dreaming_well_I_know_Im_gonna_dream_Im_gonna_dream_about_the_time_when_Im_with_you_When_I_go_out_When_I_go_out_well_I_know_Im_gonna_be_Im_gonna_be_the_man_who_goes_along_with_you_And_when_I_come_home_When_I_come_home_yes_I_know_Im_gonna_be_Im_gonna_be_the_man_who_comes_back_home_with_you_Im_gonna_be_the_man_whos_coming_home_with_you_But_I_would_walk_five_hundred_miles_And_I_would_walk_five_hundred_more_Just_to_be_the_man_who_walked_a_thousand_miles_To_fall_down_at_your_door_Da_lat_da_Da_lat_da_da_lat_da_Da_lat_da_Da_da_da_dun_diddle_un_diddle_un_diddle_uh_da_da_Da_lat_da_Da_lat_da_da_lat_da_Da_lat_da_Da_da_da_dun_diddle_un_diddle_un_diddle_uh_da_da_Da_lat_da_Da_lat_da_da_lat_da_Da_lat_da_Da_da_da_dun_diddle_un_diddle_un_diddle_uh_da_da_Da_lat_da_Da_lat_da_da_lat_da_Da_lat_da_Da_da_da_dun_diddle_un_diddle_un_diddle_uh_da_da_And_I_would_walk_five_hundred_miles_And_I_would_walk_five_hundred_more_Just_to_be_the_man_who_walked_a_thousand_miles_To_fall_down_at_your_door(){
+    public void end(){
         frontL.setPower(-1);
         frontR.setPower(1);
         middleR.setPower(1);
@@ -403,22 +359,63 @@ public class AutoRedAll extends LinearOpMode {
 
 
     @Override
-    public synchronized void waitForStart() throws InterruptedException {
-        super.waitForStart();
-        Doohickey();//NEEDS TESTING
-        thingyMuBobber();//NEEDS TESTING
-        Contraption();//NEEDS TESTING
-        TimyWimyThingy();//NEEDS TESTING
-        PushymcThingy();//NEEDS TESTING
-        GETOFFMYLAWNYEDARNKIDS();//NEEDS TESTING
-        Cookie();//NEEDS TESTING
-        Doohickey();//NEEDS TESTING
-        thingyMuBobber();//NEEDS TESTING
-        Contraption();//NEEDS TESTING
-        TimyWimyThingy();//NEEDS TESTING
-        PushymcThingy();//NEEDS TESTING
-        GETOFFMYLAWNYEDARNKIDS();//NEEDS TESTING
-        When_I_wake_up_well_I_know_Im_gonna_be_Im_gonna_be_the_man_who_wakes_up_next_to_you_When_I_go_out_yeah_I_know_Im_gonna_be_Im_gonna_be_the_man_who_goes_along_with_you_If_I_get_drunk_well_I_know_Im_gonna_be_Im_gonna_be_the_man_who_gets_drunk_next_to_you_And_if_I_haver_hey_I_know_Im_gonna_be_Im_gonna_be_the_man_whos_havering_to_you_But_I_would_walk_five_hundred_miles_Dada_da_dun_diddle_un_diddle_un_diddle_uh_da_da_When_Im_lonely_well_I_know_Im_gonna_be_Im_gonna_be_the_man_whos_lonely_without_you_And_when_Im_dreaming_well_I_know_Im_gonna_dream_Im_gonna_dream_about_the_time_when_Im_with_you_When_I_go_out_When_I_go_out_well_I_know_Im_gonna_be_Im_gonna_be_the_man_who_goes_along_with_you_And_when_I_come_home_When_I_come_home_yes_I_know_Im_gonna_be_Im_gonna_be_the_man_who_comes_back_home_with_you_Im_gonna_be_the_man_whos_coming_home_with_you_But_I_would_walk_five_hundred_miles_And_I_would_walk_five_hundred_more_Just_to_be_the_man_who_walked_a_thousand_miles_To_fall_down_at_your_door_Da_lat_da_Da_lat_da_da_lat_da_Da_lat_da_Da_da_da_dun_diddle_un_diddle_un_diddle_uh_da_da_Da_lat_da_Da_lat_da_da_lat_da_Da_lat_da_Da_da_da_dun_diddle_un_diddle_un_diddle_uh_da_da_Da_lat_da_Da_lat_da_da_lat_da_Da_lat_da_Da_da_da_dun_diddle_un_diddle_un_diddle_uh_da_da_Da_lat_da_Da_lat_da_da_lat_da_Da_lat_da_Da_da_da_dun_diddle_un_diddle_un_diddle_uh_da_da_And_I_would_walk_five_hundred_miles_And_I_would_walk_five_hundred_more_Just_to_be_the_man_who_walked_a_thousand_miles_To_fall_down_at_your_door();
+    public void runOpMode() {
+        frontL = hardwareMap.dcMotor.get("Front Left"); // 1
+        frontR = hardwareMap.dcMotor.get("Front Right"); // 2
+
+        middleL = hardwareMap.dcMotor.get("Middle Left"); // 3
+        middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
+
+        backL = hardwareMap.dcMotor.get("Back Left"); // 5
+        backR = hardwareMap.dcMotor.get("Back Right"); // 6
+
+        sensor1 = hardwareMap.colorSensor.get("Up Sensor");
+        sensor2 = hardwareMap.colorSensor.get("Down Sensor");
+
+        frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 1
+        frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 2
+
+        middleL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 3
+        middleR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 4
+
+        backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 5
+        backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); //
+
+        frontL.setDirection(DcMotorSimple.Direction.REVERSE); // 1
+        frontR.setDirection(DcMotorSimple.Direction.REVERSE); // 2
+
+        middleL.setDirection(DcMotorSimple.Direction.REVERSE); // 4
+        middleR.setDirection(DcMotorSimple.Direction.FORWARD); // 3
+
+        backL.setDirection(DcMotorSimple.Direction.REVERSE); // 5
+        backR.setDirection(DcMotorSimple.Direction.FORWARD); // 6
+
+        frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 1
+        frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 2
+
+        middleL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 3
+        middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
+
+        backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
+        backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
+
+        while (!isStarted());
+
+        findWhiteLine();//NEEDS TESTING
+        faceBeacon();//NEEDS TESTING
+        moveFowardToBeacon();//NEEDS TESTING
+        findColorSide1();//NEEDS TESTING
+        pushBeacon();//NEEDS TESTING
+        returnWhite();//NEEDS TESTING
+        turnToBeacon2();//NEEDS TESTING
+        findWhiteLine();//NEEDS TESTING
+        faceBeacon();//NEEDS TESTING
+        moveFowardToBeacon();//NEEDS TESTING
+        findColorSide1();//NEEDS TESTING
+        pushBeacon();//NEEDS TESTING
+        returnWhite();//NEEDS TESTING
+        end();
+        
         requestOpModeStop();
     }
 }
