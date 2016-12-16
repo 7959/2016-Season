@@ -5,10 +5,10 @@ package org.firstinspires.ftc.robotcontroller.internal;
         import com.qualcomm.robotcore.hardware.DcMotor;
         import com.qualcomm.robotcore.hardware.DcMotorSimple;
         import com.qualcomm.robotcore.hardware.TouchSensor;
+        import com.qualcomm.robotcore.hardware.GyroSensor;
 /**
  * Created by Robi on 12/7/2016.
- * Stuff todo
- * Incoporate  gyro sensors in to turning and beacon control
+ * Draft and test simple functions here
  */
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto Red All")
@@ -21,7 +21,10 @@ public class AutoRedAll extends LinearOpMode {
     private DcMotor middleR; // 6
     private ColorSensor sensor1;
     private ColorSensor sensor2;
+    private GyroSensor sensor3;
     boolean Thing = false;
+    boolean THING = false;
+    int THINg = 0;
 
     @Override
     public void runOpMode() {
@@ -65,6 +68,76 @@ public class AutoRedAll extends LinearOpMode {
         
         backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
+    }
+    int thing;
+    public void Testythingy(){
+        while(true){
+            thing=sensor3.rawY();
+            thing++;
+
+
+        }
+
+    }
+    public void wherebetheline(){
+        while(true){
+            frontL.setPower(-1);
+            frontR.setPower(1);
+            middleR.setPower(1);
+            middleL.setPower(-1);
+            backR.setPower(1);
+            backL.setPower(-1);
+
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                telemetry.addData("Error", "Would not sleep");
+            }
+            THINg++;
+            if(sensor2.red() > 0/*white*/ && THINg < 390){
+                frontL.setPower(0);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                middleL.setPower(0);
+                backR.setPower(0);
+                backL.setPower(0);
+                THING = true;
+                THINg = 0;
+                break;
+            }
+            if(sensor2.red() > 0/*white*/ && THINg > 390){
+                frontL.setPower(0);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                middleL.setPower(0);
+                backR.setPower(0);
+                backL.setPower(0);
+                THING = false;
+                THINg = 0;
+                break;
+            }
+
+        }
+    }
+    public void CallibrateThingy(){//PROTOTYPE RED LEFT BEACON PUSH 2
+        while(true){
+            if(sensor2.red() < 0/*WHITE*/) {
+                frontL.setPower(0);
+                frontR.setPower(1);
+                middleR.setPower(1);
+                middleL.setPower(0);
+                backR.setPower(1);
+                backL.setPower(0);
+            }
+            if(sensor2.red() > 0/*WHITE*/){
+                frontL.setPower(1);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                middleL.setPower(1);
+                backR.setPower(0);
+                backL.setPower(1);
+            }
+        }
     }
 
     public void Doohickey() {//find white line

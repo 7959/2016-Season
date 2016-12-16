@@ -6,11 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 
 /**
  * Created by Team 7959 on 10/4/2016.
- *
+ *I fucked up but Ill fix it and make it better than ever!
  * Jasera's Wolf Head
  */
 
@@ -25,12 +26,14 @@ public class teleop extends OpMode {
     private DcMotor backR; // 4
     private DcMotor middleL; // 5
     private DcMotor middleR; // 6
-    private ColorSensor usensor;
-    private ColorSensor dsensor;
+    private ColorSensor sensor1;
+    private ColorSensor sensor2;
+    private GyroSensor Gsensor;
     boolean thing = false;
     boolean Thing = false;
     int THing = 0;
-
+    boolean REPLACEMELATER = false;
+    
 
     @Override
     public void init()
@@ -41,8 +44,9 @@ public class teleop extends OpMode {
         middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
         backL = hardwareMap.dcMotor.get("Back Left"); // 5
         backR = hardwareMap.dcMotor.get("Back Right"); // 6
-        usensor = hardwareMap.colorSensor.get("Up Sensor");
-        //dsensor = hardwareMap.colorSensor.get("Down Sensor");
+        sensor1 = hardwareMap.colorSensor.get("Up Sensor");
+        sensor2 = hardwareMap.colorSensor.get("Down Sensor");
+        Gsensor = hardwareMap.gyroSensor.get("Gyro Sensor");
         frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 1
         frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 2
         middleL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 3
@@ -65,15 +69,67 @@ public class teleop extends OpMode {
     @Override
     public void start()
     {
-        usensor.enableLed(true);
-        //dsensor.enableLed(true);
+        sensor1.enableLed(true);
+        //sensor2.enableLed(true);
     }
+    public void pushbotL() {
+        while (true) {
+            if (gamepad1.b == true) {
+                break;
+            }
+            if (testthing < 1/*WHITE*/) {
+                frontL.setPower(0);
+                frontR.setPower(1);
+                middleR.setPower(1);
+                middleL.setPower(0);
+                backR.setPower(1);
+                backL.setPower(0);
+            }
+            if (testthing > 1/*WHITE*/) {
+                frontL.setPower(1);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                middleL.setPower(1);
+                backR.setPower(0);
+                backL.setPower(1);
+            }
+        }
+    }
+    int testthing = 0;
+    int test2 = 0;
+    public void pushbotR() {
+        while (true) {
+            if (gamepad1.b == true) {
 
+                break;
+            }
+            if (!gamepad2.y/*WHITE*/) {
+                frontL.setPower(0);
+                frontR.setPower(1);
+                middleR.setPower(1);
+                middleL.setPower(0);
+                backR.setPower(1);
+                backL.setPower(0);
+                testthing++;
+            }
+            if(gamepad2.y = true/*WHITE*/) {
+                frontL.setPower(1);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                middleL.setPower(1);
+                backR.setPower(0);
+                backL.setPower(1);
+                test2++;
+                testthing = 0;
+        }
+
+        }
+    }
     public void aimbotR() {
         Thing = false;
         THing = 0;
         while (true) {
-            if (thing == false) {
+            if (!thing) {
                 frontL.setPower(1);
                 frontR.setPower(-1);
                 middleL.setPower(1);
@@ -89,7 +145,7 @@ public class teleop extends OpMode {
                 backL.setPower(-1);
                 backR.setPower(1);
             }
-            if (dsensor.red() > 0/*WHITE*/) {
+            if (testthing > 0/*WHITE*/) {
                 break;
             }
             if (gamepad1.b == true) {
@@ -103,7 +159,7 @@ public class teleop extends OpMode {
                 middleL.setPower(1);
                 backR.setPower(1);
                 backL.setPower(1);
-                if (dsensor.red() > 0/*WHITE*/) {
+                if (testthing > 0/*WHITE*/) {
                     break;
                 }
 
@@ -135,7 +191,7 @@ public class teleop extends OpMode {
         Thing = false;
         THing = 0;
         while (true){
-            if(thing == false) {
+            if(!thing) {
                 frontL.setPower(-1);
                 frontR.setPower(1);
                 middleL.setPower(-1);
@@ -151,7 +207,7 @@ public class teleop extends OpMode {
                 backL.setPower(1);
                 backR.setPower(-1);
             }
-            if(dsensor.red() > 0/*WHITE*/){
+            if(testthing > 0/*WHITE*/){
                 break;
             }
             if(gamepad1.b == true){
@@ -165,7 +221,7 @@ public class teleop extends OpMode {
                 middleL.setPower(1);
                 backR.setPower(1);
                 backL.setPower(1);
-                if(dsensor.red() > 0/*WHITE*/){
+                if(testthing > 0/*WHITE*/){
                     break;
                 }
                 if (gamepad1.b == true) {
@@ -212,7 +268,7 @@ public class teleop extends OpMode {
     @Override
     public void loop(){
         if (gamepad1.start && gamepad1.back && gamepad2.start && gamepad2.back) requestOpModeStop();
-        if(thing == false) {
+        if(!thing) {
             frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 1
             frontR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 2
             middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 3
@@ -228,11 +284,11 @@ public class teleop extends OpMode {
             backL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 5
             backR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 6
         }
-        if(gamepad1.left_bumper == true){
-            aimbotL();
+        /*if(gamepad1.left_bumper == true){
+            pushbotL();
         }
         if(gamepad1.right_bumper == true){
-            aimbotR();
+            pushbotR();
         }
         if(gamepad1.a == true){
             try {
@@ -244,17 +300,17 @@ public class teleop extends OpMode {
                 thing = false;
             }
             else thing = true;
-        }
-        /*telemetry.addData("Dblue", dsensor.blue());
-        telemetry.addData("Dgreen", dsensor.green());
-        telemetry.addData("Dred", dsensor.red());
-        */telemetry.addData("Ublue", usensor.blue());
-        telemetry.addData("Ugreen", usensor.green());
-        telemetry.addData("Ured", usensor.red());
-        /*telemetry.addData("Gsensor connection", Gsensor.getConnectionInfo());
-        telemetry.addData("ODsensor connection", Osensor.getConnectionInfo());
-        telemetry.addData("Usensor connection", usensor.getConnectionInfo());
-        telemetry.addData("Dsensor connection", dsensor.getConnectionInfo());
-        */
+        }*/
+        telemetry.addData("Dblue", sensor2.blue());
+        telemetry.addData("Dgreen", sensor2.green());
+        telemetry.addData("Dred", sensor2.red());
+        telemetry.addData("Ublue", sensor1.blue());
+        telemetry.addData("Ugreen", sensor1.green());
+        telemetry.addData("Ured", sensor1.red());
+        telemetry.addData("Gsensory", Gsensor.rawY());
+        telemetry.addData("Gsensorx", Gsensor.rawX());
+        telemetry.addData("Gsensorz", Gsensor.rawZ());
+        //telemetry.addData("Osensor2 connection", Osensor.getConnectionInfo());;
+
     }
 }
