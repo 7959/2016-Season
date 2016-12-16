@@ -23,10 +23,9 @@ public class autonomous extends LinearOpMode {
     private ColorSensor sensor1;
     private ColorSensor sensor2;
     private GyroSensor sensor3;
-    int phase = 0;// phase of autonomous duh
-    boolean correctbeacon = false;// true is beacon on left
-    boolean getcloser = false;// will go closer until this is set to change loopy thingy
-    int t; //use to replace sleep commands.
+    private int phase = 0;// phase of autonomous duh
+    private boolean correctbeacon = false;// true is beacon on left
+    private int t = 0;// timer
 
     /*
     Stuff we have drafted:
@@ -34,7 +33,23 @@ public class autonomous extends LinearOpMode {
     EVERYTHING but its loops are weird so we wanna unify it under one and then once we have all functions tested, we will copy and
     paste it together.
 
+<<<<<<< HEAD
     Put phases at end please.
+=======
+    Stuff needed put a "-" if coded and an "x" if tested "?" if currently working on and don't want other to mess with.
+    -find white line
+    -adjust to face beacon
+    -check beacon
+    push beacon
+    double check to make sure didn't push the wrong one
+    fix if broken
+    move to next white line
+    repeat find adjust and push
+    back up to edge of white line
+    use gyro sensor to turn perfectly to face ball and line up a shot
+    move and shoot
+    park on thingy using sensor2
+>>>>>>> 82111237b28aab0a6427f9acd66f3e76328f5353
 
     Stuff needed put a "-" if coded and an "x" if tested "?" if currently working on and don't want other to mess with.
     -find white line 0
@@ -142,6 +157,7 @@ public class autonomous extends LinearOpMode {
         }
     }
 
+
     public void followline() {//phase2
         if (sensor1.red() >= 3 || sensor1.blue() >= 3) {
             if(sensor1.red() > 3 && sensor1.blue() < 2){
@@ -169,7 +185,7 @@ public class autonomous extends LinearOpMode {
     }
     public void pushbeacon(){
 
-        } //else CODE FOR PUSHY THING
+        } //CODE FOR PUSHY THING
 
 
 
