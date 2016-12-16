@@ -415,7 +415,7 @@ public class AutoRedAll extends LinearOpMode {
         pushBeacon();//NEEDS TESTING
         returnWhite();//NEEDS TESTING
         end();
-        
+
         requestOpModeStop();
     }
 }
