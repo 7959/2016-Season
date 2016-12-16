@@ -37,7 +37,7 @@ public class autonomous extends LinearOpMode {
     -adjust to face beacon
     -check beacon
     push beacon
-    double check to make sure didnt push the wrong one
+    double check to make sure didn't push the wrong one
     fix if broken
     move to next white line
     repeat find adjust and push
@@ -164,7 +164,7 @@ public class autonomous extends LinearOpMode {
         backL.setPower(1);
     }
     public void pushbeacon(){
-        if(getcloser == false) {
+        if(!getcloser) {
             frontL.setPower(1);
             frontR.setPower(1);
             middleR.setPower(1);
