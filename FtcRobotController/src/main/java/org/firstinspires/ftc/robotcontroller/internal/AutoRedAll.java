@@ -22,11 +22,11 @@ public class AutoRedAll extends LinearOpMode {
     private ColorSensor sensor1;
     private ColorSensor sensor2;
     private GyroSensor sensor3;
-    boolean Thing = false;
-    boolean THING = false;
-    int THINg = 0;
-    int thing;
-    public void Testythingy(){
+    private boolean Thing = false;
+    private boolean THING = false;
+    private int THINg = 0;
+    private int thing;
+    private void Testythingy(){
         while(true){
             thing=sensor3.rawY();
             thing++;
@@ -35,7 +35,7 @@ public class AutoRedAll extends LinearOpMode {
         }
 
     }
-    public void wherebetheline(){
+    private void wherebetheline(){
         while(true){
             frontL.setPower(-1);
             frontR.setPower(1);
@@ -75,7 +75,7 @@ public class AutoRedAll extends LinearOpMode {
 
         }
     }
-    public void CallibrateThingy(){//PROTOTYPE RED LEFT BEACON PUSH 2
+    private void CallibrateThingy(){//PROTOTYPE RED LEFT BEACON PUSH 2
         while(true){
             if(sensor2.red() < 0/*WHITE*/) {
                 frontL.setPower(0);
@@ -114,7 +114,7 @@ public class AutoRedAll extends LinearOpMode {
             }
         }
     }
-    public void I_have_no_idea_what_this_does(){//test for push the right color
+    private void I_have_no_idea_what_this_does(){//test for push the right color
         frontL.setPower(0);
         frontR.setPower(0);
         middleR.setPower(0);
@@ -146,7 +146,7 @@ public class AutoRedAll extends LinearOpMode {
             }
         }
     }
-    public void faceBeacon() {//face beacon
+    private void faceBeacon() {//face beacon
         while (true) {
             frontL.setPower(-1);
             frontR.setPower(1);
@@ -161,7 +161,7 @@ public class AutoRedAll extends LinearOpMode {
         }
     }
 
-    public void moveFowardToBeacon() {//move closer to beacon
+    private void moveFowardToBeacon() {//move closer to beacon
         while (true) {
             if (sensor2.red() < 0/*WHITE*/)
                 frontL.setPower(0);
@@ -184,7 +184,7 @@ public class AutoRedAll extends LinearOpMode {
 
         }
     }
-    public void findColorSide1(){//find color on sensor1 side
+    private void findColorSide1(){//find color on sensor1 side
         while(true){
             if (sensor1.red() > 3 && sensor2.blue() < 1) {
                 Thing = true;
@@ -250,7 +250,7 @@ public class AutoRedAll extends LinearOpMode {
 
     }
 
-    public void returnWhite() {//Return to white line
+    private void returnWhite() {//Return to white line
         if(Thing = false)
             while(true){
                 frontL.setPower(0.5);
@@ -302,7 +302,7 @@ public class AutoRedAll extends LinearOpMode {
             }
         }
     }
-    public void turnToBeacon2() {//Right turn to 2nd beacon
+    private void turnToBeacon2() {//Right turn to 2nd beacon
         frontL.setPower(1);
         frontR.setPower(-1);
         middleR.setPower(-1);
