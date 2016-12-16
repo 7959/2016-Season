@@ -23,9 +23,9 @@ public class autonomous extends LinearOpMode {
     private ColorSensor sensor1;
     private ColorSensor sensor2;
     private GyroSensor sensor3;
-    int phase = 0;// phase of autonomous duh
-    boolean correctbeacon = false;// true is beacon on left
-    boolean getcloser = false;// will go closer until this is set to change loopy thingy
+    private int phase = 0;// phase of autonomous duh
+    private boolean correctbeacon = false;// true is beacon on left
+    private boolean getcloser = false;// will go closer until this is set to change loopy thingy
 
     /*
     Stuff we have drafted:
@@ -90,7 +90,7 @@ public class autonomous extends LinearOpMode {
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
     }
 
-    public void findwhiteline() {
+    private void findwhiteline() {
         frontL.setPower(1);
         frontR.setPower(1);
         middleR.setPower(1);
@@ -115,7 +115,7 @@ public class autonomous extends LinearOpMode {
 
     }
 
-    public void getonline() {
+    private void getonline() {
         frontL.setPower(-1);
         frontR.setPower(1);
         middleR.setPower(1);
@@ -138,7 +138,7 @@ public class autonomous extends LinearOpMode {
         }
     }
 
-    public void followline() {
+    private void followline() {
         if (sensor1.red() >= 3 || sensor1.blue() >= 3) {
             if(sensor1.red() > 3 && sensor1.blue() < 2){
                 phase = 3;
@@ -163,7 +163,7 @@ public class autonomous extends LinearOpMode {
         backR.setPower(0);
         backL.setPower(1);
     }
-    public void pushbeacon(){
+    private void pushbeacon(){
         if(!getcloser) {
             frontL.setPower(1);
             frontR.setPower(1);
