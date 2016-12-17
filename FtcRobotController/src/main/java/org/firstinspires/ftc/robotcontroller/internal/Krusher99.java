@@ -12,45 +12,86 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
  */
 
 public abstract class Krusher99 extends OpMode {
-    protected DcMotor frontL; // 1
-    protected DcMotor frontR; // 2
-    protected DcMotor backL; // 3
-    protected DcMotor backR; // 4
-    protected DcMotor middleL; // 5
-    protected DcMotor middleR; // 6
     protected ColorSensor sensor1;
     protected ColorSensor sensor2;
     protected GyroSensor Gsensor;
     protected OpticalDistanceSensor ODsensor;
+    protected class Left {
+        private DcMotor frontL;
+        private DcMotor middleL;
+        private DcMotor backL;
+        public void init() {
+            frontL = hardwareMap.dcMotor.get("Front Left");
+            middleL = hardwareMap.dcMotor.get("Middle Left");
+            backL = hardwareMap.dcMotor.get("Back Left");
+
+            frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            middleL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            frontL.setDirection(DcMotorSimple.Direction.FORWARD);
+            middleL.setDirection(DcMotorSimple.Direction.FORWARD);
+            backL.setDirection(DcMotorSimple.Direction.FORWARD);
+
+            frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            middleL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+        public void setPower(double power) {
+            frontL.setPower(power);
+            middleL.setPower(power);
+            backL.setPower(power);
+        }
+        public double getPower() {
+            double out;
+            out = frontL.getPower() + middleL.getPower() + backL.getPower();
+            out /= 3;
+            return out;
+        }
+    }
+    protected class Right {
+        private DcMotor frontR;
+        private DcMotor middleR;
+        private DcMotor backR;
+        public void init() {
+            frontR = hardwareMap.dcMotor.get("Front Right");
+            middleR = hardwareMap.dcMotor.get("Middle Right");
+            backR = hardwareMap.dcMotor.get("Back Right");
+
+            frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            middleR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            frontR.setDirection(DcMotorSimple.Direction.FORWARD);
+            middleR.setDirection(DcMotorSimple.Direction.REVERSE);
+            backR.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+        public void setPower(double power) {
+            frontR.setPower(power);
+            middleR.setPower(power);
+            backR.setPower(power);
+        }
+        public double getPower() {
+            double out;
+            out = frontR.getPower() + middleR.getPower() + backR.getPower();
+            out /= 3;
+            return out;
+        }
+    }
+    protected Left left;
+    protected Right right;
     @Override
     public void init() {
-        frontL = hardwareMap.dcMotor.get("Front Left"); // 1
-        frontR = hardwareMap.dcMotor.get("Front Right"); // 2
-        middleL = hardwareMap.dcMotor.get("Middle Left"); // 3
-        middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
-        backL = hardwareMap.dcMotor.get("Back Left"); // 5
-        backR = hardwareMap.dcMotor.get("Back Right"); // 6
+        left.init();
+        right.init();
+
         sensor1 = hardwareMap.colorSensor.get("Up Sensor");
         sensor2 = hardwareMap.colorSensor.get("Down Sensor");
         Gsensor = hardwareMap.gyroSensor.get("Gyro Sensor");
         ODsensor = hardwareMap.opticalDistanceSensor.get("OD Sensor");
-        frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 1
-        frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 2
-        middleL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 3
-        middleR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 4
-        backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 5
-        backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 6
-        frontL.setDirection(DcMotorSimple.Direction.FORWARD); // 1
-        frontR.setDirection(DcMotorSimple.Direction.FORWARD); // 2
-        middleL.setDirection(DcMotorSimple.Direction.FORWARD); // 4
-        middleR.setDirection(DcMotorSimple.Direction.REVERSE); // 3
-        backL.setDirection(DcMotorSimple.Direction.FORWARD); // 5
-        backR.setDirection(DcMotorSimple.Direction.REVERSE); // 6
-        frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 1
-        frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 2
-        middleL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 3
-        middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
-        backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
-        backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
     }
 }

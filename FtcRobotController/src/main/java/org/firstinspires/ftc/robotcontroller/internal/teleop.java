@@ -29,19 +29,11 @@ public class teleop extends Krusher99 {
                 break;
             }
             if (testthing < 1/*WHITE*/) {
-                frontL.setPower(0);
-                frontR.setPower(1);
-                middleR.setPower(1);
-                middleL.setPower(0);
-                backR.setPower(1);
-                backL.setPower(0);
+                left.setPower(0);
+                right.setPower(1);
             } else {
-                frontL.setPower(1);
-                frontR.setPower(0);
-                middleR.setPower(0);
-                middleL.setPower(1);
-                backR.setPower(0);
-                backL.setPower(1);
+                left.setPower(1);
+                right.setPower(0);
             }
         }
     }
@@ -54,20 +46,12 @@ public class teleop extends Krusher99 {
                 break;
             }
             if (!gamepad2.y/*WHITE*/) {
-                frontL.setPower(0);
-                frontR.setPower(1);
-                middleR.setPower(1);
-                middleL.setPower(0);
-                backR.setPower(1);
-                backL.setPower(0);
+                left.setPower(0);
+                right.setPower(1);
                 testthing++;
             } else {
-                frontL.setPower(1);
-                frontR.setPower(0);
-                middleR.setPower(0);
-                middleL.setPower(1);
-                backR.setPower(0);
-                backL.setPower(1);
+                left.setPower(1);
+                right.setPower(0);
                 test2++;
                 testthing = 0;
             }
@@ -78,19 +62,11 @@ public class teleop extends Krusher99 {
         THing = 0;
         while (true) {
             if (!toggled) {
-                frontL.setPower(1);
-                frontR.setPower(-1);
-                middleL.setPower(1);
-                middleR.setPower(-1);
-                backL.setPower(1);
-                backR.setPower(-1);
+                left.setPower(1);
+                right.setPower(-1);
             } else {
-                frontL.setPower(-1);
-                frontR.setPower(1);
-                middleL.setPower(-1);
-                middleR.setPower(1);
-                backL.setPower(-1);
-                backR.setPower(1);
+                left.setPower(-1);
+                right.setPower(1);
             }
             if (testthing > 0/*WHITE*/) {
                 break;
@@ -100,12 +76,8 @@ public class teleop extends Krusher99 {
                 break;
             }
             while (true) {
-                frontL.setPower(1);
-                frontR.setPower(1);
-                middleR.setPower(1);
-                middleL.setPower(1);
-                backR.setPower(1);
-                backL.setPower(1);
+                left.setPower(1);
+                right.setPower(1);
                 if (testthing > 0/*WHITE*/) {
                     break;
                 }
@@ -123,12 +95,8 @@ public class teleop extends Krusher99 {
                     break;
                 }
                 if (THing < 0/*VALUE TO GET RIGHT DISTANCE*/) {
-                    frontL.setPower(1);
-                    frontR.setPower(1);
-                    middleR.setPower(1);
-                    middleL.setPower(1);
-                    backR.setPower(1);
-                    backL.setPower(1);
+                    left.setPower(1);
+                    right.setPower(1);
                 }
             }
         }
@@ -139,19 +107,11 @@ public class teleop extends Krusher99 {
         THing = 0;
         while (true){
             if(!toggled) {
-                frontL.setPower(-1);
-                frontR.setPower(1);
-                middleL.setPower(-1);
-                middleR.setPower(1);
-                backL.setPower(-1);
-                backR.setPower(1);
+                left.setPower(-1);
+                right.setPower(1);
             } else {
-                frontL.setPower(1);
-                frontR.setPower(-1);
-                middleL.setPower(1);
-                middleR.setPower(-1);
-                backL.setPower(1);
-                backR.setPower(-1);
+                left.setPower(1);
+                right.setPower(-1);
             }
             if(testthing > 0/*WHITE*/){
                 break;
@@ -161,12 +121,8 @@ public class teleop extends Krusher99 {
                 break;
             }
             while(true){
-                frontL.setPower(1);
-                frontR.setPower(1);
-                middleR.setPower(1);
-                middleL.setPower(1);
-                backR.setPower(1);
-                backL.setPower(1);
+                left.setPower(1);
+                right.setPower(1);
                 if(testthing > 0/*WHITE*/){
                     break;
                 }
@@ -186,20 +142,12 @@ public class teleop extends Krusher99 {
                     break;
                 }
                 if(THing < 0/*VALUE TO GET RIGHT DISTANCE*/) {
-                    frontL.setPower(1);
-                    frontR.setPower(1);
-                    middleR.setPower(1);
-                    middleL.setPower(1);
-                    backR.setPower(1);
-                    backL.setPower(1);
+                    left.setPower(1);
+                    right.setPower(1);
                 }
                 if(THing >= 0/*VALUE TO GET RIGHT DISTANCE)*/) {
-                    frontL.setPower(0);
-                    frontR.setPower(0);
-                    middleR.setPower(0);
-                    middleL.setPower(0);
-                    backR.setPower(0);
-                    backL.setPower(0);
+                    left.setPower(0);
+                    right.setPower(0);
                     //INSERT LAUNCH CODE HERE
                 }
             }
@@ -211,19 +159,11 @@ public class teleop extends Krusher99 {
         if (gamepad1.start && gamepad1.back) requestOpModeStop();
 
         if(!toggled) {
-            frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 1
-            frontR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 2
-            middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 3
-            middleR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 4
-            backL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 5
-            backR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 6
+            left.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
+            right.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
         } else {
-            frontL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 1
-            frontR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 2
-            middleL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 3
-            middleR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 4
-            backL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 5
-            backR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 6
+            left.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x));
+            right.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x));
         }
 
         if (gamepad1.a && !recentToggle) {
@@ -240,7 +180,7 @@ public class teleop extends Krusher99 {
         telemetry.addData("Gsensorx", Gsensor.rawX());
         telemetry.addData("Gsensory", Gsensor.rawY());
         telemetry.addData("Gsensorz", Gsensor.rawZ());
-        telemetry.addData("Average Motor Speed", (frontL.getPower() + frontR.getPower() / 2) + "%");
+        telemetry.addData("Average Motor Speed", (left.getPower() + right.getPower() / 2) + "%");
         telemetry.addData("Runtime", getRuntime());
         telemetry.addData("OSesnor", ODsensor.getRawLightDetected());
         //telemetry.addData("Osensor2 connection", Osensor.getConnectionInfo());
