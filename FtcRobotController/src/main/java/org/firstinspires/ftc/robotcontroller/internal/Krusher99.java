@@ -16,7 +16,7 @@ public abstract class Krusher99 extends OpMode {
     protected ColorSensor sensor2;
     protected GyroSensor Gsensor;
     protected OpticalDistanceSensor ODsensor;
-    protected class Left {
+    private class Left {
         private DcMotor frontL;
         private DcMotor middleL;
         private DcMotor backL;
@@ -49,7 +49,7 @@ public abstract class Krusher99 extends OpMode {
             return out;
         }
     }
-    protected class Right {
+    private class Right {
         private DcMotor frontR;
         private DcMotor middleR;
         private DcMotor backR;
