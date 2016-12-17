@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.internal;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,8 +12,8 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  * Created by Robi on 12/15/2016.
  * PLEASE DRAFT CODE IN AUTREDALL THANKS!
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoRed")
-public class autonomous extends LinearOpMode {
+@Autonomous(name = "AutoRed")
+public class autonomous extends Krusher99Linear {
 
     private DcMotor frontL; // 1
     private DcMotor frontR; // 2
@@ -27,68 +28,9 @@ public class autonomous extends LinearOpMode {
     private boolean correctbeacon = false;// true is beacon on left
     private int t = 0;// timer
 
-    /*
-    Stuff we have drafted:
-
-    EVERYTHING but its loops are weird so we wanna unify it under one and then once we have all functions tested, we will copy and
-    paste it together.
-
-    Stuff needed put a "-" if coded and an "x" if tested "?" if currently working on and don't want other to mess with.
-    -find white line 0
-    -adjust to face beacon 1
-    -check beacon 2
-    ?push beacon 3
-    double check to make sure didnt push the wrong one 4
-    fix if broken 5
-    move to next white line 6
-    repeat find adjust and push 7
-    back up to edge of white line 8
-    use gyro sensor to turn perfectly to face ball and line up a shot 9
-    ?move and shoot 10
-    -park on thingy using sensor2 11
-    end 99
-     */
-
     @Override
     public void runOpMode() {
-        frontL = hardwareMap.dcMotor.get("Front Left"); // 1
-        frontR = hardwareMap.dcMotor.get("Front Right"); // 2
-
-        middleL = hardwareMap.dcMotor.get("Middle Left"); // 3
-        middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
-
-        backL = hardwareMap.dcMotor.get("Back Left"); // 5
-        backR = hardwareMap.dcMotor.get("Back Right"); // 6
-
-        sensor1 = hardwareMap.colorSensor.get("Up Sensor");
-        sensor2 = hardwareMap.colorSensor.get("Down Sensor");
-
-        frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 1
-        frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 2
-
-        middleL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 3
-        middleR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 4
-
-        backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 5
-        backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); //
-
-        frontL.setDirection(DcMotorSimple.Direction.REVERSE); // 1
-        frontR.setDirection(DcMotorSimple.Direction.REVERSE); // 2
-
-        middleL.setDirection(DcMotorSimple.Direction.REVERSE); // 4
-        middleR.setDirection(DcMotorSimple.Direction.FORWARD); // 3
-
-        backL.setDirection(DcMotorSimple.Direction.REVERSE); // 5
-        backR.setDirection(DcMotorSimple.Direction.FORWARD); // 6
-
-        frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 1
-        frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 2
-
-        middleL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 3
-        middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
-
-        backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
-        backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
+        runOnInit();
     }
 
     public void findwhiteline() {//phase 0

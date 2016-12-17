@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.internal;
 
+        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
         import com.qualcomm.robotcore.hardware.ColorSensor;
         import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,7 +13,8 @@ package org.firstinspires.ftc.robotcontroller.internal;
  * Draft and test simple functions here
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto Red All")
+@Disabled
+@Autonomous(name = "Auto Red All")
 public class AutoRedAll extends LinearOpMode {
     private DcMotor frontL; // 1
     private DcMotor frontR; // 2
@@ -30,10 +33,7 @@ public class AutoRedAll extends LinearOpMode {
         while(true){
             thing=sensor3.rawY();
             thing++;
-
-
         }
-
     }
     private void wherebetheline(){
         while(true){
