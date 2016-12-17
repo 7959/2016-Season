@@ -1,0 +1,15 @@
+Goals:
+
+ -    Stuff needed put a "-" if coded and an "x" if tested "?" if currently working on and don't want other to mess with.
+ -    -find white line
+ -    -adjust to face beacon
+ -    -check beacon
+ -    push beacon
+ -    double check to make sure didn't push the wrong one
+ -    fix if broken
+ -    move to next white line
+ -    repeat find adjust and push
+ -    back up to edge of white line
+ -    use gyro sensor to turn perfectly to face ball and line up a shot
+ -    move and shoot
+ -    park on thingy using sensor2
