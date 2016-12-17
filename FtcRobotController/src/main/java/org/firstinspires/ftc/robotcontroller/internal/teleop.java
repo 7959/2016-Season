@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
  */
 
 
-@TeleOp(name="Default TeleOp", group = "TeleOps")
+@TeleOp(name="Semi-Auto TeleOp", group = "TeleOps")
 public class teleop extends OpMode {
 
 
@@ -31,7 +31,8 @@ public class teleop extends OpMode {
     private ColorSensor sensor2;
     private GyroSensor Gsensor;
     private OpticalDistanceSensor thinG;
-    private boolean thing = false;
+    private boolean recentToggle = false;
+    private boolean toggled = false;
     private boolean Thing = false;
     private int THing = 0;
     
@@ -127,7 +128,7 @@ public class teleop extends OpMode {
         Thing = false;
         THing = 0;
         while (true) {
-            if (!thing) {
+            if (!toggled) {
                 frontL.setPower(1);
                 frontR.setPower(-1);
                 middleL.setPower(1);
@@ -188,7 +189,7 @@ public class teleop extends OpMode {
         Thing = false;
         THing = 0;
         while (true){
-            if(!thing) {
+            if(!toggled) {
                 frontL.setPower(-1);
                 frontR.setPower(1);
                 middleL.setPower(-1);
@@ -258,8 +259,9 @@ public class teleop extends OpMode {
 
     @Override
     public void loop(){
-        if (gamepad1.start && gamepad1.back && gamepad2.start && gamepad2.back) requestOpModeStop();
-        if(!thing) {
+        if (gamepad1.start && gamepad1.back) requestOpModeStop();
+
+        if(!toggled) {
             frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 1
             frontR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 2
             middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 3
@@ -274,33 +276,22 @@ public class teleop extends OpMode {
             backL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 5
             backR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 6
         }
-        /*if(gamepad1.left_bumper == true){
-            pushbotL();
-        }
-        if(gamepad1.right_bumper == true){
-            pushbotR();
-        }*/
-        if(gamepad1.a == true){
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                telemetry.addData("Error", "Would not sleep");
-            }
-            if(thing == true){
-                thing = false;
-            }
-            else thing = true;
-        }
+
+        if (gamepad1.a && !recentToggle) {
+            recentToggle = true;
+            toggled = !toggled;
+        } else if (!gamepad1.a) recentToggle = false;
+
         telemetry.addData("Dblue", sensor2.blue());
         telemetry.addData("Dgreen", sensor2.green());
         telemetry.addData("Dred", sensor2.red());
         telemetry.addData("Ublue", sensor1.blue());
         telemetry.addData("Ugreen", sensor1.green());
         telemetry.addData("Ured", sensor1.red());
-        telemetry.addData("Gsensory", Gsensor.rawY());
         telemetry.addData("Gsensorx", Gsensor.rawX());
+        telemetry.addData("Gsensory", Gsensor.rawY());
         telemetry.addData("Gsensorz", Gsensor.rawZ());
-        telemetry.addData("Motor Speed", (frontL.getPower() + frontR.getPower() / 2) + "%");
+        telemetry.addData("Average Motor Speed", (frontL.getPower() + frontR.getPower() / 2) + "%");
         telemetry.addData("Runtime", getRuntime());
         telemetry.addData("OSesnor", thinG.getRawLightDetected());
         //telemetry.addData("Osensor2 connection", Osensor.getConnectionInfo());
