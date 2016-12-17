@@ -12,16 +12,16 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
  */
 
 public abstract class Krusher99 extends OpMode {
-    public DcMotor frontL; // 1
-    public DcMotor frontR; // 2
-    public DcMotor backL; // 3
-    public DcMotor backR; // 4
-    public DcMotor middleL; // 5
-    public DcMotor middleR; // 6
-    public ColorSensor sensor1;
-    public ColorSensor sensor2;
-    public GyroSensor Gsensor;
-    public OpticalDistanceSensor ODsensor;
+    protected DcMotor frontL; // 1
+    protected DcMotor frontR; // 2
+    protected DcMotor backL; // 3
+    protected DcMotor backR; // 4
+    protected DcMotor middleL; // 5
+    protected DcMotor middleR; // 6
+    protected ColorSensor sensor1;
+    protected ColorSensor sensor2;
+    protected GyroSensor Gsensor;
+    protected OpticalDistanceSensor ODsensor;
     @Override
     public void init() {
         frontL = hardwareMap.dcMotor.get("Front Left"); // 1

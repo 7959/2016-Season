@@ -14,16 +14,6 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  */
 @Autonomous(name = "AutoRed")
 public class autonomous extends Krusher99Linear {
-
-    private DcMotor frontL; // 1
-    private DcMotor frontR; // 2
-    private DcMotor backL; // 3
-    private DcMotor backR; // 4
-    private DcMotor middleL; // 5
-    private DcMotor middleR; // 6
-    private ColorSensor sensor1;
-    private ColorSensor sensor2;
-    private GyroSensor sensor3;
     private int phase = 0;// phase of autonomous duh
     private boolean correctbeacon = false;// true is beacon on left
     private int t = 0;// timer
