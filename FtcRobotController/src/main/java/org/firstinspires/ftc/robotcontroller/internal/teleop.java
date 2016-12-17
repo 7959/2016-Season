@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
  * Created by Team 7959 on 10/4/2016.
- *I fucked up but Ill fix it and make it better than ever!
+ * I fucked up but Ill fix it and make it better than ever!
  * Jasera's Wolf Head
  */
 
