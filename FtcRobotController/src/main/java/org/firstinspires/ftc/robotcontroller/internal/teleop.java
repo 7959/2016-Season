@@ -32,7 +32,6 @@ public class teleop extends OpMode {
     private boolean thing = false;
     private boolean Thing = false;
     private int THing = 0;
-    private boolean REPLACEMELATER = false;
     
 
     @Override
@@ -84,8 +83,7 @@ public class teleop extends OpMode {
                 middleL.setPower(0);
                 backR.setPower(1);
                 backL.setPower(0);
-            }
-            if (testthing > 1/*WHITE*/) {
+            } else {
                 frontL.setPower(1);
                 frontR.setPower(0);
                 middleR.setPower(0);
@@ -111,8 +109,7 @@ public class teleop extends OpMode {
                 backR.setPower(1);
                 backL.setPower(0);
                 testthing++;
-            }
-            if(gamepad2.y = true/*WHITE*/) {
+            } else {
                 frontL.setPower(1);
                 frontR.setPower(0);
                 middleR.setPower(0);
@@ -121,8 +118,7 @@ public class teleop extends OpMode {
                 backL.setPower(1);
                 test2++;
                 testthing = 0;
-        }
-
+            }
         }
     }
     public void aimbotR() {
@@ -136,8 +132,7 @@ public class teleop extends OpMode {
                 middleR.setPower(-1);
                 backL.setPower(1);
                 backR.setPower(-1);
-            }
-            if (thing) {
+            } else {
                 frontL.setPower(-1);
                 frontR.setPower(1);
                 middleL.setPower(-1);
@@ -198,8 +193,7 @@ public class teleop extends OpMode {
                 middleR.setPower(1);
                 backL.setPower(-1);
                 backR.setPower(1);
-            }
-            if(thing){
+            } else {
                 frontL.setPower(1);
                 frontR.setPower(-1);
                 middleL.setPower(1);
@@ -235,7 +229,6 @@ public class teleop extends OpMode {
                 } catch (InterruptedException e) {
                     telemetry.addData("Error", "Would not sleep");
                 }
-
                 if(gamepad1.b){
                     Thing = true;
                     break;
@@ -248,7 +241,7 @@ public class teleop extends OpMode {
                     backR.setPower(1);
                     backL.setPower(1);
                 }
-                if(THing >= 0/*VALUE TO GET RIGHT DISTANCE)*/){
+                if(THing >= 0/*VALUE TO GET RIGHT DISTANCE)*/) {
                     frontL.setPower(0);
                     frontR.setPower(0);
                     middleR.setPower(0);
@@ -256,13 +249,9 @@ public class teleop extends OpMode {
                     backR.setPower(0);
                     backL.setPower(0);
                     //INSERT LAUNCH CODE HERE
-                } else THing++;
-
-
+                }
             }
         }
-
-
     }
 
     @Override
