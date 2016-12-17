@@ -29,10 +29,10 @@ public class teleop extends OpMode {
     private ColorSensor sensor1;
     private ColorSensor sensor2;
     private GyroSensor Gsensor;
-    boolean thing = false;
-    boolean Thing = false;
-    int THing = 0;
-    boolean REPLACEMELATER = false;
+    private boolean thing = false;
+    private boolean Thing = false;
+    private int THing = 0;
+    private boolean REPLACEMELATER = false;
     
 
     @Override
@@ -74,7 +74,7 @@ public class teleop extends OpMode {
     }
     public void pushbotL() {
         while (true) {
-            if (gamepad1.b == true) {
+            if (gamepad1.b) {
                 break;
             }
             if (testthing < 1/*WHITE*/) {
@@ -95,11 +95,11 @@ public class teleop extends OpMode {
             }
         }
     }
-    int testthing = 0;
-    int test2 = 0;
+    private int testthing = 0;
+    private int test2 = 0;
     public void pushbotR() {
         while (true) {
-            if (gamepad1.b == true) {
+            if (gamepad1.b) {
 
                 break;
             }
@@ -137,7 +137,7 @@ public class teleop extends OpMode {
                 backL.setPower(1);
                 backR.setPower(-1);
             }
-            if (thing == true) {
+            if (thing) {
                 frontL.setPower(-1);
                 frontR.setPower(1);
                 middleL.setPower(-1);
@@ -148,7 +148,7 @@ public class teleop extends OpMode {
             if (testthing > 0/*WHITE*/) {
                 break;
             }
-            if (gamepad1.b == true) {
+            if (gamepad1.b) {
                 Thing = true;
                 break;
             }
@@ -171,7 +171,7 @@ public class teleop extends OpMode {
                     telemetry.addData("Error", "Would not sleep");
                 }
 
-                if (gamepad1.b == true) {
+                if (gamepad1.b) {
                     Thing = true;
                     break;
                 }
@@ -199,7 +199,7 @@ public class teleop extends OpMode {
                 backL.setPower(-1);
                 backR.setPower(1);
             }
-            if(thing == true){
+            if(thing){
                 frontL.setPower(1);
                 frontR.setPower(-1);
                 middleL.setPower(1);
@@ -210,9 +210,9 @@ public class teleop extends OpMode {
             if(testthing > 0/*WHITE*/){
                 break;
             }
-            if(gamepad1.b == true){
+            if(gamepad1.b){
                 Thing = true;
-                        break;
+                break;
             }
             while(true){
                 frontL.setPower(1);
@@ -224,7 +224,7 @@ public class teleop extends OpMode {
                 if(testthing > 0/*WHITE*/){
                     break;
                 }
-                if (gamepad1.b == true) {
+                if (gamepad1.b) {
                     Thing = true;
                     break;
                 }
@@ -236,7 +236,7 @@ public class teleop extends OpMode {
                     telemetry.addData("Error", "Would not sleep");
                 }
 
-                if(gamepad1.b == true){
+                if(gamepad1.b){
                     Thing = true;
                     break;
                 }
@@ -275,8 +275,7 @@ public class teleop extends OpMode {
             middleR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 4
             backL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x); // 5
             backR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x); // 6
-        }
-        if(thing == true) {
+        } else {
             frontL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 1
             frontR.setPower(-(gamepad1.left_stick_y - gamepad1.left_stick_x)); // 2
             middleL.setPower(-(gamepad1.left_stick_y + gamepad1.left_stick_x)); // 3
