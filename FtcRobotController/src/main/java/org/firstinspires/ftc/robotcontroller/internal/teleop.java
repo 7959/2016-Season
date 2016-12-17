@@ -310,6 +310,7 @@ public class teleop extends OpMode {
         telemetry.addData("Gsensory", Gsensor.rawY());
         telemetry.addData("Gsensorx", Gsensor.rawX());
         telemetry.addData("Gsensorz", Gsensor.rawZ());
+
         //telemetry.addData("Osensor2 connection", Osensor.getConnectionInfo());;
 
     }
