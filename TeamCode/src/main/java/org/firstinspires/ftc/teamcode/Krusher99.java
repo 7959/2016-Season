@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.internal;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -16,7 +16,7 @@ public abstract class Krusher99 extends OpMode {
     protected ColorSensor sensor2;
     protected GyroSensor Gsensor;
     protected OpticalDistanceSensor ODsensor;
-    private class Left {
+    protected class Left {
         private DcMotor frontL;
         private DcMotor middleL;
         private DcMotor backL;
@@ -49,7 +49,7 @@ public abstract class Krusher99 extends OpMode {
             return out;
         }
     }
-    private class Right {
+    protected class Right {
         private DcMotor frontR;
         private DcMotor middleR;
         private DcMotor backR;
