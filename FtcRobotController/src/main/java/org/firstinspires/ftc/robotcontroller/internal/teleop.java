@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 
 /**
@@ -29,6 +30,7 @@ public class teleop extends OpMode {
     private ColorSensor sensor1;
     private ColorSensor sensor2;
     private GyroSensor Gsensor;
+    private OpticalDistanceSensor thinG;
     private boolean thing = false;
     private boolean Thing = false;
     private int THing = 0;
@@ -277,10 +279,10 @@ public class teleop extends OpMode {
         }
         if(gamepad1.right_bumper == true){
             pushbotR();
-        }
+        }*/
         if(gamepad1.a == true){
             try {
-                Thread.sleep(250);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 telemetry.addData("Error", "Would not sleep");
             }
@@ -288,7 +290,7 @@ public class teleop extends OpMode {
                 thing = false;
             }
             else thing = true;
-        }*/
+        }
         telemetry.addData("Dblue", sensor2.blue());
         telemetry.addData("Dgreen", sensor2.green());
         telemetry.addData("Dred", sensor2.red());
@@ -298,8 +300,9 @@ public class teleop extends OpMode {
         telemetry.addData("Gsensory", Gsensor.rawY());
         telemetry.addData("Gsensorx", Gsensor.rawX());
         telemetry.addData("Gsensorz", Gsensor.rawZ());
-        telemetry.addData("Speed", (frontL.getPower() + frontR.getPower() / 2) + "%");
+        telemetry.addData("Motor Speed", (frontL.getPower() + frontR.getPower() / 2) + "%");
         telemetry.addData("Runtime", getRuntime());
+        telemetry.addData("OSesnor", thinG.getRawLightDetected());
         //telemetry.addData("Osensor2 connection", Osensor.getConnectionInfo());
 
     }

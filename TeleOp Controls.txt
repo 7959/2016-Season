@@ -1,17 +1,14 @@
 Gamepad 1:
 	Left joystick: Movement
-	Left bumper: Rotate left
-	Right bumper: Rotate right
-	D-Pad left: Retract poker
-	D-Pad right: Extend poker
-	Start: If Gamepad 2's start button is also pressed, end the OpMode.
-Gamepad 2:
-	X: Hold to Reload
-	A: Shoot
-	B: Press slightly after each shoot to allow reloading
-	Right bumper: Reverse loader (In case of jam)
-	D-Pad up: Aim launcher upwards
-	D-Pad down: Aim launcher downwards
-	D-Pad left: If Gamepad 1 is not trying to move the robot, rotates the robot left.
-	D-Pad right: If Gamepad 1 is not trying to move the robot, rotates the robot right.
-	Start: If Gamepad 1's start button is also pressed, end the OpMode.
+	Left bumper: execute automatic beacon push when robot is right of line
+	Right bumper: execute automatic beacon push when robot is left of line
+	Right Trigger: manual fire
+	Left Trigger: load/Pick up ball
+	X: automatic fire to vortex(start on points of reference)
+	B: Cancel any automated program and regain control
+	A: Inverts movement to allow easier shooting from back
+	Hold D-pad down: Give control to autonomous program to push ALL beacons starting from line1
+	Hold D-pad down: Give control to autonomous program to push ALL beacons starting from line2
+	Hold D-pad down: Give control to autonomous program to push ALL beacons starting from line3
+	Hold D-pad down: Give control to autonomous program to push ALL beacons starting from line4
+
