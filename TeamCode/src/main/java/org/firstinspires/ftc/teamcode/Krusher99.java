@@ -16,6 +16,35 @@ public abstract class Krusher99 extends OpMode {
     protected ColorSensor sensor2;
     protected GyroSensor Gsensor;
     protected OpticalDistanceSensor ODsensor;
+    protected class LaunCher{
+        private DcMotor Right;
+        private DcMotor LeftWHalE;
+        public void init(){
+            Right = hardwareMap.dcMotor.get("PewPewLeft");
+            LeftWHalE = hardwareMap.dcMotor.get("PewPewRight");
+
+            Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            LeftWHalE.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            Right.setDirection(DcMotorSimple.Direction.FORWARD);
+            LeftWHalE.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            LeftWHalE.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+        }
+        public void setPower(double power){
+            Right.setPower(power);
+            LeftWHalE.setPower(power);
+        }
+        public void getPower(){
+            double out = Right.getPower() + LeftWHalE.getPower();
+            out/=2;
+        }
+
+
+
+    }
     protected class Left {
         private DcMotor frontL;
         private DcMotor middleL;
@@ -82,16 +111,19 @@ public abstract class Krusher99 extends OpMode {
             return out;
         }
     }
+    protected LaunCher launcher;
     protected Left left;
     protected Right right;
     @Override
     public void init() {
         left.init();
         right.init();
+        launcher.init();
 
         sensor1 = hardwareMap.colorSensor.get("Up Sensor");
         sensor2 = hardwareMap.colorSensor.get("Down Sensor");
         Gsensor = hardwareMap.gyroSensor.get("Gyro Sensor");
         ODsensor = hardwareMap.opticalDistanceSensor.get("OD Sensor");
+
     }
 }

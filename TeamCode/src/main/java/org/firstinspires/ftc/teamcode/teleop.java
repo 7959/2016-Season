@@ -182,6 +182,7 @@ public class teleop extends Krusher99 {
         telemetry.addData("Gsensorz", Gsensor.rawZ());
         telemetry.addData("Average Motor Speed", (left.getPower() + right.getPower() / 2) + "%");
         telemetry.addData("Runtime", getRuntime());
+
         telemetry.addData("OSesnor", ODsensor.getRawLightDetected());
         //telemetry.addData("Osensor2 connection", Osensor.getConnectionInfo());
 

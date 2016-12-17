@@ -17,6 +17,8 @@ public class autonomous extends Krusher99Linear {
     private int phase = 0;// phase of autonomous duh
     private boolean correctbeacon = false;// true is beacon on left
     private int t = 0;// timer
+    private int tt = 0;
+    private boolean pushError = false;
 
     @Override
     public void runOpMode() {
@@ -68,6 +70,45 @@ public class autonomous extends Krusher99Linear {
             } catch (InterruptedException e) {
                 telemetry.addData("Error", "Robot.exe has insomnia");
             }
+        }
+    }
+    public void selfcheck(){//set t = 0 before
+        if(sensor1.blue() >= 3 && sensor1.red() < 2){
+            pushError=true;
+        }
+        if(t < 200){
+            frontL.setPower(-.5);
+            frontR.setPower(-.5);
+            middleR.setPower(-.5);
+            middleL.setPower(-.5);
+            backR.setPower(-.5);
+            backL.setPower(-.5);
+        } else if(pushError){
+            phase=5;
+        }else frontL.setPower(0);
+        frontR.setPower(0);
+        middleR.setPower(0);
+        middleL.setPower(0);
+        backR.setPower(0);
+        backL.setPower(0);
+    }
+    public void selfcorrect() {//set t = 0
+        if (!pushError) {
+            phase = 6;
+        } else if (t < 4900) {
+            frontL.setPower(0);
+            frontR.setPower(0);
+            middleR.setPower(0);
+            middleL.setPower(0);
+            backR.setPower(0);
+            backL.setPower(0);
+        } else if (tt < 300) {
+            frontL.setPower(.5);
+            frontR.setPower(.5);
+            middleR.setPower(.5);
+            middleL.setPower(.5);
+            backR.setPower(.5);
+            backL.setPower(.5);
         }
     }
 
