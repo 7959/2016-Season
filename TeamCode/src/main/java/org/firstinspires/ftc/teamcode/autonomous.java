@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode;
-
+import hack.exe;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -33,7 +33,7 @@ public class autonomous extends Krusher99Linear {
         backR.setPower(1);
         backL.setPower(1);
         if (sensor2.red() > -1/*white*/) {
-            phase = 1;
+            phase++;
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -58,7 +58,7 @@ public class autonomous extends Krusher99Linear {
         backR.setPower(1);
         backL.setPower(-1);
         if (sensor2.red() > -1/*white*/) {
-            phase = 2;
+            phase++;
             frontL.setPower(0);
             frontR.setPower(0);
             middleR.setPower(0);
@@ -84,7 +84,7 @@ public class autonomous extends Krusher99Linear {
             backR.setPower(-.5);
             backL.setPower(-.5);
         } else if(pushError){
-            phase=5;
+            phase++;
         }else frontL.setPower(0);
         frontR.setPower(0);
         middleR.setPower(0);
@@ -94,7 +94,7 @@ public class autonomous extends Krusher99Linear {
     }
     public void selfcorrect() {//set t = 0
         if (!pushError) {
-            phase = 6;
+            phase++;
         } else if (t < 4900) {
             frontL.setPower(0);
             frontR.setPower(0);
@@ -113,14 +113,14 @@ public class autonomous extends Krusher99Linear {
     }
 
 
-    public void followline() {//phase2
+    public void followline() {//phase2 Robot may need timer start to get slightly closer to beacon
         if (sensor1.red() >= 3 || sensor1.blue() >= 3) {
             if(sensor1.red() > 3 && sensor1.blue() < 2){
-                phase = 3;
+                phase++;
                 correctbeacon = true;
             }
             if(sensor1.blue() > 3 && sensor1.red() < 2){
-                phase = 3;
+                phase++;
                 correctbeacon = false;
             }
         }
@@ -138,9 +138,43 @@ public class autonomous extends Krusher99Linear {
         backR.setPower(0);
         backL.setPower(1);
     }
-    public void pushbeacon(){
-
-        } //CODE FOR PUSHY THING
+    public void aimbeacon() {//next
+        if (correctbeacon == true) {
+            frontL.setPower(0.5);
+            frontR.setPower(-.5);
+            middleR.setPower(-0.5);
+            middleL.setPower(0.5);
+            backR.setPower(-0.5);
+            backL.setPower(0.5);
+            if (sensor2.red() >= -1/*white*/) {
+                frontL.setPower(0);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                middleL.setPower(0);
+                backR.setPower(0);
+                backL.setPower(0);
+                phase++;
+            }
+        }
+        if (correctbeacon == false) {
+            frontL.setPower(-0.5);
+            frontR.setPower(0.5);
+            middleR.setPower(0.5);
+            middleL.setPower(-0.5);
+            backR.setPower(0.5);
+            backL.setPower(-0.5);
+            if (sensor2.red() >= -1/*white*/) {
+                frontL.setPower(0);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                middleL.setPower(0);
+                backR.setPower(0);
+                backL.setPower(0);
+                phase++;
+            }
+        }
+    }
+         //CODE FOR PUSHY THING
 
 
 
@@ -171,7 +205,7 @@ public class autonomous extends Krusher99Linear {
         backR.setPower(1);
         backL.setPower(1);
         if(sensor2.red() > -1/*floorred*/){
-            phase=11;
+            phase++;
             t=0;
         }
     }
