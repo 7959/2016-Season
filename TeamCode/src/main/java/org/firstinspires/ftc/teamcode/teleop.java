@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
  * Created by Team 7959 on 10/4/2016.
- * I fucked up but Ill fix it and make it better than ever!
+ * Cookie
  * Jasera's Wolf Head
  */
 
