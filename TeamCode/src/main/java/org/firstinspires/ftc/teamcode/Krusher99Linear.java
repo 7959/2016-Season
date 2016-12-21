@@ -36,7 +36,9 @@ public abstract class Krusher99Linear extends LinearOpMode {
         launcherL = hardwareMap.dcMotor.get("PewPewLeft");
         launcherR = hardwareMap.dcMotor.get("PewPewRight");
         sensor1 = hardwareMap.colorSensor.get("Up Sensor");
+        sensor1.setI2cAddress(I2cAddr.create8bit(0x40));
         sensor2 = hardwareMap.colorSensor.get("Down Sensor");
+        sensor2.setI2cAddress(I2cAddr.create8bit(0x41));
         Gsensor = hardwareMap.gyroSensor.get("Gyro Sensor");
         ODsensor = hardwareMap.opticalDistanceSensor.get("OD Sensor");
         frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 1

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 /**
@@ -31,7 +32,6 @@ public abstract class Krusher99 extends OpMode {
 
             Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             LeftWHalE.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
         }
         public void setPower(double power){
             Right.setPower(power);
@@ -121,9 +121,10 @@ public abstract class Krusher99 extends OpMode {
         launcher.init();
 
         sensor1 = hardwareMap.colorSensor.get("Up Sensor");
+        sensor1.setI2cAddress(I2cAddr.create8bit(0x40));
         sensor2 = hardwareMap.colorSensor.get("Down Sensor");
+        sensor2.setI2cAddress(I2cAddr.create8bit(0x41));
         Gsensor = hardwareMap.gyroSensor.get("Gyro Sensor");
         ODsensor = hardwareMap.opticalDistanceSensor.get("OD Sensor");
-
     }
 }
