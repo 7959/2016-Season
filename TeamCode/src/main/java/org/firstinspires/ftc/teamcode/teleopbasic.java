@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynchImplOnSimple;
 
 /**
  * Created by Joseph on 12/17/2016.
@@ -60,6 +62,7 @@ public class teleopbasic extends OpMode {
         backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
         launcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        
     }
     public void loop() {
         frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
