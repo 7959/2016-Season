@@ -28,6 +28,7 @@ public class teleopbasic extends OpMode {
     protected ColorSensor sensor2;
     protected GyroSensor Gsensor;
     protected OpticalDistanceSensor ODsensor;
+    protected I2cDeviceSynchImpl sensor1imp = new I2cDeviceSynchImpl(, sensor1.getI2cAddress(), false);
     public void init() {
         frontL = hardwareMap.dcMotor.get("Front Left"); // 1
         frontR = hardwareMap.dcMotor.get("Front Right"); // 2
