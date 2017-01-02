@@ -21,8 +21,7 @@ public abstract class Krusher99Linear extends LinearOpMode {
     protected DcMotor backR; // 4
     protected DcMotor middleL; // 5
     protected DcMotor middleR; // 6
-    protected DcMotor launcherL;
-    protected DcMotor launcherR;
+    protected DcMotor launcher;
     protected ColorSensor sensor1;
     protected ColorSensor sensor2;
     protected GyroSensor Gsensor;
@@ -34,8 +33,7 @@ public abstract class Krusher99Linear extends LinearOpMode {
         middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
         backL = hardwareMap.dcMotor.get("Back Left"); // 5
         backR = hardwareMap.dcMotor.get("Back Right"); // 6
-        launcherL = hardwareMap.dcMotor.get("PewPewLeft");
-        launcherR = hardwareMap.dcMotor.get("PewPewRight");
+        launcher = hardwareMap.dcMotor.get("Launcher");
         sensor1 = hardwareMap.colorSensor.get("Up Sensor");
         sensor1.setI2cAddress(I2cAddr.create8bit(0x40));
         sensor2 = hardwareMap.colorSensor.get("Down Sensor");
@@ -48,8 +46,7 @@ public abstract class Krusher99Linear extends LinearOpMode {
         middleR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 4
         backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 5
         backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 6
-        launcherL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        launcherR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontL.setDirection(DcMotorSimple.Direction.FORWARD); // 1
         frontR.setDirection(DcMotorSimple.Direction.FORWARD); // 2
         middleL.setDirection(DcMotorSimple.Direction.FORWARD); // 4
@@ -62,7 +59,6 @@ public abstract class Krusher99Linear extends LinearOpMode {
         middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
         backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
-        launcherL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        launcherR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        launcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
 }
