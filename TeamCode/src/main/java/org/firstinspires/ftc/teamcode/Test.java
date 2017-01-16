@@ -78,7 +78,21 @@ public class Test extends OpMode {
         telemetry.addData("Gconninfo", Gsensor.getConnectionInfo());
     }
     public void loop(){
-        telemetry.update();
+        telemetry.addData("sg2", sensor2.green());
+        telemetry.addData("sr2", sensor2.red());
+        telemetry.addData("sb2", sensor2.blue());
+        telemetry.addData("timer", getRuntime());
+        telemetry.addData("sg1", sensor1.green());
+        telemetry.addData("sr1", sensor1.red());
+        telemetry.addData("sb1", sensor1.blue());
+        telemetry.addData("y", Gsensor.rawY());
+        telemetry.addData("x", Gsensor.rawX());
+        telemetry.addData("Z", Gsensor.rawZ());
+        telemetry.addData("ads1", sensor1.getI2cAddress());
+        telemetry.addData("ads2", sensor2.getI2cAddress());
+        telemetry.addData("conninfo1", sensor1.getConnectionInfo());
+        telemetry.addData("conninfo2", sensor2.getConnectionInfo());
+        telemetry.addData("Gconninfo", Gsensor.getConnectionInfo());
 
 
     }
