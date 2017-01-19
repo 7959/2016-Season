@@ -38,11 +38,11 @@ public class Test extends OpMode {
         middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
         backL = hardwareMap.dcMotor.get("Back Left"); // 5
         backR = hardwareMap.dcMotor.get("Back Right"); // 6
-        */launcher = hardwareMap.dcMotor.get("Launcher");
+        *///launcher = hardwareMap.dcMotor.get("Launcher");
 
         //dim = hardwareMap.deviceInterfaceModule.get("dim");
 
-        launcher2 = hardwareMap.dcMotor.get("Launcher2");
+        //launcher2 = hardwareMap.dcMotor.get("Launcher2");
         sensor1 = hardwareMap.colorSensor.get("Up Sensor");
         sensor1.setI2cAddress(I2cAddr.create7bit(0x1e));
         sensor2 = hardwareMap.colorSensor.get("Down Sensor");
@@ -70,8 +70,8 @@ public class Test extends OpMode {
         middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
         backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
-        */launcher2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        launcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        *///launcher2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        //launcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         telemetry.addData("sg2", sensor2.green());
         telemetry.addData("sr2", sensor2.red());
         telemetry.addData("sb2", sensor2.blue());
@@ -79,10 +79,10 @@ public class Test extends OpMode {
         telemetry.addData("sg1", sensor1.green());
         telemetry.addData("sr1", sensor1.red());
         telemetry.addData("sb1", sensor1.blue());
-        telemetry.addData("y", Gsensor.rawY());
+        /*telemetry.addData("y", Gsensor.rawY());
         telemetry.addData("x", Gsensor.rawX());
         telemetry.addData("Z", Gsensor.rawZ());
-        telemetry.addData("ads1", sensor1.getI2cAddress());
+        */telemetry.addData("ads1", sensor1.getI2cAddress());
         telemetry.addData("ads2", sensor2.getI2cAddress());
         telemetry.addData("conninfo1", sensor1.getConnectionInfo());
         telemetry.addData("conninfo2", sensor2.getConnectionInfo());
