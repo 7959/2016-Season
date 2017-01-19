@@ -40,14 +40,14 @@ public class Test extends OpMode {
         backR = hardwareMap.dcMotor.get("Back Right"); // 6
         */launcher = hardwareMap.dcMotor.get("Launcher");
 
-        dim = hardwareMap.deviceInterfaceModule.get("dim");
+        //dim = hardwareMap.deviceInterfaceModule.get("dim");
 
         launcher2 = hardwareMap.dcMotor.get("Launcher2");
         sensor1 = hardwareMap.colorSensor.get("Up Sensor");
-        sensor1.setI2cAddress(I2cAddr.create8bit(0x40));
+        sensor1.setI2cAddress(I2cAddr.create7bit(0x1e));
         sensor2 = hardwareMap.colorSensor.get("Down Sensor");
-        sensor2.setI2cAddress(I2cAddr.create8bit(0x46));
-        Gsensor = hardwareMap.gyroSensor.get("Gyro Sensor");
+        sensor2.setI2cAddress(I2cAddr.create8bit(0x1d));
+        //Gsensor = hardwareMap.gyroSensor.get("Gyro Sensor");
         //ODsensor = hardwareMap.opticalDistanceSensor.get("OD Sensor");
         /*frontL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 1
         frontR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 2
@@ -56,8 +56,8 @@ public class Test extends OpMode {
         backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 5
         backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 6
         */
-        launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        launcher2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //launcher2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         /*.setDirection(DcMotorSimple.Direction.FORWARD); // 1
         frontR.setDirection(DcMotorSimple.Direction.FORWARD); // 2
         middleL.setDirection(DcMotorSimple.Direction.FORWARD); // 4
@@ -87,9 +87,9 @@ public class Test extends OpMode {
         telemetry.addData("conninfo1", sensor1.getConnectionInfo());
         telemetry.addData("conninfo2", sensor2.getConnectionInfo());
         telemetry.addData("Gconninfo", Gsensor.getConnectionInfo());
-        dim.setLED(0x0, false);
-        dim.setLED(0x1, true);
-        dim.setLED(0x2, true);
+        //dim.setLED(0x0, false);
+        //dim.setLED(0x1, true);
+        //dim.setLED(0x2, true);
     }
     public void loop(){
         telemetry.addData("sg2", sensor2.green());
@@ -99,21 +99,21 @@ public class Test extends OpMode {
         telemetry.addData("sg1", sensor1.green());
         telemetry.addData("sr1", sensor1.red());
         telemetry.addData("sb1", sensor1.blue());
-        telemetry.addData("y", Gsensor.rawY());
-        telemetry.addData("x", Gsensor.rawX());
-        telemetry.addData("Z", Gsensor.rawZ());
+        //telemetry.addData("y", Gsensor.rawY());
+        //telemetry.addData("x", Gsensor.rawX());
+        //telemetry.addData("Z", Gsensor.rawZ());
         telemetry.addData("ads1", sensor1.getI2cAddress());
         telemetry.addData("ads2", sensor2.getI2cAddress());
         telemetry.addData("conninfo1", sensor1.getConnectionInfo());
         telemetry.addData("conninfo2", sensor2.getConnectionInfo());
-        telemetry.addData("Gconninfo", Gsensor.getConnectionInfo());
+        /*telemetry.addData("Gconninfo", Gsensor.getConnectionInfo());
         telemetry.addData("launcher Power", launcher.getPower());
         if(Gsensor.rawY()+Gsensor.rawX()+Gsensor.rawZ()>10000){
             launcher2.setPower(P +.1);
             launcher.setPower(P+.1);
-        }
+        */}
 
 
 
     }
-}
+
