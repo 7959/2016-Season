@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynchImplOnSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Joseph on 12/17/2016.
@@ -23,10 +24,11 @@ public class teleopbasic extends OpMode {
     protected DcMotor backR; // 4
     protected DcMotor middleL; // 5
     protected DcMotor middleR; // 6
+    //protected Servo Servo;
     //protected DcMotor launcher;
     //protected ColorSensor sensor1;
-    protected ColorSensor sensor2;
-    protected GyroSensor Gsensor;
+    //protected ColorSensor sensor2;
+    //protected GyroSensor Gsensor;
     //protected OpticalDistanceSensor ODsensor;
     //protected I2cDeviceSynchImpl sensor1imp = new I2cDeviceSynchImpl(, sensor1.getI2cAddress(), false);
     public void init() {
@@ -36,6 +38,7 @@ public class teleopbasic extends OpMode {
         middleR = hardwareMap.dcMotor.get("Middle Right"); // 4
         backL = hardwareMap.dcMotor.get("Back Left"); // 5
         backR = hardwareMap.dcMotor.get("Back Right"); // 6
+        //Servo = hardwareMap.servo.get("Servo");
         //launcher = hardwareMap.dcMotor.get("Launcher");
 
         //dim = hardwareMap.deviceInterfaceModule.get("dim");
@@ -48,37 +51,54 @@ public class teleopbasic extends OpMode {
         middleR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 4
         backL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 5
         backR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // 6
-
+        //Servo.setDirection(com.qualcomm.robotcore.hardware.Servo.Direction.FORWARD);
         //launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //launcher2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontL.setDirection(DcMotorSimple.Direction.FORWARD); // 1
-        frontR.setDirection(DcMotorSimple.Direction.FORWARD); // 2
-        middleL.setDirection(DcMotorSimple.Direction.REVERSE); // 4
-        middleR.setDirection(DcMotorSimple.Direction.FORWARD); // 3
-        backL.setDirection(DcMotorSimple.Direction.REVERSE); // 5
-        backR.setDirection(DcMotorSimple.Direction.FORWARD); // 6
+        frontL.setDirection(DcMotorSimple.Direction.REVERSE); // 1
+        frontR.setDirection(DcMotorSimple.Direction.REVERSE); // 2
+        middleL.setDirection(DcMotorSimple.Direction.FORWARD); // 4
+        middleR.setDirection(DcMotorSimple.Direction.REVERSE); // 3
+        backL.setDirection(DcMotorSimple.Direction.FORWARD); // 5
+        backR.setDirection(DcMotorSimple.Direction.REVERSE); // 6
         frontL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 1
         frontR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 2
         middleL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 3
         middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
         backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
+
     }
     public void loop() {
-        frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-        middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-        backL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-        frontL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-        middleL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-        backL.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
+        //if(!gamepad1.right_bumper) {
+            frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
+            middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
+            backL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
+            frontR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
+            middleR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
+            backR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
+        //} else {
+            /*frontL.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x)*.5);
+            middleL.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x)*.5);
+            backL.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x)*.5);
+            frontR.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x)*.5);
+            middleR.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x)*.5);
+            backR.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x)*.5);*/
+       // }
         //launcher.setPower(gamepad1.right_stick_y);
         //telemetry.addData("Fight klub", sensor1.getI2cAddress());
         //telemetry.addData("sg1", sensor1.green());
         //telemetry.addData("sr1", sensor1.red());
         //telemetry.addData("sb1", sensor1.blue());
-        telemetry.addData("sg2", sensor2.green());
-        telemetry.addData("sr2", sensor2.red());
-        telemetry.addData("sb2", sensor2.blue());
         //>3
+        /*if(gamepad1.right_bumper){
+            launcher.setMode(1);
+            launcher2.setMode(1);
+        } else {
+            launcher.setMode(0);
+            launcher2.setMode(0);
+        }
+        if(gamepad1.a){
+            Servo.setPosition((Servo.getPosition() + .1));
+        }*/
     }
 }

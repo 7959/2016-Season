@@ -41,21 +41,21 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  * This is an example LinearOpMode that shows how to use
  * the Modern Robotics Gyro.
  *
- * The op mode assumes that the gyro sensor
+ * The op mode assumes that the Gsensor sensor
  * is attached to a Device Interface Module I2C channel
- * and is configured with a name of "gyro".
+ * and is configured with a name of "Gsensor".
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
 */
 @TeleOp(name = "Sensor: MR Gyro", group = "Sensor")
-@Disabled
+//@Disabled
 public class SensorMRGyro extends LinearOpMode {
 
   @Override
   public void runOpMode() {
 
-    ModernRoboticsI2cGyro gyro;   // Hardware Device Object
+    ModernRoboticsI2cGyro Gsensor;   // Hardware Device Object
     int xVal, yVal, zVal = 0;     // Gyro rate Values
     int heading = 0;              // Gyro integrated heading
     int angleZ = 0;
@@ -63,15 +63,15 @@ public class SensorMRGyro extends LinearOpMode {
     boolean curResetState  = false;
 
     // get a reference to a Modern Robotics GyroSensor object.
-    gyro = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
+    Gsensor = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("Gyro Sensor");
 
-    // start calibrating the gyro.
+    // start calibrating the Gsensor.
     telemetry.addData(">", "Gyro Calibrating. Do Not move!");
     telemetry.update();
-    gyro.calibrate();
+    Gsensor.calibrate();
 
-    // make sure the gyro is calibrated.
-    while (!isStopRequested() && gyro.isCalibrating())  {
+    // make sure the Gsensor is calibrated.
+    while (!isStopRequested() && Gsensor.isCalibrating())  {
       sleep(50);
       idle();
     }
@@ -87,20 +87,20 @@ public class SensorMRGyro extends LinearOpMode {
       // if the A and B buttons are pressed just now, reset Z heading.
       curResetState = (gamepad1.a && gamepad1.b);
       if(curResetState && !lastResetState)  {
-        gyro.resetZAxisIntegrator();
+        Gsensor.resetZAxisIntegrator();
       }
       lastResetState = curResetState;
 
       // get the x, y, and z values (rate of change of angle).
-      xVal = gyro.rawX();
-      yVal = gyro.rawY();
-      zVal = gyro.rawZ();
+      xVal = Gsensor.rawX();
+      yVal = Gsensor.rawY();
+      zVal = Gsensor.rawZ();
 
       // get the heading info.
-      // the Modern Robotics' gyro sensor keeps
+      // the Modern Robotics' Gsensor sensor keeps
       // track of the current heading for the Z axis only.
-      heading = gyro.getHeading();
-      angleZ  = gyro.getIntegratedZValue();
+      heading = Gsensor.getHeading();
+      angleZ  = Gsensor.getIntegratedZValue();
 
       telemetry.addData(">", "Press A & B to reset Heading.");
       telemetry.addData("0", "Heading %03d", heading);

@@ -20,6 +20,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class RedThing extends OpMode {
         private int phase;
         private int cal = 0;
+        private boolean line;
+        private boolean RC = false;
+        private boolean LC = false;
         protected DcMotor frontL; // 1
         protected DcMotor frontR; // 2
         protected DcMotor backL; // 3
@@ -30,6 +33,7 @@ public class RedThing extends OpMode {
         //protected DcMotor launcher2;
         protected ColorSensor sensor1;
         protected ColorSensor sensor2;
+
         protected GyroSensor Gsensor;
         //protected DeviceInterfaceModule dim;
         private int P = 0;
@@ -75,18 +79,23 @@ public class RedThing extends OpMode {
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
         //launcher2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             //launcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            telemetry.addData("phase", phase);
             //dim.setLED(0x0, false);
             //dim.setLED(0x1, true);
             //dim.setLED(0x2, true);
         }
         public void loop(){
+            telemetry.addData("phase", phase);
             telemetry.addData("runtime", getRuntime());
-            telemetry.addData("Dsensor", sensor2.green());
-            telemetry.addData("Bsensor", sensor1.blue());
-            telemetry.addData("Rsensor", sensor1.red());
-            telemetry.addData("pointy thingy", cal);
-            if (phase == 0 || phase == 6) {
+            telemetry.addData("Line", sensor2.green());
+            telemetry.addData("Blue", sensor1.blue());
+            telemetry.addData("Red", sensor1.red());
+            telemetry.addData("FR", frontR.getPower());
+            telemetry.addData("FL", frontL.getPower());
+            telemetry.addData("MR", middleR.getPower());
+            telemetry.addData("ML", middleL.getPower());
+            telemetry.addData("BR", backR.getPower());
+            telemetry.addData("BL", backL.getPower());
+            if (phase == 0) {
                 telemetry.addData("phase", phase);
                 frontL.setPower(.5);
                 frontR.setPower(.5);
@@ -111,7 +120,7 @@ public class RedThing extends OpMode {
                 }
 
             }
-            if (phase == 1 || phase == 7) {
+            if (phase == 1) {
                 telemetry.addData("phase", phase);
                 frontL.setPower(-.1);
                 frontR.setPower(.1);
@@ -141,14 +150,14 @@ public class RedThing extends OpMode {
                 } catch (InterruptedException e) {
                     telemetry.addData("Oh noes", "Robot.exe has insomnia");
                 }
-                frontL.setPower(-.1);
-                frontR.setPower(.1);
-                middleR.setPower(.1);
-                middleL.setPower(-.1);
-                backR.setPower(.1);
-                backL.setPower(-.1);
-                cal++;
-                if(sensor2.green() < 3){
+
+                    frontL.setPower(-.1);
+                    frontR.setPower(.1);
+                    middleR.setPower(.1);
+                    middleL.setPower(-.1);
+                    backR.setPower(.1);
+                    backL.setPower(-.1);
+                if(sensor2.green() > 3){
                     phase++;
                     frontL.setPower(0);
                     frontR.setPower(0);
@@ -161,7 +170,6 @@ public class RedThing extends OpMode {
                     } catch (InterruptedException e) {
                         telemetry.addData("Oh noes", "Robot.exe has insomnia");
                     }
-                    cal=cal/2;
                 }
             }
             if(phase == 3){
@@ -177,7 +185,15 @@ public class RedThing extends OpMode {
                 backR.setPower(-.1);
                 backL.setPower(.1);*/
                 //cal--;
-                if (sensor1.green() >= 0) {
+                if (sensor1.green() == 0) {
+                    frontL.setPower(0.25);
+                    frontR.setPower(0);
+                    middleR.setPower(0);
+                    middleL.setPower(.25);
+                    backR.setPower(0);
+                    backL.setPower(.25);
+                }
+                if (sensor1.green() > 0) {
                     frontL.setPower(0);
                     frontR.setPower(.25);
                     middleR.setPower(.25);
@@ -185,15 +201,7 @@ public class RedThing extends OpMode {
                     backR.setPower(.25);
                     backL.setPower(0);
                 }
-                if (sensor1.green() <= 0) {
-                    frontL.setPower(0);
-                    frontR.setPower(.25);
-                    middleR.setPower(.25);
-                    middleL.setPower(0);
-                    backR.setPower(.25);
-                    backL.setPower(0);
-                }
-                if(sensor1.red() >= 3){
+                if(sensor1.red() >= 3 && sensor1.blue() <= 1){
                     phase++;
                     frontL.setPower(0);
                     frontR.setPower(0);
@@ -207,21 +215,180 @@ public class RedThing extends OpMode {
                         telemetry.addData("Oh noes", "Robot.exe has insomnia");
                     }
                 }
+                if(sensor1.blue() >= 3 && sensor1.red() <= 1){
+                    frontL.setPower(0);
+                    frontR.setPower(0);
+                    middleR.setPower(0);
+                    middleL.setPower(0);
+                    backR.setPower(0);
+                    backL.setPower(0);
+                    phase=100;
+                }
+                if(sensor2.green() > 0) {
+                    frontL.setPower(.25);
+                    frontR.setPower(-.25);
+                    middleR.setPower(-.25);
+                    middleL.setPower(.25);
+                    backR.setPower(-.25);
+                    backL.setPower(.25);
+                } else {
+                    frontL.setPower(-.25);
+                    frontR.setPower(.25);
+                    middleR.setPower(.25);
+                    middleL.setPower(-.25);
+                    backR.setPower(-.25);
+                }
             }
             if(phase==4){
-                telemetry.addData("phase", "YAY :D");
+                if(sensor2.green() > 0) {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        telemetry.addData("Oh noes", "Robot.exe has insomnia");
+                    }
+                    frontL.setPower(-.25);
+                    frontR.setPower(.25);
+                    middleR.setPower(.25);
+                    middleL.setPower(-.25);
+                    backR.setPower(.25);
+                    backL.setPower(-.25);
+                } else {
+                    RC = true;
+                    phase++;
+                }
+            }
+
+            if(phase==5){
+                if(sensor2.green() == 0 && !line){
                 frontL.setPower(.25);
+                frontR.setPower(-.25);
+                middleR.setPower(-.25);
+                middleL.setPower(.25);
+                backR.setPower(-.25);
+                backL.setPower(.25);
+                } else {
+                    line=true;
+                }
+
+                if(sensor2.green() > 0 && line) {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        telemetry.addData("Oh noes", "Robot.exe has insomnia");
+                    }
+                    frontL.setPower(.25);
+                    frontR.setPower(-.25);
+                    middleR.setPower(-.25);
+                    middleL.setPower(.25);
+                    backR.setPower(-.25);
+                    backL.setPower(.25);
+                    cal++;
+                } else {
+                    LC=true;
+                    phase++;
+                    cal=cal/2;
+                }
+            }
+            if(phase==6){
+                frontL.setPower(-.25);
                 frontR.setPower(.25);
                 middleR.setPower(.25);
-                middleL.setPower(.25);
+                middleL.setPower(-.25);
                 backR.setPower(.25);
-                backL.setPower(.25);
+                backL.setPower(-.25);
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(cal);
+                } catch (InterruptedException e) {
+                    telemetry.addData("Oh noes", "Robot.exe has insomnia");
+                }
+                phase++;
+            }
+            if(phase==7){
+                telemetry.addData("phase", "YAY :D");
+                frontL.setPower(.05);
+                frontR.setPower(.05);
+                middleR.setPower(.05);
+                middleL.setPower(.05);
+                backR.setPower(.05);
+                backL.setPower(.05);
+                try {
+                    Thread.sleep(750);
                 } catch (InterruptedException e) {
                     telemetry.addData("Oh noes", "Robot.exe has insomnia");
                 }
             }
+            if(phase == 34) {
+                if (sensor2.green() > 0) {
+                    frontL.setPower(.25);
+                    frontR.setPower(-.25);
+                    middleR.setPower(-.25);
+                    middleL.setPower(.25);
+                    backR.setPower(-.25);
+                    backL.setPower(.25);
+                } else {
+                    frontL.setPower(-.25);
+                    frontR.setPower(.25);
+                    middleR.setPower(.25);
+                    middleL.setPower(-.25);
+                    backR.setPower(-.25);
+                }
+                if (sensor1.red() > 5) {
+                    frontL.setPower(0);
+                    frontR.setPower(0);
+                    middleR.setPower(0);
+                    middleL.setPower(0);
+                    backR.setPower(0);
+                    backL.setPower(0);
+                    phase = 7;
+                }
+            }
+            if(phase == 100){
+                frontL.setPower(0);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                middleL.setPower(0);
+                backR.setPower(0);
+                backL.setPower(0);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    telemetry.addData("Oh noes", "Robot.exe has insomnia");
+                }
+            }
+                /*if(phase == 101){
+                    phase++;
+                    frontL.setPower(-.1);
+                    frontR.setPower(-.1);
+                    middleR.setPower(-.1);
+                    middleL.setPower(-.1);
+                    backR.setPower(-.1);
+                    backL.setPower(-.1);
+                    try {
+                        Thread.sleep(250);
+                    } catch (InterruptedException e) {
+                        telemetry.addData("Oh noes", "Robot.exe has insomnia");
+                    }
+                    frontL.setPower(.1);
+                    frontR.setPower(.1);
+                    middleR.setPower(.1);
+                    middleL.setPower(.1);
+                    backR.setPower(.1);
+                    backL.setPower(.1);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        telemetry.addData("Oh noes", "Robot.exe has insomnia");
+                    }
+                    frontL.setPower(0);
+                    frontR.setPower(0);
+                    middleR.setPower(0);
+                    middleL.setPower(0);
+                    backR.setPower(0);
+                    backL.setPower(0);
+                }
+
+*/
+            }
         }
 
-}
+

@@ -122,7 +122,7 @@ public class Autored extends OpMode {
                 }
             }
         }
-        if (phase == 2 || phase == 8){//close in on beacon code feel free to reuse in other phases
+        if (phase == 2){//close in on beacon code feel free to reuse in other phases
             telemetry.addData("phase", phase);
             if (sensor1.red() >= 3 && sensor1.blue() <= 1){
                 phase++;
