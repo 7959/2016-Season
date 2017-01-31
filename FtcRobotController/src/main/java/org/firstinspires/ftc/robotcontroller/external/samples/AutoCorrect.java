@@ -30,6 +30,8 @@ public class AutoCorrect  extends LinearOpMode {
     private int phase;
     private int cal = 0;
     private int a;
+    private int j;
+    private int k;
     private int z =0;
     private boolean line;
     private boolean RC = false;
@@ -107,6 +109,7 @@ public class AutoCorrect  extends LinearOpMode {
 
         telemetry.addData("Hey!", "Thanks! Let's go!");
         telemetry.update();
+
         waitForStart();
 
         while (opModeIsActive()) {
@@ -114,12 +117,15 @@ public class AutoCorrect  extends LinearOpMode {
             telemetry.addData("y", Gsensor.rawY());
             telemetry.addData("x", Gsensor.rawX());
             telemetry.addData("z", Gsensor.rawZ());
-            telemetry.addData("R", R);
-            telemetry.addData("L", L);
             telemetry.update();
             z = Gsensor.getIntegratedZValue();
-            L = s + ((z - DA) / 50);
-            R = s - ((z - DA) / 50);
+            k=z-DA;
+            k=k/50;
+            R=s-k;
+            L=s+k;telemetry.addData("R", R);
+            telemetry.addData("L", L);
+            telemetry.addData("R", R);
+            telemetry.addData("L", L);
             if (R > 1) {
                 R = 1;
             }
