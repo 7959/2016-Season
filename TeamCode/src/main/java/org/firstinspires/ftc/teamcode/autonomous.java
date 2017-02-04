@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -24,6 +25,7 @@ import com.qualcomm.robotcore.util.TypeConversion;
  * Created by Robi on 12/15/2016.
  * PLEASE DRAFT CODE IN AUTREDALL THANKS!
  */
+@Disabled
 @Autonomous(name = "AutoRed")
 public class autonomous extends Krusher99Linear {
     private int phase = 0;// phase of autonomous duh

@@ -113,17 +113,50 @@ public class AutoCorrect  extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            telemetry.addData("Z heading", Gsensor.getIntegratedZValue());
+            L = (s-(DA - Gsensor.getIntegratedZValue()));
+            R = (s +(DA - Gsensor.getIntegratedZValue()));
+            if(L <= -1){
+                L = -1;
+            }
+            if(L >= 1){
+                L = 1;
+            }
+            if(R <= -1){
+                L = -1;
+            }
+            if(R >= 1){
+                L = 1;
+            }
+
+           /* if(Gsensor.getIntegratedZValue() == 90){
+                frontL.setPower(0);
+                middleL.setPower(0);
+                backL.setPower(0);
+                frontR.setPower(0);
+                middleR.setPower(0);
+                backR.setPower(0);
+            } else {
+                frontL.setPower(.25);
+                middleL.setPower(.25);
+                backL.setPower(.25);
+                frontR.setPower(-.25);
+                middleR.setPower(-.25);
+                backR.setPower(-.25);
+            }*/
+           /* telemetry.addData("Z heading", Gsensor.getIntegratedZValue());
             telemetry.addData("y", Gsensor.rawY());
             telemetry.addData("x", Gsensor.rawX());
             telemetry.addData("z", Gsensor.rawZ());
             telemetry.update();
             z = Gsensor.getIntegratedZValue();
-            k=z-DA;
-            k=k/50;
-            R=s-k;
-            L=s+k;telemetry.addData("R", R);
-            telemetry.addData("L", L);
+            telemetry.addData("zzz", z);
+            k = (z-DA);
+            telemetry.addData("k", k);
+            k =k/50;
+            telemetry.addData("k", k);
+            R = (s-k);
+            L = (s+k);
+
             telemetry.addData("R", R);
             telemetry.addData("L", L);
             if (R > 1) {
@@ -138,12 +171,14 @@ public class AutoCorrect  extends LinearOpMode {
             if (L < -1) {
                 L = -1;
             }
+            telemetry.addData("R", R);
+            telemetry.addData("L", L);
             frontL.setPower(L);
             middleL.setPower(L);
             backL.setPower(L);
             frontR.setPower(R);
             middleR.setPower(R);
             backR.setPower(R);
-        }
+        */}
     }
 }

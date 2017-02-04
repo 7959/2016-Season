@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
  * Created by Robi on 1/21/2017.
  */
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -20,6 +21,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 /**
  * Created by Robi on 1/19/2017.
  */
+@Disabled
 @Autonomous(name = "Protothing")
 public class protothing extends OpMode {
     private int phase;
