@@ -198,7 +198,7 @@ public class RedTeamAuto extends LinearOpMode {
         }
 
     }
-    public boolean BeaconCorrect(){
+    public boolean BeaconFind(){
         double Right;
         double Left;
         int angle = G.getIntegratedZValue();
