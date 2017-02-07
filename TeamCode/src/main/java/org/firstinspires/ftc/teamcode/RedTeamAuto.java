@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by Robi on 2/4/2017.
  */
-
+@Autonomous(name = "BILLY JOEL")
 public class RedTeamAuto extends LinearOpMode {
     private DcMotor frontL; // 1
     private DcMotor frontR; // 2
@@ -70,29 +70,29 @@ public class RedTeamAuto extends LinearOpMode {
         telemetry.update();
         G.calibrate();
 
-        while (!isStopRequested() && G.isCalibrating()) {
-            sleep(50);
+        while (!isStopRequested() && G.isCalibrating()){
+            sleep(100);
             idle();
         }
 
-        telemetry.addData("Hey!", "Thanks! Calculating Angles now.");
-        telemetry.update();
         telemetry.addData("Hey", "Let's go get 'em!");
         telemetry.update();
         waitForStart();
         while(opModeIsActive()){
-            straightwhite(.25);
+            straighttime(0, 0, 100000);
+            idle();
+
 
         }
     }
 
 
 
-    public void straightwhite(double speed){
+    public void straightwhite(double speed) throws InterruptedException{
         double Right;
         double Left;
         int angle = G.getIntegratedZValue();
-        while(DR.green() < 2 || DL.green() < 2){
+        while(UR.green() < 50){
             int z = G.getIntegratedZValue();
             Right = speed - (z - angle) / 100;
             Left = speed + (z - angle) / 100;
@@ -106,6 +106,7 @@ public class RedTeamAuto extends LinearOpMode {
             frontR.setPower(Right);
             middleR.setPower(Right);
             backR.setPower(Right);
+            idle();
         }
         frontL.setPower(0);
         middleL.setPower(0);
@@ -133,6 +134,7 @@ public class RedTeamAuto extends LinearOpMode {
             frontR.setPower(Right);
             middleR.setPower(Right);
             backR.setPower(Right);
+            idle();
         }
         frontL.setPower(0);
         middleL.setPower(0);
@@ -169,9 +171,28 @@ public class RedTeamAuto extends LinearOpMode {
         backR.setPower(0);
     }
     public void turn2(int angle, double speed){
-        double Right;
-        double Left;
+        while(true) {
+            if ((G.getHeading() > angle)) {
+                frontL.setPower(speed);
+                middleL.setPower(speed);
+                backL.setPower(speed);
 
+                frontR.setPower(-speed);
+                middleR.setPower(-speed);
+                backR.setPower(-speed);
+            } else {
+                frontL.setPower(-speed);
+                middleL.setPower(-speed);
+                backL.setPower(-speed);
+
+                frontR.setPower(speed);
+                middleR.setPower(speed);
+                backR.setPower(speed);
+            }
+            if (G.getHeading() == angle) {
+                break;
+            }
+        }
 
     }
 
@@ -202,11 +223,10 @@ public class RedTeamAuto extends LinearOpMode {
         double Right;
         double Left;
         int angle = G.getIntegratedZValue();
-        double speed = .10;
-        while(UR.red() < 3 && UR.blue() < 3){
+        while(UR.red() < 2 && UR.blue() < 2){
             int z = G.getIntegratedZValue();
-            Right = speed - (z - angle) / 100;
-            Left = speed + (z - angle) / 100;
+            Right = .10 - (z - angle) / 100;
+            Left = .10 + (z - angle) / 100;
             Left = Range.clip(Left, 1, -1);
             Right = Range.clip(Right, 1, -1);
 
