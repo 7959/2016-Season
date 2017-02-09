@@ -25,7 +25,11 @@ public class RedTeamAuto extends LinearOpMode {
     private ColorSensor UL;
     private ColorSensor DR;
     private ColorSensor DL;
+    public double Rline;
+    public double LLine;
+    public boolean GoLeftLine;
 
+    public double speed;
     public void runOpMode() throws InterruptedException{
         frontL = hardwareMap.dcMotor.get("Front Left"); // 1
         frontR = hardwareMap.dcMotor.get("Front Right"); // 2
@@ -79,13 +83,28 @@ public class RedTeamAuto extends LinearOpMode {
         telemetry.update();
         waitForStart();
         while(opModeIsActive()){
-            straighttime(0, 0, 100000);
+            forwardthing(0, 0);
             idle();
-
-
         }
     }
+    public void forwardthing(double speed, int angle) throws InterruptedException {
+        double Right;
+        double Left;
+        int z = G.getIntegratedZValue();
+        Right = speed - (z - angle)/100;
+        Left = speed - (z - angle)/100;
+        Left = Range.clip(Left, 1, -1);
+        Right = Range.clip(Right, 1, -1);
+        frontL.setPower(Left);
+        middleL.setPower(Left);
+        backL.setPower(Left);
 
+        frontR.setPower(Right);
+        middleR.setPower(Right);
+        backR.setPower(Right);
+        telemetry.addData("Right", frontR.getPower());
+        telemetry.addData("Left", frontL.getPower());
+        }
 
 
     public void straightwhite(double speed) throws InterruptedException{
@@ -106,7 +125,9 @@ public class RedTeamAuto extends LinearOpMode {
             frontR.setPower(Right);
             middleR.setPower(Right);
             backR.setPower(Right);
+            sleep(50);
             idle();
+
         }
         frontL.setPower(0);
         middleL.setPower(0);
@@ -169,6 +190,33 @@ public class RedTeamAuto extends LinearOpMode {
         frontR.setPower(0);
         middleR.setPower(0);
         backR.setPower(0);
+    }
+    public void LineRThing(int speed) {
+        int poop;
+        if (DR.green() < 3) {
+            if(GoLeftLine){
+                GoLeftLine= false;
+            } else {
+                GoLeftLine = true;
+            }
+            if (GoLeftLine) {
+                frontL.setPower(0);
+                middleL.setPower(0);
+                backL.setPower(0);
+
+                frontR.setPower(speed);
+                middleR.setPower(speed);
+                backR.setPower(speed);
+            } else {
+                frontL.setPower(speed);
+                middleL.setPower(speed);
+                backL.setPower(speed);
+
+                frontR.setPower(0);
+                middleR.setPower(0);
+                backR.setPower(0);
+            }
+        }
     }
     public void turn2(int angle, double speed){
         while(true) {

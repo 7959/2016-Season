@@ -24,6 +24,8 @@ public class teleopbasic extends OpMode {
     protected DcMotor backR; // 4
     protected DcMotor middleL; // 5
     protected DcMotor middleR; // 6
+    double right;
+    double left;
     //protected Servo Servo;
     //protected DcMotor launcher;
     //protected ColorSensor sensor1;
@@ -66,24 +68,27 @@ public class teleopbasic extends OpMode {
         middleR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 4
         backL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 5
         backR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // 6
-
     }
     public void loop() {
-        //if(!gamepad1.right_bumper) {
-            frontL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-            middleL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-            backL.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x);
-            frontR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-            middleR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-            backR.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x);
-        //} else {
-            /*frontL.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x)*.5);
-            middleL.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x)*.5);
-            backL.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x)*.5);
-            frontR.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x)*.5);
-            middleR.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x)*.5);
-            backR.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x)*.5);*/
-       // }
+        right = gamepad1.right_stick_y + gamepad1.right_stick_x;
+        left = gamepad1.right_stick_y - gamepad1.right_stick_x;
+        if(gamepad1.right_bumper){
+            right = right/2;
+            left = left/2;
+        }
+        frontL.setPower(left);
+        middleL.setPower(left);
+        backL.setPower(left);
+        frontR.setPower(right);
+        middleR.setPower(right);
+        backR.setPower(right);
+        telemetry.addData("Left Power", frontL.getPower());
+        telemetry.addData("Right Power", frontR.getPower());
+        telemetry.addData("Right Thing", right);
+        telemetry.addData("Left Thing", left);
+        telemetry.addData("joystick y", gamepad1.left_stick_y);
+        telemetry.addData("joystick x", gamepad1.left_stick_x);
+        telemetry.addData("Bumper", gamepad1.right_bumper);
         //launcher.setPower(gamepad1.right_stick_y);
         //telemetry.addData("Fight klub", sensor1.getI2cAddress());
         //telemetry.addData("sg1", sensor1.green());
