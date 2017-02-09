@@ -87,7 +87,7 @@ public class RedTeamAuto extends LinearOpMode {
             idle();
         }
     }
-    public void forwardthing(double speed, int angle) throws InterruptedException {
+    public void forwardthing(double speed, double angle) throws InterruptedException {
         double Right;
         double Left;
         int z = G.getIntegratedZValue();
@@ -110,7 +110,7 @@ public class RedTeamAuto extends LinearOpMode {
     public void straightwhite(double speed) throws InterruptedException{
         double Right;
         double Left;
-        int angle = G.getIntegratedZValue();
+        double angle = G.getIntegratedZValue();
         while(UR.green() < 50){
             int z = G.getIntegratedZValue();
             Right = speed - (z - angle) / 100;
@@ -125,7 +125,6 @@ public class RedTeamAuto extends LinearOpMode {
             frontR.setPower(Right);
             middleR.setPower(Right);
             backR.setPower(Right);
-            sleep(50);
             idle();
 
         }
@@ -137,7 +136,7 @@ public class RedTeamAuto extends LinearOpMode {
         middleR.setPower(0);
         backR.setPower(0);
     }
-    public void straighttime(int angle, double speed, double time){
+    public void straighttime(double angle, double speed, double time){
         double Right;
         double Left;
         double timeS = time + getRuntime();
@@ -289,6 +288,35 @@ public class RedTeamAuto extends LinearOpMode {
         if(UR.red() > 2 && UR.blue() < 2){
             return true;
         } else return false;
+    }
+    public void turnanglething(int angle, double speed){
+        double Z = G.getIntegratedZValue();
+        while(Math.abs(Z - angle) > 3){
+            if(Z > 0){
+                frontL.setPower(speed);
+                middleL.setPower(speed);
+                backL.setPower(speed);
+
+                frontR.setPower(-speed);
+                middleR.setPower(-speed);
+                backR.setPower(-speed);
+            } else {
+                frontL.setPower(-speed);
+                middleL.setPower(-speed);
+                backL.setPower(-speed);
+
+                frontR.setPower(speed);
+                middleR.setPower(speed);
+                backR.setPower(speed);
+            }
+        }
+        frontL.setPower(0);
+        middleL.setPower(0);
+        backL.setPower(0);
+
+        frontR.setPower(0);
+        middleR.setPower(0);
+        backR.setPower(0);
     }
 
 
