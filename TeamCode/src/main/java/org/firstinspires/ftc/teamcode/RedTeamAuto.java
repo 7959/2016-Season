@@ -318,6 +318,14 @@ public class RedTeamAuto extends LinearOpMode {
         middleR.setPower(0);
         backR.setPower(0);
     }
-
+    public void readjustR(double time){
+        double speed = .25;
+        double Ttime= getRuntime() + time;
+        while(getRuntime() < Ttime){
+            if(DR.green() < 3){
+                speed=-speed;
+            }
+        }
+    }
 
 }
