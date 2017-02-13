@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by Robi on 2/4/2017.
  */
-@Autonomous(name = "BILLY JOEL")
+@Autonomous(name = "RedAll")
 public class RedTeamAuto extends LinearOpMode {
     private DcMotor frontL; // 1
     private DcMotor frontR; // 2
@@ -111,19 +111,13 @@ public class RedTeamAuto extends LinearOpMode {
         telemetry.addData("Hey", "Let's go get 'em!");
         telemetry.update();
         waitForStart();
-        while(!isStopRequested() && !isStarted());
+        //while(!isStopRequested() && !isStarted());
         //while(!opModeIsActive() && !isStopRequested()) {
           //  waitForStart();
             //isStopRequested();
             //idle();
         //}
 
-        while(!isStopRequested() && !opModeIsActive()){
-            telemetry.addData("Hey", "Im stuck");
-            telemetry.update();
-            sleep(50);
-            idle();
-        }
 
 
             telemetry.addData("Current Task","start loop");
@@ -145,8 +139,9 @@ public class RedTeamAuto extends LinearOpMode {
             telemetry.update();
 
             Rpush1(.1);
+
             if(Redright1){
-                straighttime(90, 0.1, .25);
+                straighttime(90, 0.1, 1);
                 sleep(250);
                 straighttime(90, -0.1, .7);
             } else {
@@ -156,7 +151,7 @@ public class RedTeamAuto extends LinearOpMode {
                 turnto160(.1);
                 telemetry.addData("Current Task", "straight");
                 telemetry.update();
-                straighttime(180, 0.1, .25);
+                straighttime(180, 0.1, .15);
                 telemetry.addData("Current Task","fineline");
                 telemetry.update();
                 linefindL(.1);
@@ -172,12 +167,86 @@ public class RedTeamAuto extends LinearOpMode {
                 telemetry.addData("Current Task","push");
                 telemetry.update();
                 Lpush1(.1);
+               /* if((Redleft1 && Blueright1) || (Blueleft1 && Blueright1)){
+                    straighttime(90, 0.1, 1);
+                    sleep(250);
+                    straighttime(90, -0.1, .7);
+                } else {
+                    frontL.setPower(0);
+                    middleL.setPower(0);
+                    backL.setPower(0);
+
+                    frontR.setPower(0);
+                    middleR.setPower(0);
+                    backR.setPower(0);
+                }*/
+                straighttime(90, 0.1, 1);
+                sleep(250);
+                straighttime(90, -0.1, .7);
+                lineshot(.1);
+                pew(1);
                /* if(Redleft1){
                     straighttime(90, 0.1, 1);
                     sleep(250);
                     straighttime(90, -0.1, .7);
                 }
             */}
+
+        ///////////////Beacon2
+        negto0();
+        Pstraightwhite(.1, 0, 200);
+        linefindR(.1);
+        telemetry.addData("Current Task","findL");
+        telemetry.update();
+        linefollowR(.1, .5);
+
+        telemetry.addData("Current Task","turn");
+        telemetry.update();
+
+        Rturn90();
+        straighttime(90, -.1, 2);
+        telemetry.addData("Current Task","push");
+        telemetry.update();
+
+        Rpush1(.1);
+
+        if(Redright1){
+            straighttime(90, 0.1, 1);
+            sleep(250);
+            straighttime(90, -0.1, .7);
+        } else {
+            straighttime(90, -1, .25);
+            telemetry.addData("Current Task","turn0");
+            telemetry.update();
+            turnto160(.1);
+            telemetry.addData("Current Task", "straight");
+            telemetry.update();
+            straighttime(180, 0.1, .15);
+            telemetry.addData("Current Task","fineline");
+            telemetry.update();
+            linefindL(.1);
+            telemetry.addData("Current Task","followline");
+            telemetry.update();
+            linefollowL(.1, .5);
+            telemetry.addData("Current Task","turn90");
+            telemetry.update();
+            Rturn90();
+            telemetry.addData("Current Task","back");
+            telemetry.update();
+            straighttime(90, -.1, 1);
+            telemetry.addData("Current Task","push");
+            telemetry.update();
+            Lpush1(.1);
+            straighttime(90, 0.1, 1);
+            sleep(250);
+            straighttime(90, -0.1, .7);
+               /* if(Redleft1){
+                    straighttime(90, 0.1, 1);
+                    sleep(250);
+                    straighttime(90, -0.1, .7);
+                }
+            */}
+
 
             while(opModeIsActive() && true){
                 telemetry.addData("Z", G.getIntegratedZValue());
@@ -205,6 +274,24 @@ public class RedTeamAuto extends LinearOpMode {
             //requestOpModeStop();
 
 
+    }
+    public void lineshot(double speed){
+        while(opModeIsActive() && G.getIntegratedZValue() > -90){
+            frontL.setPower(speed);
+            middleL.setPower(speed);
+            backL.setPower(speed);
+
+            frontR.setPower(-speed);
+            middleR.setPower(-speed);
+            backR.setPower(-speed);
+        }
+        frontL.setPower(0);
+        middleL.setPower(0);
+        backL.setPower(0);
+
+        frontR.setPower(0);
+        middleR.setPower(0);
+        backR.setPower(0);
     }
     public void Rbeaconred1(){
         if(UR.red() >= 2 && UR.blue() < 1){
@@ -395,6 +482,27 @@ public class RedTeamAuto extends LinearOpMode {
         backR.setPower(0);
 
     }
+    public void negto0(){
+        telemetry.addData("Current Task","turn to angle");
+        telemetry.update();
+
+        while(opModeIsActive() && G.getIntegratedZValue() < 0){
+            frontL.setPower(speed);
+            middleL.setPower(speed);
+            backL.setPower(speed);
+
+            frontR.setPower(-speed);
+            middleR.setPower(-speed);
+            backR.setPower(-speed);
+        }
+        frontL.setPower(0);
+        middleL.setPower(0);
+        backL.setPower(0);
+
+        frontR.setPower(0);
+        middleR.setPower(0);
+        backR.setPower(0);
+    }
     public void Rturntoangle(double speed, int angle){
         telemetry.addData("Current Task","turn to angle");
         telemetry.update();
@@ -478,7 +586,13 @@ public class RedTeamAuto extends LinearOpMode {
         backR.setPower(0);
     }
     
-    public void pew(double speed, double time){
+    public void pew(double speed){
+        Pew.setPower(speed);
+        PewPew.setPower(speed);
+        sleep(250);
+        Servo.setPower(1);
+        sleep(2000);
+        Servo.setPower(1);
 
         // servo code ////////////////////////////////////////////
 
@@ -517,6 +631,7 @@ public class RedTeamAuto extends LinearOpMode {
         telemetry.update();
         double Ttime = time+getRuntime();
         while(opModeIsActive() && Ttime > getRuntime()) {
+
             if (DR.green() == 0) {
                 frontL.setPower(speed);
                 frontR.setPower(0);
@@ -625,7 +740,56 @@ public class RedTeamAuto extends LinearOpMode {
 
         }
     }
+    public void Pstraightwhite(double speed, int angle, int aftertime){
+        telemetry.addData("Current Task", "straightwhite");
+        telemetry.update();
+        double Right;
+        double Left;
+        while(opModeIsActive() && DR.green() <= 1){
+            telemetry.addData("dr", DR.green());
+            int z = G.getIntegratedZValue();
+            Right = speed - (z - angle) / 100;
+            Left = speed + (z - angle) / 100;
+            Left = Range.clip(Left, -1, 1);
+            Right = Range.clip(Right, -1, 1);
 
+            frontL.setPower(Left);
+            middleL.setPower(Left);
+            backL.setPower(Left);
+
+            frontR.setPower(Right);
+            middleR.setPower(Right);
+            backR.setPower(Right);
+            telemetry.addData("right", Right);
+            telemetry.addData("left", Left);
+            telemetry.addData("RPower", frontR.getPower());
+            telemetry.addData("LPower", frontL.getPower());
+            telemetry.addData("Dr", DR.green());
+            telemetry.update();
+
+
+        }
+        telemetry.addData("t", "t");
+        frontL.setPower(speed);
+        middleL.setPower(speed);
+        backL.setPower(speed);
+
+        frontR.setPower(speed);
+        middleR.setPower(speed);
+        backR.setPower(speed);
+        try {
+            Thread.sleep(aftertime);
+        } catch (InterruptedException e) {
+            telemetry.addData("Error", "Robot has insomnia");
+        }
+        frontL.setPower(0);
+        middleL.setPower(0);
+        backL.setPower(0);
+
+        frontR.setPower(0);
+        middleR.setPower(0);
+        backR.setPower(0);
+    }
     public void straightwhite(double speed, int aftertime){
         telemetry.addData("Current Task", "straightwhite");
         telemetry.update();
