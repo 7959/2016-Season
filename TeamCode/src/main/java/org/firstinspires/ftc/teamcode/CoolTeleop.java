@@ -8,6 +8,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name ="Cool TeleOp")
 public class CoolTeleop extends opModeExtension {
     public void loop(){
+        /**
+        Controls:
+         Leftstick- normal movement
+         bumpers- strafe
+         left trigger- loader
+         right trigger- PEW PEW
+        **/
         if(!gamepad1.right_bumper || !gamepad1.left_bumper){
             fL.setPower(gamepad1.left_stick_y+gamepad1.left_stick_x);
             fR.setPower(gamepad1.left_stick_y+gamepad1.left_stick_x);

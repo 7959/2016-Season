@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.I2cAddr;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 
 /**
@@ -28,7 +29,9 @@ public class teststuff extends OpMode{
     protected ColorSensor deltaRight;
     protected ColorSensor deltaMiddle;
     protected ModernRoboticsI2cGyro g;
+    protected OpticalDistanceSensor OD;
     public void init() {
+        OD = hardwareMap.opticalDistanceSensor.get("OD");
         fL = hardwareMap.dcMotor.get("Front Left");
         fR = hardwareMap.dcMotor.get("Front Right");
         bL = hardwareMap.dcMotor.get("Back Left");
@@ -101,6 +104,7 @@ public class teststuff extends OpMode{
         telemetry.addData("Delta Left", deltaLeft.green());
         telemetry.addData("Z integrated", g.getIntegratedZValue());
         telemetry.addData("Heading", g.getHeading());
+        telemetry.addData("OD", OD.getLightDetected());
         telemetry.update();
     }
 }

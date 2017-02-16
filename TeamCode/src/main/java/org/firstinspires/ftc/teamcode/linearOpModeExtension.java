@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.configuration.ModernRoboticsConstants;
 import com.qualcomm.robotcore.util.Range;
 
@@ -25,6 +27,7 @@ public abstract class linearOpModeExtension extends LinearOpMode{
     protected ColorSensor deltaMiddle;
     protected DcMotor lL;
     protected DcMotor lR;
+    protected OpticalDistanceSensor OD;
     protected DcMotor loader;
     public void stopwheels(){
         fL.setPower(0);
@@ -34,7 +37,7 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         bR.setPower(0);
     }
 
-    public void strafetime(int angle, float time, float speed){
+    public void strafetime(int angle, double time, double speed){
         double T = getRuntime() + time;
         double ffl;
         double ffr;
@@ -58,11 +61,29 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
         stopwheels();
     }
-    
-    public void straightmovetime(int angle, float time, float speed){
+    public void straightfindwall(int angle, double speed){
         double T = getRuntime() + time;
-        float Right;
-        float Left;
+        double Right;
+        double Left;
+        while(opModeIsActive() && OD.getLightDetected() > 1) {
+            int z = gyro.getIntegratedZValue();
+            Right = speed - (z - angle) / 100;
+            Left = speed + (z - angle) / 100;
+            Left = Range.clip(Left, -1, 1);
+            Right = Range.clip(Right, -1, 1);
+
+            fL.setPower(Left);
+            bL.setPower(Left);
+
+            fR.setPower(Right);
+            bR.setPower(Right);
+        }
+        stopwheels();
+    }
+    public void straightmovetime(int angle, double time, double speed){
+        double T = getRuntime() + time;
+        double Right;
+        double Left;
         while(opModeIsActive() && T >= getRuntime()) {
             int z = gyro.getIntegratedZValue();
             Right = speed - (z - angle) / 100;
@@ -78,7 +99,7 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
         stopwheels();
     }
-    public void strafelinefind(int angle, float time, float speed){
+    public void strafelinefind(int angle, double time, double speed){
         double T = getRuntime() + time;
         double ffl;
         double ffr;
@@ -101,5 +122,21 @@ public abstract class linearOpModeExtension extends LinearOpMode{
             bR.setPower(bbr);
         }
         stopwheels();
+    }
+    public void turn(int angle, double speed){
+
+        int opposite = (Math.abs(angle)) + 540;
+        if(angle < 0){
+            angle= 360 - Math.abs(angle);
+        }
+        angle=angle+360;
+        int z = gyro.getHeading();
+        while(z != angle){
+            z = gyro.getHeading() + 360;
+            if(opposite > z && z > angle){
+
+            }
+        }
+
     }
 }

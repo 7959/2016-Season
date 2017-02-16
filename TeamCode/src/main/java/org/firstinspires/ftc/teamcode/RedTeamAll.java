@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.I2cAddr;
@@ -41,7 +42,6 @@ public class RedTeamAll extends linearOpModeExtension {
         loader.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
-
         topLeft = hardwareMap.colorSensor.get("Top Left");
         topLeft.setI2cAddress(I2cAddr.create7bit(0x19));
         topRight = hardwareMap.colorSensor.get("Top Right");
@@ -68,6 +68,10 @@ public class RedTeamAll extends linearOpModeExtension {
         telemetry.clearAll();
         telemetry.addData("Thanks", "I am calibrated");
         waitForStart();
+        straightmovetime(0,1.75 ,1);
+        while(opModeIsActive()){
+            int poop;
 
+        }
     }
 }

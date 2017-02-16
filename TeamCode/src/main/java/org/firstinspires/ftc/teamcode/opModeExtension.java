@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.I2cAddr;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 /**
  * Created by Joseph on 2/15/2017.
@@ -26,7 +27,9 @@ abstract public class opModeExtension extends OpMode {
     protected ColorSensor deltaRight;
     protected ColorSensor deltaMiddle;
     protected ModernRoboticsI2cGyro g;
+    protected OpticalDistanceSensor OD;
     public void init() {
+        OD = hardwareMap.opticalDistanceSensor.get("OD");
         fL = hardwareMap.dcMotor.get("Front Left");
         fR = hardwareMap.dcMotor.get("Front Right");
         bL = hardwareMap.dcMotor.get("Back Left");
@@ -55,6 +58,7 @@ abstract public class opModeExtension extends OpMode {
         lL.setDirection(DcMotorSimple.Direction.FORWARD);
         lR.setDirection(DcMotorSimple.Direction.REVERSE);
         loader.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
 
 
