@@ -38,8 +38,8 @@ abstract public class opModeExtension extends OpMode {
         fR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        lL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         loader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -59,20 +59,25 @@ abstract public class opModeExtension extends OpMode {
 
 
         topLeft = hardwareMap.colorSensor.get("Top Left");
-        topLeft.setI2cAddress(I2cAddr.create8bit(0x40));
+        topLeft.setI2cAddress(I2cAddr.create7bit(0x19));
         topRight = hardwareMap.colorSensor.get("Top Right");
-        topRight.setI2cAddress(I2cAddr.create8bit(0x41));
+        topRight.setI2cAddress(I2cAddr.create7bit(0x1e));
         deltaBottom = hardwareMap.colorSensor.get("Delta Bottom");
-        deltaBottom.setI2cAddress(I2cAddr.create8bit(0x42));
+        deltaBottom.setI2cAddress(I2cAddr.create8bit(0x42));/////////////////NOT SET UP CORRECTLY YET
         deltaLeft = hardwareMap.colorSensor.get("Delta Left");
-        deltaLeft.setI2cAddress(I2cAddr.create8bit(0x43));
+        deltaLeft.setI2cAddress(I2cAddr.create7bit(0x1f));
         deltaRight = hardwareMap.colorSensor.get("Delta Right");
-        deltaRight.setI2cAddress(I2cAddr.create8bit(0x44));
+        deltaRight.setI2cAddress(I2cAddr.create7bit(0x1d));
         deltaMiddle = hardwareMap.colorSensor.get("Delta Middle");
-        deltaMiddle.setI2cAddress(I2cAddr.create8bit(0x45));
+        deltaMiddle.setI2cAddress(I2cAddr.create8bit(0x45));/////////////////NOT SET UP CORRECTLY YET
 
 
 
         g = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("Gyro Sensor");
+        telemetry.addData("BACK OFF", "I AM CALIBRATING");
+        g.calibrate();
+        while(g.isCalibrating());
+        telemetry.clearAll();
+        telemetry.addData("Thanks", "I am calibrated");
     }
 }
