@@ -29,6 +29,10 @@ public abstract class linearOpModeExtension extends LinearOpMode{
     protected DcMotor lR;
     protected OpticalDistanceSensor OD;
     protected DcMotor loader;
+    public boolean Redall;
+    public boolean Blueall;
+    public boolean redrightblueleft;
+    public boolean bluerightredleft;
     public void stopwheels(){
         fL.setPower(0);
         bL.setPower(0);
@@ -123,6 +127,34 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
         stopwheels();
     }
+    public int findoppositeangle(int angle){
+        if(angle < 0){
+            angle=360+angle;
+        }
+        angle=angle+180;
+        if(angle > 360){
+            angle=angle-360;
+        }
+        if(angle == 360){
+            angle=0;
+        }
+        return angle;
+    }
+    public void colorcheck(){
+        if(topLeft.red() >= 2 && topLeft.blue() == 0 && topRight.red() >= 2 && topRight.blue() == 0){
+            Redall = true;
+        }
+        if(topLeft.red() >= 2 && topLeft.blue() == 0 && topRight.blue() >= 2 && topRight.red() == 0){
+            bluerightredleft = true;
+        }
+        if(topLeft.blue() >= 2 && topLeft.red() == 0 && topRight.red() >= 2 && topRight.red() == 0){
+            redrightblueleft= true;
+        }
+        if(topLeft.blue() >= 2 && topLeft.red() == 0 && topRight.blue() >= 2 && topRight.red() == 0){
+            Blueall = true;
+        }
+    }
+
     public void turn(int angle, double speed){
 
         int opposite = (Math.abs(angle)) + 540;
@@ -132,10 +164,14 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         angle=angle+360;
         int z = gyro.getHeading();
         while(z != angle){
-            z = gyro.getHeading() + 360;
+            z = gyro.getHeading();
             if(opposite > z && z > angle){
-
+                fL.setPower(speed);
+                fR.setPower(-speed);
+                bL.setPower(speed);
+                bR.setPower(-speed);
             }
+            //add clockwise turn later
         }
 
     }
