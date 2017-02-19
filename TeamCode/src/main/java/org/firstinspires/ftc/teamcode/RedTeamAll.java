@@ -69,6 +69,8 @@ public class RedTeamAll extends linearOpModeExtension {
         telemetry.addData("Thanks", "I am calibrated");
         waitForStart();
         int poop;
+        whitestraight(.1);
+
         //////skipping diagonal movement for now
         //assume at current time robot middle sensor is above  the while line
         int failedtries = 0;
@@ -132,6 +134,8 @@ public class RedTeamAll extends linearOpModeExtension {
                 colorcheck();
             }
         }
+
+
 
 
     }

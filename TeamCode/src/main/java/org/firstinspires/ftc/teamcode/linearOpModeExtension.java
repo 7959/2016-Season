@@ -49,6 +49,30 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
         stopwheels();
     }
+    public void whitestraight(double speed){
+        int angle = gyro.getIntegratedZValue();
+        double ffl;
+        double ffr;
+        double bbl;
+        double bbr;
+        double z;
+        while(opModeIsActive() && deltaMiddle.green() > 0){
+            z = gyro.getIntegratedZValue();
+            bbl = speed - (z - angle) / 100;
+            ffl = speed + (z - angle) / 100;
+            ffr = speed - (z - angle) / 100;
+            bbr = speed + (z - angle) / 100;
+            bbl = Range.clip(bbl, -1, 1);
+            bbr = Range.clip(bbr, -1, 1);
+            ffl = Range.clip(ffl, -1, 1);
+            ffr = Range.clip(ffr, -1, 1);
+            fL.setPower(ffl);
+            fR.setPower(ffr);
+            bL.setPower(bbl);
+            bR.setPower(bbr);
+        }
+        stopwheels();
+    }
 
     public void strafetime(int angle, double time, double speed){
         double T = getRuntime() + time;
@@ -73,6 +97,8 @@ public abstract class linearOpModeExtension extends LinearOpMode{
             bR.setPower(bbr);
         }
         stopwheels();
+    }
+    public void pew(){
     }
     public void straightfindwall(int angle, double speed){
         double T = getRuntime() + time;
@@ -183,21 +209,34 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
     }
 
-    public void turn(int angle, double speed){
+    public void counterclockturn(int angle, double speed){
         int z = gyro.getIntegratedZValue();
         while(z != angle){
             z = gyro.getIntegratedZValue();
-            if(z - angle >= 0){
                 fR.setPower(speed);
                 bR.setPower(speed);
                 fL.setPower(-speed);
                 bL.setPower(-speed);
-            } else {
-                fR.setPower(-speed);
-                bR.setPower(-speed);
-                fL.setPower(speed);
-                bL.setPower(speed);
+        }
+
+    }
+    public void followline(double speed, double time){
+        double Ttime = getRuntime() + time;
+        boolean goleft = true;
+        while (getRuntime() < Ttime){
+            if(goleft){
+
             }
+        }
+    }
+    public void clockturn(int angle, double speed){
+        int z = gyro.getIntegratedZValue();
+        while(z != angle){
+            z = gyro.getIntegratedZValue();
+            fR.setPower(-speed);
+            bR.setPower(-speed);
+            fL.setPower(speed);
+            bL.setPower(speed);
         }
 
     }
