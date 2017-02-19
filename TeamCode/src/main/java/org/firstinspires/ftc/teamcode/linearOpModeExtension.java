@@ -29,16 +29,25 @@ public abstract class linearOpModeExtension extends LinearOpMode{
     protected DcMotor lR;
     protected OpticalDistanceSensor OD;
     protected DcMotor loader;
-    public boolean Redall;
-    public boolean Blueall;
-    public boolean redrightblueleft;
-    public boolean bluerightredleft;
+    public boolean Redall = false;
+    public boolean Blueall = false;
+    public boolean redrightblueleft = false;
+    public boolean bluerightredleft = false;
     public void stopwheels(){
         fL.setPower(0);
         bL.setPower(0);
 
         fR.setPower(0);
         bR.setPower(0);
+    }
+    public void strafemid(double speed){
+        while(opModeIsActive() && deltaRight.green() < 1){
+            fL.setPower(speed);
+            bL.setPower(-speed);
+            fR.setPower(-speed);
+            bR.setPower(speed);
+        }
+        stopwheels();
     }
 
     public void strafetime(int angle, double time, double speed){
@@ -84,6 +93,25 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
         stopwheels();
     }
+    public void Rline(double speed){
+        while (opModeIsActive() && deltaRight.green() < 1){
+            fL.setPower(-speed);
+            bL.setPower(speed);
+            fR.setPower(speed);
+            bR.setPower(-speed);
+        }
+        stopwheels();
+    }
+    public void Lline(double speed){
+        while(opModeIsActive() && deltaLeft.green() < 1){
+            fL.setPower(speed);
+            bL.setPower(-speed);
+            fR.setPower(-speed);
+            bR.setPower(speed);
+        }
+        stopwheels();
+    }
+    
     public void straightmovetime(int angle, double time, double speed){
         double T = getRuntime() + time;
         double Right;
@@ -156,22 +184,20 @@ public abstract class linearOpModeExtension extends LinearOpMode{
     }
 
     public void turn(int angle, double speed){
-
-        int opposite = (Math.abs(angle)) + 540;
-        if(angle < 0){
-            angle= 360 - Math.abs(angle);
-        }
-        angle=angle+360;
-        int z = gyro.getHeading();
+        int z = gyro.getIntegratedZValue();
         while(z != angle){
-            z = gyro.getHeading();
-            if(opposite > z && z > angle){
-                fL.setPower(speed);
+            z = gyro.getIntegratedZValue();
+            if(z - angle >= 0){
+                fR.setPower(speed);
+                bR.setPower(speed);
+                fL.setPower(-speed);
+                bL.setPower(-speed);
+            } else {
                 fR.setPower(-speed);
-                bL.setPower(speed);
                 bR.setPower(-speed);
+                fL.setPower(speed);
+                bL.setPower(speed);
             }
-            //add clockwise turn later
         }
 
     }

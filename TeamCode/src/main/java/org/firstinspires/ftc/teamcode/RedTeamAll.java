@@ -68,10 +68,71 @@ public class RedTeamAll extends linearOpModeExtension {
         telemetry.clearAll();
         telemetry.addData("Thanks", "I am calibrated");
         waitForStart();
-        straightmovetime(0,1.75 ,1);
-        while(opModeIsActive()){
-            int poop;
-
+        int poop;
+        //////skipping diagonal movement for now
+        //assume at current time robot middle sensor is above  the while line
+        int failedtries = 0;
+        colorcheck();
+        while(true) {
+            if (bluerightredleft) {
+                Lline(.1);
+                straightmovetime(90, 1.5, .1);
+                straightmovetime(90, 1.5, -.1);
+                break;
+            } else if (redrightblueleft) {
+                Rline(.1);
+                straightmovetime(90, 1.5, .1);
+                straightmovetime(90, 1.5, -.1);
+                break;
+            } else if (Blueall) {
+                Lline(.1);
+                straightmovetime(90, 1.5, .1);
+                straightmovetime(90, 1.5, -.1);
+                break;
+            } else if (Redall){
+                break;
+            } if(failedtries > 3){
+                straightmovetime(90, .1, .1);
+            } else {
+                failedtries++;
+                colorcheck();
+            }
         }
+
+        strafemid(.1);
+        failedtries = 0;
+        Redall = false;
+        Blueall = false;
+        redrightblueleft = false;
+        bluerightredleft = false;
+        colorcheck();
+
+        while(true) {
+            if (bluerightredleft) {
+                Lline(.1);
+                straightmovetime(90, 1.5, .1);
+                straightmovetime(90, 1.5, -.1);
+                break;
+            } else if (redrightblueleft) {
+                Rline(.1);
+                straightmovetime(90, 1.5, .1);
+                straightmovetime(90, 1.5, -.1);
+                break;
+            } else if (Blueall) {
+                Lline(.1);
+                straightmovetime(90, 1.5, .1);
+                straightmovetime(90, 1.5, -.1);
+                break;
+            } else if (Redall){
+                break;
+            } if(failedtries > 3){
+                straightmovetime(90, .1, .1);
+            } else {
+                failedtries++;
+                colorcheck();
+            }
+        }
+
+
     }
 }
