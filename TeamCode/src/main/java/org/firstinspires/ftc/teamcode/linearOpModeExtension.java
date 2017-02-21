@@ -73,6 +73,37 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
         stopwheels();
     }
+    public void newmove(double X, double Y, double turn){//////WARNING I HAVE TO DO SOME MATH ON THIS TO CHECK IT BUT IN THEORY SHOULD WORK
+        fL.setPower(Y + turn + X);
+        bL.setPower(Y + turn - X);
+        fR.setPower(Y - turn - X);
+        bR.setPower(Y - turn + X);
+    }
+    public void newstraighttime(double X, double Y, int angle, double time){// new auto correct needs testing
+        double T = getRuntime() + time;
+        double ffl;
+        double bbl;
+        double ffr;
+        double bbr;
+        double z;
+        while(opModeIsActive() && T >= getRuntime()){
+            z = gyro.getIntegratedZValue();
+            ffl = Y + X + (z - angle) / 100;
+            bbl = Y - X + (z - angle) / 100;
+            ffr = Y - X - (z - angle) / 100;
+            bbr = Y + X - (z - angle) / 100;
+
+            bbl = Range.clip(bbl, -1, 1);
+            bbr = Range.clip(bbr, -1, 1);
+            ffl = Range.clip(ffl, -1, 1);
+            ffr = Range.clip(ffr, -1, 1);
+            fL.setPower(ffl);
+            fR.setPower(ffr);
+            bL.setPower(bbl);
+            bR.setPower(bbr);
+        }
+        stopwheels();
+    }
 
     public void strafetime(int angle, double time, double speed){
         double T = getRuntime() + time;

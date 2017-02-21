@@ -71,6 +71,13 @@ public class RedTeamAll extends linearOpModeExtension {
         int poop;
         whitestraight(.1);
 
+        /**
+         * IMPORTANT:
+         * New Wheel design alert. Will need to change straightmovetime()
+         * Create a line follow function using strafe and auto correct angles.
+         *
+         */
+
         //////skipping diagonal movement for now
         //assume at current time robot middle sensor is above  the while line
         int failedtries = 0;
@@ -107,6 +114,7 @@ public class RedTeamAll extends linearOpModeExtension {
         Blueall = false;
         redrightblueleft = false;
         bluerightredleft = false;
+        failedtries = 0;
         colorcheck();
 
         while(true) {
