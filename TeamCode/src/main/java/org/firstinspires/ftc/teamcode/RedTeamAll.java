@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.I2cAddr;
@@ -9,7 +10,7 @@ import com.qualcomm.robotcore.hardware.I2cAddr;
 /**
  * Created by Robi on 2/15/2017.
  */
-
+@Autonomous(name = "Billy Red")
 public class RedTeamAll extends linearOpModeExtension {
     public void runOpMode(){
         fL = hardwareMap.dcMotor.get("Front Left");
@@ -46,8 +47,6 @@ public class RedTeamAll extends linearOpModeExtension {
         topLeft.setI2cAddress(I2cAddr.create7bit(0x19));
         topRight = hardwareMap.colorSensor.get("Top Right");
         topRight.setI2cAddress(I2cAddr.create7bit(0x1e));
-        deltaBottom = hardwareMap.colorSensor.get("Delta Bottom");
-        deltaBottom.setI2cAddress(I2cAddr.create8bit(0x42));/////////////////NOT SET UP CORRECTLY YET
         deltaLeft = hardwareMap.colorSensor.get("Delta Left");
         deltaLeft.setI2cAddress(I2cAddr.create7bit(0x1f));
         deltaRight = hardwareMap.colorSensor.get("Delta Right");

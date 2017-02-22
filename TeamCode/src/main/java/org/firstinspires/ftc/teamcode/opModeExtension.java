@@ -62,8 +62,7 @@ abstract public class opModeExtension extends OpMode {
 
 
 
-        topLeft = hardwareMap.colorSensor.get("Top Left");
-        topLeft.setI2cAddress(I2cAddr.create7bit(0x19));
+/*        topLeft.setI2cAddress(I2cAddr.create7bit(0x19));
         topRight = hardwareMap.colorSensor.get("Top Right");
         topRight.setI2cAddress(I2cAddr.create7bit(0x1e));
         deltaBottom = hardwareMap.colorSensor.get("Delta Bottom");
@@ -83,5 +82,6 @@ abstract public class opModeExtension extends OpMode {
         while(g.isCalibrating());
         telemetry.clearAll();
         telemetry.addData("Thanks", "I am calibrated");
+        */
     }
 }

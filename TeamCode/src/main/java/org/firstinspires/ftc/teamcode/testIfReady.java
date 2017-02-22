@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 /**
  * Created by Joseph on 2/21/2017.
  */
-
+@TeleOp(name = "Ready?")
 public class testIfReady extends linearOpModeExtension {
     public void runOpMode()
     {

@@ -21,7 +21,6 @@ public abstract class linearOpModeExtension extends LinearOpMode{
     protected ModernRoboticsI2cGyro gyro;
     protected ColorSensor topLeft;
     protected ColorSensor topRight;
-    protected ColorSensor deltaBottom;
     protected ColorSensor deltaLeft;
     protected ColorSensor deltaRight;
     protected ColorSensor deltaMiddle;
@@ -79,6 +78,20 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         fR.setPower(Y - turn - X);
         bR.setPower(Y - turn + X);
     }
+    public void newpew(){
+        boolean dif = false;
+        lL.setPower(1);
+        lR.setPower(1);
+        sleep(500);
+        double ll = lL.getCurrentPosition();
+        double rr = lR.getCurrentPosition();
+        sleep(500);
+        double l = (ll - lL.getCurrentPosition()) / 500;
+        double r = lR.getCurrentPosition();
+        while(opModeIsActive() && dif){
+
+        }
+    }
     public void newstraighttime(double X, double Y, int angle, double time){// new auto correct needs testing
         double T = getRuntime() + time;
         double ffl;
@@ -130,6 +143,13 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         stopwheels();
     }
     public void pew(){
+        lR.setPower(1);
+        lL.setPower(1);
+        loader.setPower(.5);
+        sleep(1500);
+        lR.setPower(0);
+        lL.setPower(0);
+        loader.setPower(0);
     }
     public void straightfindwall(int angle, double speed){
         double T = getRuntime() + time;
@@ -150,7 +170,7 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
         stopwheels();
     }
-    public void Rline(double speed){
+    public void Rline(double speed){//left strafe
         while (opModeIsActive() && deltaRight.green() < 1){
             fL.setPower(-speed);
             bL.setPower(speed);
@@ -159,7 +179,7 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         }
         stopwheels();
     }
-    public void Lline(double speed){
+    public void Lline(double speed){//right strafe
         while(opModeIsActive() && deltaLeft.green() < 1){
             fL.setPower(speed);
             bL.setPower(-speed);
@@ -195,7 +215,7 @@ public abstract class linearOpModeExtension extends LinearOpMode{
         double bbl;
         double bbr;
         double z;
-        while(opModeIsActive() && deltaBottom.green() <= 2 || deltaLeft.green() <= 2 || deltaMiddle.green() <= 2 || deltaRight.green() <= 2){
+        while(opModeIsActive() &&(deltaLeft.green() <= 2 || deltaMiddle.green() <= 2 || deltaRight.green() <= 2)){
             z = gyro.getIntegratedZValue();
             bbl = speed - (z - angle) / 100;
             ffl = speed + (z - angle) / 100;
@@ -211,6 +231,9 @@ public abstract class linearOpModeExtension extends LinearOpMode{
             bR.setPower(bbr);
         }
         stopwheels();
+    }
+    public void followline(double time){
+
     }
     public int findoppositeangle(int angle){
         if(angle < 0){
