@@ -57,6 +57,15 @@ public abstract class functionlist extends LinearOpMode {
 
         gy = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("Gyro Sensor");
     }
+    public void pew(boolean on){
+        if(on){
+            lR.setPower(1);
+            lL.setPower(1);
+        } else {
+            lR.setPower(0);
+            lL.setPower(0);
+        }
+    }
     public void check(boolean isred){
         if(uR.red() > 2 && uR.blue() == 0){
             if(isred){

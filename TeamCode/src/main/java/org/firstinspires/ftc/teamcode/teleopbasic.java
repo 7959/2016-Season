@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.util.Range;
  * Created by Joseph on 12/17/2016.
  */
 
-@TeleOp(name = "Basic TeleOp", group = "TeleOps")
+@TeleOp(name = "Hippi Kippi Lippi Shippy Rocky Rocky", group = "TeleOps")
 public class teleopbasic extends OpMode {
     protected DcMotor frontL; // 1
     protected DcMotor frontR; // 2

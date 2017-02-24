@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -14,6 +15,7 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by Robi on 2/4/2017.
  */
+@Disabled
 @Autonomous(name = "RedAll")
 public class RedTeamAuto extends LinearOpMode {
     private DcMotor frontL; // 1
