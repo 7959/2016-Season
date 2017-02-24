@@ -65,6 +65,6 @@ public class TankRed extends linearOpModeExtension {
         telemetry.clearAll();
         telemetry.addData("Thanks", "I am calibrated");
         waitForStart();
-        
+
     }
 }
