@@ -81,7 +81,7 @@ public abstract class functionlist extends LinearOpMode {
             bR.setPower(speed);
             bL.setPower(-speed);
         }
-        while(gy.getIntegratedZValue() != 0);
+        while(gy.getIntegratedZValue() != 0 && opModeIsActive());
         stopwheels();
     }
 

@@ -35,7 +35,7 @@ public class FinalBlueTeamAll extends functionlist{
         check(false);
         straighttime(-90, -.1, .2);
 
-        while(!tcorrect1){
+        while(!tcorrect1 && opModeIsActive()){
             while(getRuntime() - timer <= timer + 5);
             straighttime(-90 , .1, .5);
             timer = getRuntime();
@@ -64,7 +64,7 @@ public class FinalBlueTeamAll extends functionlist{
         check(false);
         straighttime(-90, -.1, .2);
 
-        while(!tcorrect1){
+        while(!tcorrect1 && opModeIsActive()){
             while(getRuntime() - timer <= timer + 5);
             straighttime(-90 , .1, .5);
             check(false);
