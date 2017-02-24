@@ -107,6 +107,7 @@ public class RedTeamAuto extends LinearOpMode {
             sleep(50);
             idle();
         }
+        G.resetZAxisIntegrator();
 
         telemetry.addData("Hey", "Let's go get 'em!");
         telemetry.update();
@@ -144,7 +145,7 @@ public class RedTeamAuto extends LinearOpMode {
                 straighttime(90, 0.1, 1);
                 sleep(250);
                 straighttime(90, -0.1, .7);
-            } else {
+            } else {/// REPLACE THIS ELSE STATEMENT
                 straighttime(90, -1, .25);
                 telemetry.addData("Current Task","turn0");
                 telemetry.update();
@@ -790,6 +791,7 @@ public class RedTeamAuto extends LinearOpMode {
         middleR.setPower(0);
         backR.setPower(0);
     }
+
     public void straightwhite(double speed, int aftertime){
         telemetry.addData("Current Task", "straightwhite");
         telemetry.update();
