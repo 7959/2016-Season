@@ -34,6 +34,7 @@ public abstract class functionlist extends LinearOpMode {
     protected Boolean tcorrect1;
 
 
+
     public void Map() {
         fL = hardwareMap.dcMotor.get("Front Left");
         fR = hardwareMap.dcMotor.get("Front Right");
@@ -42,10 +43,8 @@ public abstract class functionlist extends LinearOpMode {
 
         lL = hardwareMap.dcMotor.get("Right Launcher");
         lR = hardwareMap.dcMotor.get("Left Launcher");
-
         uR = hardwareMap.colorSensor.get("Up Right");
         uR.setI2cAddress(I2cAddr.create7bit(0x1e));
-
         uL = hardwareMap.colorSensor.get("Up Left");
         uL.setI2cAddress(I2cAddr.create7bit(0x19));
         dR = hardwareMap.colorSensor.get("Down Right");
