@@ -26,8 +26,9 @@ public abstract class linearOpModeExtension extends LinearOpMode{
     protected ColorSensor deltaMiddle;
     protected DcMotor lL;
     protected DcMotor lR;
-    protected OpticalDistanceSensor OD;
-    protected DcMotor loader;
+    //protected OpticalDistanceSensor OD;
+    boolean sidestep;
+    //protected DcMotor loader;
     public boolean Redall = false;
     public boolean Blueall = false;
     public boolean redrightblueleft = false;
@@ -47,6 +48,19 @@ public abstract class linearOpModeExtension extends LinearOpMode{
             bR.setPower(speed);
         }
         stopwheels();
+    }
+    public void reallign(double speed, int angle){
+        double time = .1;
+        if(gyro.getHeading() > 90){
+            clockturn(90, .1);
+        } else if(gyro.getHeading() < 90){
+            counterclockturn(90, .1);
+        } else if(gyro.getHeading() == 90);
+        while(!sidestep){
+            strafeallign(angle, time, speed);
+            strafeallign(angle, time, -speed);
+            time=time+.1;
+        }
     }
     public void whitestraight(double speed){
         int angle = gyro.getIntegratedZValue();
@@ -92,7 +106,7 @@ public abstract class linearOpModeExtension extends LinearOpMode{
 
         }
     }
-    public void newstraighttime(double X, double Y, int angle, double time){// new auto correct needs testing
+    public void newmovetime(double X, double Y, int angle, double time){// new auto correct needs testing
         double T = getRuntime() + time;
         double ffl;
         double bbl;
@@ -114,6 +128,35 @@ public abstract class linearOpModeExtension extends LinearOpMode{
             fR.setPower(ffr);
             bL.setPower(bbl);
             bR.setPower(bbr);
+        }
+        stopwheels();
+    }
+    public void strafeallign(int angle, double time, double speed){
+        double T = getRuntime() + time;
+        double ffl;
+        double ffr;
+        double bbl;
+        double bbr;
+        double z;
+        while(opModeIsActive() && T >= getRuntime()){
+            z = gyro.getIntegratedZValue();
+            bbl = speed - (z - angle) / 100;
+            ffl = speed + (z - angle) / 100;
+            ffr = speed - (z - angle) / 100;
+            bbr = speed + (z - angle) / 100;
+            bbl = Range.clip(bbl, -1, 1);
+            bbr = Range.clip(bbr, -1, 1);
+            ffl = Range.clip(ffl, -1, 1);
+            ffr = Range.clip(ffr, -1, 1);
+            fL.setPower(ffl);
+            fR.setPower(ffr);
+            bL.setPower(bbl);
+            bR.setPower(bbr);
+            if(deltaMiddle.green() > 0){
+                sidestep = true;
+                break;
+
+            }
         }
         stopwheels();
     }
@@ -139,19 +182,24 @@ public abstract class linearOpModeExtension extends LinearOpMode{
             fR.setPower(ffr);
             bL.setPower(bbl);
             bR.setPower(bbr);
+            telemetry.addData("FR", fR.getPower());
+            telemetry.addData("BR", bR.getPower());
+            telemetry.addData("FL", fL.getPower());
+            telemetry.addData("BL", bL.getPower());
+            telemetry.update();
         }
         stopwheels();
     }
     public void pew(){
         lR.setPower(1);
         lL.setPower(1);
-        loader.setPower(.5);
+        //loader.setPower(.5);
         sleep(1500);
         lR.setPower(0);
         lL.setPower(0);
-        loader.setPower(0);
+        //loader.setPower(0);
     }
-    public void straightfindwall(int angle, double speed){
+    /*public void straightfindwall(int angle, double speed){
         double T = getRuntime() + time;
         double Right;
         double Left;
@@ -169,7 +217,7 @@ public abstract class linearOpModeExtension extends LinearOpMode{
             bR.setPower(Right);
         }
         stopwheels();
-    }
+    }*/
     public void Rline(double speed){//left strafe
         while (opModeIsActive() && deltaRight.green() < 1){
             fL.setPower(-speed);

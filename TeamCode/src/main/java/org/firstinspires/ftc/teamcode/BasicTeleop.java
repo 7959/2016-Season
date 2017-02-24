@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
  * Created by Robi on 2/15/2017.
  */
+@Disabled
 @TeleOp(name = "Hilly Silly")
 public class BasicTeleop extends opModeExtension {
     private boolean lily = false;
@@ -20,7 +22,7 @@ public class BasicTeleop extends opModeExtension {
             lR.setPower(0);
         }
 
-        loader.setPower(gamepad1.left_trigger);
+        //loader.setPower(gamepad1.left_trigger);
         if(lily) {
             fL.setPower(gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x);
             bL.setPower(gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x);

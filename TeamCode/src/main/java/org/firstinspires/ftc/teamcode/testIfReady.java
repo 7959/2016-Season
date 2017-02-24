@@ -16,7 +16,7 @@ public class testIfReady extends linearOpModeExtension {
         bR = hardwareMap.dcMotor.get("Back Right");
         lL = hardwareMap.dcMotor.get("Launcher Left");
         lR = hardwareMap.dcMotor.get("Launcher Right");
-        loader = hardwareMap.dcMotor.get("Loader");
+        //loader = hardwareMap.dcMotor.get("Loader");
         while (!opModeIsActive());
         telemetry.addData("Working: ", "Checking battery");
         telemetry.update();
@@ -26,7 +26,7 @@ public class testIfReady extends linearOpModeExtension {
         bR.setPower(1);
         lL.setPower(1);
         lR.setPower(1);
-        loader.setPower(1);
+        //loader.setPower(1);
         boolean batteryGood = true;
         for (int i = 0; i < hardwareMap.voltageSensor.size(); i++) {
             VoltageSensor sensor = hardwareMap.voltageSensor.iterator().next();
@@ -42,7 +42,7 @@ public class testIfReady extends linearOpModeExtension {
         bR.setPower(0);
         lL.setPower(0);
         lR.setPower(0);
-        loader.setPower(0);
+        //loader.setPower(0);
         telemetry.addData("Battery good", batteryGood);
         telemetry.addData("Working", "Flashing lights");
         telemetry.addData("Do", "Press \'a\' for true, and \'b\' for false");

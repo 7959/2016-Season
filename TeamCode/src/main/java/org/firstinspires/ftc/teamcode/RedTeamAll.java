@@ -19,28 +19,28 @@ public class RedTeamAll extends linearOpModeExtension {
         bR = hardwareMap.dcMotor.get("Back Right");
         lL = hardwareMap.dcMotor.get("Launcher Left");
         lR = hardwareMap.dcMotor.get("Launcher Right");
-        loader = hardwareMap.dcMotor.get("Loader");
+        //loader = hardwareMap.dcMotor.get("Loader");
         fL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         fR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        loader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //loader.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         lR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        loader.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //loader.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         fL.setDirection(DcMotorSimple.Direction.FORWARD);
         fR.setDirection(DcMotorSimple.Direction.REVERSE);
         bL.setDirection(DcMotorSimple.Direction.FORWARD);
         bR.setDirection(DcMotorSimple.Direction.REVERSE);
         lL.setDirection(DcMotorSimple.Direction.FORWARD);
         lR.setDirection(DcMotorSimple.Direction.REVERSE);
-        loader.setDirection(DcMotorSimple.Direction.FORWARD);
+        //loader.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         topLeft = hardwareMap.colorSensor.get("Top Left");
@@ -68,11 +68,12 @@ public class RedTeamAll extends linearOpModeExtension {
         telemetry.addData("Thanks", "I am calibrated");
         waitForStart();
         int poop;
-        whitestraight(.1);
+        //whitestraight(.1);
+        //reallign(.1, 90);
 
         /**
          * IMPORTANT:
-         * New Wheel design alert. Will need to change straightmovetime()
+         * New Wheel design alert. Will need to change newmovetime()
          * Create a line follow function using strafe and auto correct angles.
          *
          */
@@ -108,7 +109,6 @@ public class RedTeamAll extends linearOpModeExtension {
         }
 
         strafemid(.1);
-        failedtries = 0;
         Redall = false;
         Blueall = false;
         redrightblueleft = false;

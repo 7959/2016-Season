@@ -7,11 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 
 /**
- * Created by Robi on 2/19/2017.
+ * Created by Robi on 2/23/2017.
  */
-@Autonomous(name = "Billy red")
-public class BlueTeamAll extends linearOpModeExtension {
-    public void runOpMode(){
+@Autonomous(name = "COOL Test")
+public class TankRed extends linearOpModeExtension {
+    public void runOpMode() {
         fL = hardwareMap.dcMotor.get("Front Left");
         fR = hardwareMap.dcMotor.get("Front Right");
         bL = hardwareMap.dcMotor.get("Back Left");
@@ -42,7 +42,7 @@ public class BlueTeamAll extends linearOpModeExtension {
         //loader.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
-        topLeft = hardwareMap.colorSensor.get("Top Left");
+        /*topLeft = hardwareMap.colorSensor.get("Top Left");
         topLeft.setI2cAddress(I2cAddr.create7bit(0x19));
         topRight = hardwareMap.colorSensor.get("Top Right");
         topRight.setI2cAddress(I2cAddr.create7bit(0x1e));
@@ -52,93 +52,19 @@ public class BlueTeamAll extends linearOpModeExtension {
         deltaRight.setI2cAddress(I2cAddr.create7bit(0x1d));
         deltaMiddle = hardwareMap.colorSensor.get("Delta Middle");
         deltaMiddle.setI2cAddress(I2cAddr.create8bit(0x45));/////////////////NOT SET UP CORRECTLY YET
-
-
+*/
 
         gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("Gyro Sensor");
         telemetry.addData("Hey You!", "BACK OFF BUCKO I AM CALIBRATING");
         telemetry.update();
         gyro.calibrate();
-        while(!isStopRequested() && gyro.isCalibrating()){
+        while (!isStopRequested() && gyro.isCalibrating()) {
             sleep(20);
             idle();
         }
         telemetry.clearAll();
         telemetry.addData("Thanks", "I am calibrated");
         waitForStart();
-        whitestraight(.1);
-        reallign(.1, -90);
-
-        /**
-         * IMPORTANT:
-         * New Wheel design alert. Will need to change newmovetime()
-         * Create a line follow function using strafe and auto correct angles.
-         *
-         */
-
-        //////skipping diagonal movement for now
-        //assume at current time robot middle sensor is above  the while line
-        int failedtries = 0;
-        colorcheck();
-        while(true) {
-            if (bluerightredleft) {
-                Rline(.1);
-                straightmovetime(-90, 1.5, .1);
-                straightmovetime(-90, 1.5, -.1);
-                break;
-            } else if (redrightblueleft) {
-                Lline(.1);
-                straightmovetime(-90, 1.5, .1);
-                straightmovetime(-90, 1.5, -.1);
-                break;
-            } else if (Blueall) {
-                Rline(.1);
-                straightmovetime(-90, 1.5, .1);
-                straightmovetime(-90, 1.5, -.1);
-                break;
-            } else if (Redall){
-                break;
-            } if(failedtries > 3){
-                straightmovetime(-90, .1, .1);
-            } else {
-                failedtries++;
-                colorcheck();
-            }
-        }
-
-        strafemid(.1);
-        Redall = false;
-        Blueall = false;
-        redrightblueleft = false;
-        bluerightredleft = false;
-        failedtries = 0;
-        colorcheck();
-
-        while(true) {
-            if (bluerightredleft) {
-                Rline(.1);
-                straightmovetime(-90, 1.5, .1);
-                straightmovetime(-90, 1.5, -.1);
-                break;
-            } else if (redrightblueleft) {
-                Lline(.1);
-                straightmovetime(-90, 1.5, .1);
-                straightmovetime(-90, 1.5, -.1);
-                break;
-            } else if (Blueall) {
-                Rline(.1);
-                straightmovetime(-90, 1.5, .1);
-                straightmovetime(-90, 1.5, -.1);
-                break;
-            } else if (Redall){
-                break;
-            } if(failedtries > 3){
-                straightmovetime(-90, .1, .1);
-            } else {
-                failedtries++;
-                colorcheck();
-            }
-        }
-
+        
     }
 }
