@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.text.BoringLayout;
+
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -34,6 +36,8 @@ public abstract class functionlist extends LinearOpMode {
     protected Boolean tcorrect1;
 
 
+    protected Boolean leftLine;
+    protected Boolean rightLine;
 
     public void Map() {
         fL = hardwareMap.dcMotor.get("Front Left");
@@ -65,16 +69,30 @@ public abstract class functionlist extends LinearOpMode {
             lL.setPower(0);
         }
     }
-    public void check(boolean isred){
-        if(uR.red() > 2 && uR.blue() == 0){
-            if(isred){
-                tcorrect1 = true;
-            } else tcorrect1 = false;
+    public void check(boolean isred, boolean isRight){
+        if(isRight) {
+            if (uR.red() > 2 && uR.blue() == 0) {
+                if (isred) {
+                    tcorrect1 = true;
+                } else tcorrect1 = false;
+            }
+            if (uR.red() == 0 && uR.blue() > 2) {
+                if (isred) {
+                    tcorrect1 = false;
+                } else tcorrect1 = true;
+            }
         }
-        if(uR.red() == 0 && uR.blue() > 2){
-            if(isred){
-                tcorrect1 = false;
-            } else tcorrect1 = true;
+        if(!isRight){
+            if (uL.red() > 2 && uL.blue() == 0) {
+                if (isred) {
+                    tcorrect1 = true;
+                } else tcorrect1 = false;
+            }
+            if (uL.red() == 0 && uL.blue() > 2) {
+                if (isred) {
+                    tcorrect1 = false;
+                } else tcorrect1 = true;
+            }
         }
     }
     public void turnto0(double speed){
@@ -130,6 +148,57 @@ public abstract class functionlist extends LinearOpMode {
         }
         stopwheels();
     }
+    public void linefindL(double speed){
+        telemetry.addData("Current Task", "linefindR");
+        telemetry.update();
+        while(opModeIsActive() && dL.green() < 2){
+            fL.setPower(-speed);
+            bL.setPower(-speed);
+
+            fR.setPower(speed);
+            bR.setPower(speed);
+        }
+        stopwheels();
+    }
+
+    public void findcolorL(double speed, double angle, double t, boolean isred){
+        double Right;
+        double Left;
+        double giveuptime = t + getRuntime();
+        while (opModeIsActive() && giveuptime > getRuntime()) {
+            if(uL.red() > 2 && uL.blue() == 0){
+                if(isred) {
+                    correct1 = true;
+                } else correct1 = false;
+                break;
+            }
+            if(uL.blue() > 2 && uL.red() == 0){
+                if(isred){
+                    correct1 = false;
+                } else correct1 = true;
+                break;
+            }
+            telemetry.addData("dr", dR.green());
+            int z = gy.getIntegratedZValue();
+            Right = speed - (z - angle) / 100;
+            Left = speed + (z - angle) / 100;
+            Left = Range.clip(Left, -1, 1);
+            Right = Range.clip(Right, -1, 1);
+
+            fL.setPower(Left);
+            bL.setPower(Left);
+
+            fR.setPower(Right);
+            bR.setPower(Right);
+            telemetry.addData("right", Right);
+            telemetry.addData("left", Left);
+            telemetry.addData("RPower", fR.getPower());
+            telemetry.addData("LPower", fL.getPower());
+            telemetry.addData("Dr", dR.green());
+            telemetry.update();
+        }
+    }
+
     public void findcolor(double speed, double angle, double t, boolean isred){
         double Right;
         double Left;
@@ -216,6 +285,27 @@ public abstract class functionlist extends LinearOpMode {
             telemetry.update();
         }
     }
+    public void linefollowL(double speed, double time){
+        telemetry.addData("Current Task", "linefollow");
+        telemetry.update();
+        double Ttime = time+getRuntime();
+        while(opModeIsActive() && Ttime > getRuntime()) {
+
+            if (dL.green() == 0) {
+                fL.setPower(speed);
+                fR.setPower(0);
+                bR.setPower(0);
+                bL.setPower(speed);
+            }
+            if (dL.green() > 0) {
+                fL.setPower(0);
+                fR.setPower(speed);
+                bR.setPower(speed);
+                bL.setPower(0);
+            }
+        }
+        stopwheels();
+    }
     public void linefollowR(double speed, double time){
         telemetry.addData("Current Task", "linefollow");
         telemetry.update();
@@ -243,7 +333,7 @@ public abstract class functionlist extends LinearOpMode {
         telemetry.update();
         double Right;
         double Left;
-        while (opModeIsActive() && dR.green() <= 1) {
+        while (opModeIsActive()) {
             telemetry.addData("dr", dR.green());
             int z = gy.getIntegratedZValue();
             Right = speed - (z - angle) / 100;
@@ -262,6 +352,14 @@ public abstract class functionlist extends LinearOpMode {
             telemetry.addData("LPower", fL.getPower());
             telemetry.addData("Dr", dR.green());
             telemetry.update();
+            if(dR.green() > 0){
+                rightLine = true;
+                break;
+            }
+            if(dL.green() > 0){
+                leftLine = true;
+                break;
+            }
         }
         sleep(aftertime);
         stopwheels();
