@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.hardware.I2cAddr;
 /**
  * Created by Robi on 1/21/2017.
  */
+@Disabled
 @Autonomous(name = "Foward")
 public class Foward extends LinearOpMode {
     protected DcMotor frontL; // 1
